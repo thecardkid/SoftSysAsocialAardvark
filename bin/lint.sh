@@ -1,1 +1,1 @@
-cpplint ./src/*.cc
+cpplint ./src/*.cpp
