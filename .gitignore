@@ -1,3 +1,7 @@
+CMakeLists.txt
+.idea/
+
+
 # Object files
 *.o
 *.ko
