@@ -77,16 +77,37 @@ void CubeFace::rotateFaceClockwise(Degrees d) {
     }
 }
 
+bool CubeFace::isValidIndex(int i) {
+	return (i < n_ && i >= 0);
+}
+
 void CubeFace::setRow(int whichRow, int* row) {
-	if (whichRow < n_ && whichRow >= 0)
+	if (isValidIndex(whichRow))
 		face_[whichRow] = row;
 }
 
 int* CubeFace::getRow(int whichRow) {
-    if (whichRow < n_ && whichRow >= 0) {
+    if (isValidIndex(whichRow)) {
 		int *copyOfRow = new int[n_];
 		for (int i=0; i < n_; i++) copyOfRow[i] = face_[whichRow][i];
 		return copyOfRow;
+	}
+
+	return NULL;
+}
+
+void CubeFace::setCol(int whichCol, int *col) {
+	if (isValidIndex(whichCol)) {
+		for (int i=0; i < n_; i++)
+			face_[i][whichCol] = col[i];
+	}
+}
+
+int* CubeFace::getCol(int whichCol) {
+	if (isValidIndex(whichCol)) {
+		int* copyOfCol = new int[n_];
+		for (int i=0; i < n_; i++) copyOfCol[i] = face_[i][whichCol];
+		return copyOfCol;
 	}
 
 	return NULL;

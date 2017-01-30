@@ -9,25 +9,28 @@ class RubiksCube {
 private:
 	int n_;
 	CubeFace xLeft_, xRight_, yTop_, yBottom_, zFront_, zBack_;
-	enum FaceRotation {
-		xLeft, xRight,
-		yTop, yBottom,
-		zFront, zBack
-	};
-	enum SliceRotation {
-		xMid, yMid, zMid
-	};
-	void rotateFace(FaceRotation r, int times);
-	void rotateSlice(SliceRotation r, int times);
+	void rotateXLeft(CubeFace::Degrees degrees);
+	void rotateXRight(CubeFace::Degrees degrees);
+    void rotateYTop(CubeFace::Degrees degrees);
+	void rotateYBottom(CubeFace::Degrees degrees);
+	void rotateZFront(CubeFace::Degrees degrees);
+	void rotateZBack(CubeFace::Degrees degrees);
+    void rotateXSlice(CubeFace::Degrees degrees);
+	void rotateYSlice(CubeFace::Degrees degrees);
+	void rotateZSlice(CubeFace::Degrees degrees);
 
 public:
 	enum LetterNotation {
 		// https://ruwix.com/the-rubiks-cube/notation/
-		U, L, F, R, B, D, M, E, S
+		U, L, F, R, B, D, M, E, S, LastRotation
+	};
+	struct Move {
+		RubiksCube::LetterNotation slice;
+		CubeFace::Degrees degrees;
 	};
 	RubiksCube();
-	void scramble();
-	void rotate(LetterNotation action);
+	std::vector<Move> scramble(int n);
+	void rotate(LetterNotation action, CubeFace::Degrees degrees);
 	int*** getState();
 };
 

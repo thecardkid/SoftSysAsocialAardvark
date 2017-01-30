@@ -10,7 +10,6 @@ namespace {
 class FaceFixture : public testing::Test {
 public:
     CubeFace *testFace;
-    int n;
     FaceFixture() {
         testFace = new CubeFace(CubeFace::White);
         testFace->setRow(0, new int[N] {CubeFace::Red, CubeFace::Red, CubeFace::Red});
@@ -35,6 +34,10 @@ bool rowsEqual(int* expected, int* actual) {
     }
 
     return true;
+}
+
+bool colsEqual(int* expected, int* actual) {
+    return rowsEqual(expected, actual);
 }
 
 TEST_F(FaceFixture, get_face) {
@@ -75,6 +78,26 @@ TEST_F(FaceFixture, returned_row_is_copy_of_actual_row) {
 TEST_F(FaceFixture, invalid_row_index_returns_null) {
     ASSERT_EQ(NULL, testFace->getRow(-1));
     ASSERT_EQ(NULL, testFace->getRow(N));
+}
+
+TEST_F(FaceFixture, set_and_get_cols) {
+    int* expected = new int[N] {CubeFace::Blue, CubeFace::Yellow, CubeFace::Red};
+
+    testFace->setCol(0, expected);
+    ASSERT_TRUE(colsEqual(expected, testFace->getCol(0)));
+}
+
+TEST_F(FaceFixture, returned_col_is_copy_of_actual_col) {
+    int* expected = new int[N] {CubeFace::Red, CubeFace::Orange, CubeFace::White};
+
+    int* returnedCol = testFace->getCol(0);
+    returnedCol[0] = CubeFace::Yellow;
+    ASSERT_TRUE(colsEqual(expected, testFace->getCol(0)));
+}
+
+TEST_F(FaceFixture, invalid_col_index_returns_null) {
+    ASSERT_EQ(NULL, testFace->getCol(-1));
+    ASSERT_EQ(NULL, testFace->getCol(N));
 }
 
 TEST_F(FaceFixture, rotate_face_90) {

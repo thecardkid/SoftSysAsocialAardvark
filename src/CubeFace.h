@@ -13,15 +13,18 @@ private:
     void rotate90Clockwise();
     void rotate180();
     void rotate90Anticlockwise();
+    bool isValidIndex(int i);
 
 public:
     enum Color {Red, Blue, Orange, White, Yellow, Green};
-    enum Degrees {Ninety, OneEighty, TwoSeventy};
+    enum Degrees {Ninety, OneEighty, TwoSeventy, LastDegree};
     explicit CubeFace(CubeFace::Color color);
     int** getFace();
     void rotateFaceClockwise(Degrees d);
     void setRow(int whichRow, int* row);
     int* getRow(int whichRow);
+    void setCol(int whichCol, int* col);
+    int* getCol(int whichCol);
 };
 
 
