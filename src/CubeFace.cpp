@@ -69,25 +69,25 @@ int** CubeFace::getFace() {
 	return copyOfFace;
 }
 
-void CubeFace::rotateFaceClockwise(int degrees) {
-    if (degrees % 90 == 0) {
-		switch (degrees / 90) {
-			case 1: return rotate90Clockwise();
-			case 2: return rotate180();
-			case 3: return rotate90Anticlockwise();
-			default: return;
-		}
-	}
+void CubeFace::rotateFaceClockwise(Degrees d) {
+    switch (d) {
+        case Ninety: return rotate90Clockwise();
+        case OneEighty: return rotate180();
+        case TwoSeventy: return rotate90Anticlockwise();
+    }
 }
 
 void CubeFace::setRow(int whichRow, int* row) {
-	if (whichRow < n_)
+	if (whichRow < n_ && whichRow >= 0)
 		face_[whichRow] = row;
 }
 
 int* CubeFace::getRow(int whichRow) {
-    if (whichRow < n_)
-        return face_[whichRow];
+    if (whichRow < n_ && whichRow >= 0) {
+		int *copyOfRow = new int[n_];
+		for (int i=0; i < n_; i++) copyOfRow[i] = face_[whichRow][i];
+		return copyOfRow;
+	}
 
 	return NULL;
 }

@@ -16,12 +16,13 @@ private:
 
 public:
     enum Color {Red, Blue, Orange, White, Yellow, Green};
-    CubeFace(CubeFace::Color color);
+    enum Degrees {Ninety, OneEighty, TwoSeventy};
+    explicit CubeFace(CubeFace::Color color);
     int** getFace();
-    void rotateFaceClockwise(int degrees);
+    void rotateFaceClockwise(Degrees d);
     void setRow(int whichRow, int* row);
     int* getRow(int whichRow);
 };
 
 
-#endif //SOFTSYS_ASOCIAL_AARDVARK_CUBEFACE_H
+#endif

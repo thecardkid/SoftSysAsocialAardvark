@@ -32,4 +32,4 @@ public:
 };
 
 
-#endif //SOFTSYS_ASOCIAL_AARDVARK_RUBIKSCUBE_H
+#endif
