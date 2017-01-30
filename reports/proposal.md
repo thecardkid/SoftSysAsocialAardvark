@@ -9,6 +9,8 @@
 - Decision concerning using OpenGL
     - OpenGL abstracts away the lowest level graphics operations, providing wrapper functions which manage geometric primitives (points, lines, and polygons). Manipulating the geometric primitives directly would probably be reasonable for our application (Rubik’s cubes are fairly geometrically simple), but our code will be simpler and easier to maintain if we rely on some of the libraries which further abstract on top of OpenGL -- for example, the GL utility toolkit (GLUT) provides functions which draw three-dimensional solids like cubes. We considered alternatives to OpenGL (OGRE and Vulkan) but decided that OpenGL had the best documentation and the most tutorials & examples.
 - Images of early graphics implementation (cube, camera movement)
+
+
 <img src="resources/teapot.png" alt="Teapot" width="200"/>
 <img src="resources/teapot_camera_move.png" alt="teapot_camera_move" width="200"/>
 <img src="resources/cube.png" alt="Cube" width="200"/>
