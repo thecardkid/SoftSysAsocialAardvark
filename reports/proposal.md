@@ -9,10 +9,10 @@
 - Decision concerning using OpenGL
     - OpenGL abstracts away the lowest level graphics operations, providing wrapper functions which manage geometric primitives (points, lines, and polygons). Manipulating the geometric primitives directly would probably be reasonable for our application (Rubik’s cubes are fairly geometrically simple), but our code will be simpler and easier to maintain if we rely on some of the libraries which further abstract on top of OpenGL -- for example, the GL utility toolkit (GLUT) provides functions which draw three-dimensional solids like cubes. We considered alternatives to OpenGL (OGRE and Vulkan) but decided that OpenGL had the best documentation and the most tutorials & examples.
 - Images of early graphics implementation (cube, camera movement)
-<img src="resources/teapot.png" alt="Teapot" style="width: 200px;"/>
-<img src="resources/teapot_camera_move.png" alt="teapot_camera_move" style="width: 200px;"/>
-<img src="resources/cube.png" alt="Cube" style="width: 200px;"/>
-<img src="resources/cube.gif" alt="Cube_gif" style="width: 200px;"/>
+![Teapot image](resources/teapot.png)
+![Teapot camera movement](resources/teapot_camera_move.png)
+![Cube in OpenGL](resources/cube.png)
+![Rotating cube](resources/cube.gif)
     - Initially, work was started by attempting to implement graphics using Ogre as well as graphics.h (an early implementation in C). However, we quickly realized that OpenGL works well in C++, and we could use that side of things for our graphical implementation and make the logic in C. Some of our test graphics are shown, first just simply drawing an object. The next image is the image, however we are able to position the camera using the mouse. Finally, we implemented a cube using OpenGL and we could spin it around in the window.
 - Explored optimized solution to 3x3x3 cube (Thistlethwaite’s 52 move algorithm)
     - Thistlethwaite's solution works on all pieces concurrently. It groups all possible cube permutations into four stages by using lookup tables. These lookup tables are in the realm of 2^16 permutations, which makes this approach impossible for humans. In the first stage, the orientation of the edge pieces are fixed. Since there are 12 edges with  and we start with one edge, this requires a lookup table of size 2^11. The other 3 stages follow a similar schematic but instead focus on the reorienting the corners, placing the edges into their correct slice, and so on.
