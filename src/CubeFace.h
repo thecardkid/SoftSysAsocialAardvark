@@ -27,5 +27,4 @@ public:
     int* getCol(int whichCol);
 };
 
-
 #endif
