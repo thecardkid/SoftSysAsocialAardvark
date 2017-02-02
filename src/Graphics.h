@@ -1,5 +1,5 @@
-#ifndef GRAPHICS_H
-#define GRAPHICS_H
+#ifndef SOFTSYS_ASOCIAL_AARDVARK_GRAPHICS_H
+#define SOFTSYS_ASOCIAL_AARDVARK_GRAPHICS_H
 
 void initializeCubes();
 void display(int*** colors);
