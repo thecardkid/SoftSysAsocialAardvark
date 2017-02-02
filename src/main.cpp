@@ -1,9 +1,8 @@
 #include <iostream>
-#include "src/CubeFace.h"
-#include "src/RubiksCube.h"
+#include "CubeFace.h"
+#include "RubiksCube.h"
 
 #include <gtest/gtest.h>
-#include <gmock/gmock.h>
 
 void printFace(int** face_) {
 	std::string out = "[\n";
@@ -26,4 +25,3 @@ int main(int argc, char* argv[]) {
 	RUN_ALL_TESTS();
 	return 0;
 }
-
