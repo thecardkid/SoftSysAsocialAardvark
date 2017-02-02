@@ -204,7 +204,7 @@ void display(int*** colors) {
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	gluLookAt(5, 5, 5, 0, 0, 0, 0, 0, 1);
+	gluLookAt(5, 5, 5, 0, 0, 0, 0, 0, 1);\
 
 	glRotatef(rotate_x, 1.0, 0.0, 0.0);
 	glRotatef(rotate_y, 0.0, 1.0, 0.0);
