@@ -106,18 +106,6 @@ float yellow[3] = { 1.0f, 1.0f, 0.0f };
 float green[3] = { 0.0f, 1.0f, 0.0f };
 float black[3] = { 0.0f, 0.0f, 0.0f };
 
-float** tempGetColors(int x, int y, int z) {
-    float** colors = new float*[6];
-
-    colors[0] = green; // "front right"
-    colors[1] = yellow; // "back left"
-    colors[2] = white; // "bottom"
-    colors[3] = orange; // "top"
-    colors[4] = blue; // "back right"
-    colors[5] = red; // "front left"
-    return colors;
-}
-
 float* intToColor(int i) {
 	switch (i) {
 		case 0: return red;
@@ -143,7 +131,7 @@ float** getCubeColors(int*** colors, int x, int y, int z) {
 	// y: 0 = back to 2 = front
 	// z: 0 = bottom to 2 = top
 
-	// TODO: numbering schemes for API and graphics don't match up.
+	// TODO(swalters): numbering schemes for API and graphics don't match up.
 	// Should be easy to fix.
 	switch (x) {
 		case 0: // right layer -- set right sides
@@ -177,7 +165,7 @@ void drawCubes(int*** colors) {
 		for (int y = 0; y < 3; y++) {
 			for (int z = 0; z < 3; z++) {
 				float** cubeColors = getCubeColors(colors, x, y, z);
-				drawCube(cubes[x][y][z], cubeColors); // TODO
+				drawCube(cubes[x][y][z], cubeColors);
 			}
 		}
 	}
