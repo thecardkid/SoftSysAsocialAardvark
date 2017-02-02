@@ -1,5 +1,6 @@
 CMakeLists.txt
 .idea/
+build
 
 
 # Object files
