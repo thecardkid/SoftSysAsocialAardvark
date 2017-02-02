@@ -1,8 +1,10 @@
-#include <iostream>
-#include "CubeFace.h"
-#include "RubiksCube.h"
-
+#include <GL/glut.h>
 #include <gtest/gtest.h>
+#include <iostream>
+
+#include "CubeFace.h"
+#include "Graphics.h"
+#include "RubiksCube.h"
 
 void printFace(int** face_) {
 	std::string out = "[\n";
@@ -20,8 +22,28 @@ void printFace(int** face_) {
 	std::cout << out << std::endl;
 }
 
-int main(int argc, char* argv[]) {
-	testing::InitGoogleTest(&argc, argv);
-	RUN_ALL_TESTS();
-	return 0;
+RubiksCube* cube = new RubiksCube();
+
+void displayWrapper() {
+    int*** colors = cube->getState();
+    display(colors);
 }
+
+int main(int argc, char **argv) {
+    // TEST
+    testing::InitGoogleTest(&argc, argv);
+    RUN_ALL_TESTS();
+
+    // GRAPHICS
+    initializeCubes();
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_RGBA | GLUT_DEPTH | GLUT_DOUBLE);
+    glutInitWindowSize(640, 480);
+    glutCreateWindow("Rubik's Cube");
+    glutDisplayFunc(displayWrapper);
+    glutSpecialFunc(specialKeys);
+    glEnable(GL_DEPTH_TEST);
+    glutMainLoop();
+    return 0;
+}
+
