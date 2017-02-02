@@ -8,18 +8,18 @@ class RubiksCube {
 private:
 	int n_;
 	CubeFace xLeft_, xRight_, yTop_, yBottom_, zFront_, zBack_;
-	void rotateXLeft();
-	void rotateXRight();
-    void rotateYTop();
-	void rotateYBottom();
-	void rotateZFront();
-	void rotateZBack();
-    void rotateXSlice();
-	void rotateYSlice();
-	void rotateZSlice();
 
 public:
-	enum LetterNotation {
+    void rotateXLeft();
+    void rotateXRight();
+    void rotateYTop();
+    void rotateYBottom();
+    void rotateZFront();
+    void rotateZBack();
+    void rotateXSlice();
+    void rotateYSlice();
+    void rotateZSlice();
+    enum LetterNotation {
 		// https://ruwix.com/the-rubiks-cube/notation/
 		U, L, F, R, B, D, M, E, S, LastRotation
 	};
