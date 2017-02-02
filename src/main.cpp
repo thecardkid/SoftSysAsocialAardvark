@@ -30,9 +30,36 @@ void displayWrapper() {
 }
 
 void specialKeys(int key, int x, int y) {
-    if (key == GLUT_KEY_F5) {
-        cube->rotateZSlice();
+    switch (key) {
+        case GLUT_KEY_F1:
+            cube->rotateXLeft();
+            break;
+        case GLUT_KEY_F2:
+            cube->rotateXRight();
+            break;
+        case GLUT_KEY_F3:
+            cube->rotateYTop();
+            break;
+        case GLUT_KEY_F4:
+            cube->rotateYBottom();
+            break;
+        case GLUT_KEY_F5:
+            cube->rotateZFront();
+            break;
+        case GLUT_KEY_F6:
+            cube->rotateZBack();
+            break;
+        case GLUT_KEY_F7:
+            cube->rotateXSlice();
+            break;
+        case GLUT_KEY_F8:
+            cube->rotateYSlice();
+            break;
+        case GLUT_KEY_F9:
+            cube->rotateZSlice();
+            break;
     }
+
     graphicsSpecialKeys(key, x, y);
 }
 
