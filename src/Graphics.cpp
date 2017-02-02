@@ -135,10 +135,10 @@ float** getCubeColors(int*** colors, int x, int y, int z) {
 	// Should be easy to fix.
 	switch (x) {
 		case 0: // right layer -- set right sides
-			fcolors[4] = intToColor(colors[3][2 - z][2 - y]);
+			fcolors[4] = intToColor(colors[1][2 - z][2 - y]);
 			break;
 		case 2: // left layer -- set left sides
-			fcolors[5] = intToColor(colors[2][2 - z][y]);
+			fcolors[5] = intToColor(colors[0][2 - z][y]);
 	}
 
 	switch (y) {
@@ -146,15 +146,15 @@ float** getCubeColors(int*** colors, int x, int y, int z) {
 			fcolors[1] = intToColor(colors[5][2 - z][2 - x]);
 			break;
 		case 2: // front layer -- set front sides
-			fcolors[0] = intToColor(colors[4][2 - z][x]);
+			fcolors[0] = intToColor(colors[4][2 - z][2 - x]);
 	}
 
 	switch (z) {
 		case 0: // bottom layer -- set bottom sides
-			fcolors[2] = intToColor(colors[1][y][2 - x]);
+			fcolors[2] = intToColor(colors[3][2 - y][2 - x]);
 			break;
 		case 2: // top layer -- set top sides
-			fcolors[3] = intToColor(colors[0][y][x]);
+			fcolors[3] = intToColor(colors[2][y][2 - x]);
 	}
 
 	return fcolors;
@@ -177,122 +177,9 @@ void setVertex(Cube& cube, int vertex1, int vertex2) {
 	cube.vertices[vertex1][2] = cube.vertices[vertex2][2];
 }
 
-void rotateIndividualCube(Cube& cube, int direction) {
-	if (direction == 1) {
-		// Rotate individual cube left
-		float temp_a = cube.vertices[0][0];
-		float temp_b = cube.vertices[0][1];
-		float temp_c = cube.vertices[0][2];
-
-		setVertex(cube, 0, 2);
-		setVertex(cube, 2, 5);
-		setVertex(cube, 5, 1);
-
-		cube.vertices[1][0] = temp_a;
-		cube.vertices[1][1] = temp_b;
-		cube.vertices[1][2] = temp_c;
-
-		temp_a = cube.vertices[3][0];
-		temp_b = cube.vertices[3][1];
-		temp_c = cube.vertices[3][2];
-
-		setVertex(cube, 3, 4);
-		setVertex(cube, 4, 7);
-		setVertex(cube, 7, 6);
-
-		cube.vertices[6][0] = temp_a;
-		cube.vertices[6][1] = temp_b;
-		cube.vertices[6][2] = temp_c;
-	} else if (direction == 3) {
-		// Rotate individual cube up
-		float temp_a = cube.vertices[0][0];
-		float temp_b = cube.vertices[0][1];
-		float temp_c = cube.vertices[0][2];
-
-		setVertex(cube, 0, 3);
-		setVertex(cube, 3, 4);
-		setVertex(cube, 4, 2);
-
-		cube.vertices[2][0] = temp_a;
-		cube.vertices[2][1] = temp_b;
-		cube.vertices[2][2] = temp_c;
-
-		temp_a = cube.vertices[1][0];
-		temp_b = cube.vertices[1][1];
-		temp_c = cube.vertices[1][2];
-
-		setVertex(cube, 1, 6);
-		setVertex(cube, 6, 7);
-		setVertex(cube, 7, 5);
-
-		cube.vertices[5][0] = temp_a;
-		cube.vertices[5][1] = temp_b;
-		cube.vertices[5][2] = temp_c;
-	} else if (direction == 5) {
-		// Clockwise rotation
-		float temp_a = cube.vertices[0][0];
-		float temp_b = cube.vertices[0][1];
-		float temp_c = cube.vertices[0][2];
-
-		setVertex(cube, 0, 2);
-		setVertex(cube, 2, 5);
-		setVertex(cube, 5, 1);
-
-		cube.vertices[1][0] = temp_a;
-		cube.vertices[1][1] = temp_b;
-		cube.vertices[1][2] = temp_c;
-
-		temp_a = cube.vertices[3][0];
-		temp_b = cube.vertices[3][1];
-		temp_c = cube.vertices[3][2];
-
-		setVertex(cube, 3, 4);
-		setVertex(cube, 4, 7);
-		setVertex(cube, 7, 6);
-
-		cube.vertices[6][0] = temp_a;
-		cube.vertices[6][1] = temp_b;
-		cube.vertices[6][2] = temp_c;
-	}
-}
-
-void setCubeLocation(Cube& cube, Cube cube2) {
-	for (int i = 0; i < 8; i++) {
-		cube.vertices[i][0] = cube2.vertices[i][0];
-		cube.vertices[i][1] = cube2.vertices[i][1];
-		cube.vertices[i][2] = cube2.vertices[i][2];
-	}
-}
-
-void rotateFront() {
-	// Corners
-	Cube temp_cube = cubes[0][0][0];
-	setCubeLocation(cubes[0][0][0], cubes[0][2][0]);
-	setCubeLocation(cubes[0][2][0], cubes[2][2][0]);
-	setCubeLocation(cubes[2][2][0], cubes[2][0][0]);
-	setCubeLocation(cubes[2][0][0], temp_cube);
-
-	rotateIndividualCube(cubes[0][0][0], 1);
-	rotateIndividualCube(cubes[0][2][0], 1);
-	rotateIndividualCube(cubes[2][0][0], 1);
-	rotateIndividualCube(cubes[2][2][0], 1);
-
-	// Edges
-	temp_cube = cubes[1][0][0];
-	setCubeLocation(cubes[1][0][0], cubes[0][1][0]);
-	setCubeLocation(cubes[0][1][0], cubes[1][2][0]);
-	setCubeLocation(cubes[1][2][0], cubes[2][1][0]);
-	setCubeLocation(cubes[2][1][0], temp_cube);
-
-	rotateIndividualCube(cubes[1][0][0], 1);
-	rotateIndividualCube(cubes[0][1][0], 1);
-	rotateIndividualCube(cubes[2][1][0], 1);
-	rotateIndividualCube(cubes[1][2][0], 1);
-}
-
 double rotate_y = 0;
 double rotate_x = 0;
-void specialKeys(int key, int x, int y) {
+void graphicsSpecialKeys(int key, int x, int y) {
 	if (key == GLUT_KEY_RIGHT) {
 		rotate_y += 5;
 	} else if (key == GLUT_KEY_LEFT) {
@@ -301,15 +188,13 @@ void specialKeys(int key, int x, int y) {
 		rotate_x += 5;
 	} else if (key == GLUT_KEY_DOWN) {
 		rotate_x -= 5;
-	} else if (key == GLUT_KEY_F5) {
-		rotateFront();
 	}
 	glutPostRedisplay();
 }
 
 void display(int*** colors) {
 	glClearColor(0, 0, 0, 1);
-	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
@@ -319,7 +204,7 @@ void display(int*** colors) {
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	gluLookAt(3, 3, 3, 0, 0, 0, 0, 0, 1);
+	gluLookAt(5, 5, 5, 0, 0, 0, 0, 0, 1);
 
 	glRotatef(rotate_x, 1.0, 0.0, 0.0);
 	glRotatef(rotate_y, 0.0, 1.0, 0.0);

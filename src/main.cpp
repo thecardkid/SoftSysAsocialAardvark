@@ -25,8 +25,15 @@ void printFace(int** face_) {
 RubiksCube* cube = new RubiksCube();
 
 void displayWrapper() {
-    int*** colors = cube -> getState();
+    int*** colors = cube->getState();
     display(colors);
+}
+
+void specialKeys(int key, int x, int y) {
+    if (key == GLUT_KEY_F5) {
+        cube->rotateZSlice();
+    }
+    graphicsSpecialKeys(key, x, y);
 }
 
 int main(int argc, char **argv) {

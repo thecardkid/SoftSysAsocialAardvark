@@ -3,6 +3,6 @@
 
 void initializeCubes();
 void display(int*** colors);
-void specialKeys(int key, int x, int y);
+void graphicsSpecialKeys(int key, int x, int y);
 
 #endif
