@@ -32,31 +32,31 @@ void displayWrapper() {
 void specialKeys(int key, int x, int y) {
     switch (key) {
         case GLUT_KEY_F1:
-            cube->rotateXLeft();
+            cube->rotate(RubiksCube::L, CubeFace::Ninety);
             break;
         case GLUT_KEY_F2:
-            cube->rotateXRight();
+            cube->rotate(RubiksCube::R, CubeFace::Ninety);
             break;
         case GLUT_KEY_F3:
-            cube->rotateYTop();
+            cube->rotate(RubiksCube::U, CubeFace::Ninety);
             break;
         case GLUT_KEY_F4:
-            cube->rotateYBottom();
+            cube->rotate(RubiksCube::D, CubeFace::Ninety);
             break;
         case GLUT_KEY_F5:
-            cube->rotateZFront();
+            cube->rotate(RubiksCube::F, CubeFace::Ninety);
             break;
         case GLUT_KEY_F6:
-            cube->rotateZBack();
+            cube->rotate(RubiksCube::B, CubeFace::Ninety);
             break;
         case GLUT_KEY_F7:
-            cube->rotateXSlice();
+            cube->rotate(RubiksCube::M, CubeFace::Ninety);
             break;
         case GLUT_KEY_F8:
-            cube->rotateYSlice();
+            cube->rotate(RubiksCube::E, CubeFace::Ninety);
             break;
         case GLUT_KEY_F9:
-            cube->rotateZSlice();
+            cube->rotate(RubiksCube::S, CubeFace::Ninety);
             break;
     }
 
