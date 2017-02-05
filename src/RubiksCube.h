@@ -8,6 +8,16 @@ class RubiksCube {
 private:
 	int n_;
 	CubeFace xLeft_, xRight_, yTop_, yBottom_, zFront_, zBack_;
+	void rotateXLeft();
+	void rotateXRight();
+  void rotateYTop();
+	void rotateYBottom();
+	void rotateZFront();
+	void rotateZBack();
+  void rotateXSlice();
+	void rotateYSlice();
+	void rotateZSlice();
+  int* reverse(int* a);
 
 public:
     void rotateXLeft();
