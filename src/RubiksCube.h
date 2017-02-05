@@ -17,6 +17,7 @@ private:
     void rotateXSlice();
 	void rotateYSlice();
 	void rotateZSlice();
+    int* reverse(int* a);
 
 public:
 	enum LetterNotation {
