@@ -24,7 +24,7 @@ BUILD_DIR = build
 # Dependency header files
 DEP_HEADERS = $(USER_DIR)/*.h
 
-VPATH = src:build
+VPATH = $(USER_DIR):$(BUILD_DIR)
 
 # Flags passed to the preprocessor.
 # Set Google Test's header directory as a system directory, such that
@@ -52,9 +52,8 @@ all : $(RUN)
 clean :
 	rm -f $(BUILD_DIR)/*
 
-# Builds gtest.a and gtest_main.a.
+# Builds Google test dependencies
 GTEST_SRCS_ = $(GTEST_DIR)/src/*.cc $(GTEST_DIR)/src/*.h $(GTEST_HEADERS)
-
 $(BUILD_DIR)/gtest-all.o : $(GTEST_SRCS_)
 	$(CC) $(CPPFLAGS) -I$(GTEST_DIR) $(CXXFLAGS) -c \
 			$(GTEST_DIR)/src/gtest-all.cc -o $@

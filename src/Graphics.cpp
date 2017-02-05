@@ -139,6 +139,7 @@ float** getCubeColors(int*** colors, int x, int y, int z) {
 			break;
 		case 2: // left layer -- set left sides
 			fcolors[5] = intToColor(colors[0][2 - z][y]);
+            break;
 	}
 
 	switch (y) {
@@ -147,6 +148,7 @@ float** getCubeColors(int*** colors, int x, int y, int z) {
 			break;
 		case 2: // front layer -- set front sides
 			fcolors[0] = intToColor(colors[4][2 - z][2 - x]);
+            break;
 	}
 
 	switch (z) {
@@ -155,6 +157,7 @@ float** getCubeColors(int*** colors, int x, int y, int z) {
 			break;
 		case 2: // top layer -- set top sides
 			fcolors[3] = intToColor(colors[2][y][2 - x]);
+            break;
 	}
 
 	return fcolors;
@@ -204,7 +207,7 @@ void display(int*** colors) {
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	gluLookAt(5, 5, 5, 0, 0, 0, 0, 0, 1);\
+	gluLookAt(5, 5, 5, 0, 0, 0, 0, 0, 1);
 
 	glRotatef(rotate_x, 1.0, 0.0, 0.0);
 	glRotatef(rotate_y, 0.0, 1.0, 0.0);
