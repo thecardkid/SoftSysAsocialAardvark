@@ -128,6 +128,10 @@ std::vector<RubiksCube::Move> RubiksCube::scramble(int n) {
     return moves;
 }
 
+void RubiksCube::rotate(Move move) {
+	rotate(move.slice, move.degrees);
+}
+
 void RubiksCube::rotate(LetterNotation action, CubeFace::Degrees degrees) {
     for (int i=0; i < degrees+1; i++) {
 		switch (action) {
