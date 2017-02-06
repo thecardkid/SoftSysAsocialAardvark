@@ -18,6 +18,9 @@ GTEST_DIR = lib/googletest-release-1.8.0/googletest
 # Where to find user code.
 USER_DIR = src
 
+# Test code
+TEST_DIR = tests
+
 # Where to find build objects
 BUILD_DIR = build
 
@@ -69,10 +72,14 @@ $(BUILD_DIR)/gtest_main.a : gtest-all.o gtest_main.o
 	$(AR) $(ARFLAGS) $@ $^ -o $@
 
 # Builds the main file.
-OBJ = $(BUILD_DIR)/main.o $(BUILD_DIR)/Graphics.o $(BUILD_DIR)/RubiksCube.o $(BUILD_DIR)/CubeFace.o
+OBJ = $(BUILD_DIR)/main.o $(BUILD_DIR)/Graphics.o $(BUILD_DIR)/RubiksCube.o $(BUILD_DIR)/CubeFace.o $(BUILD_DIR)/CubeFaceTest.o $(BUILD_DIR)/RubiksCubeTest.o
 $(BUILD_DIR)/main : $(OBJ) gtest_main.a
 	$(CC) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@ $(GRAPHICSFLAGS)
 
 # Builds the dependency object files.
 $(BUILD_DIR)/%.o : $(USER_DIR)/%.cpp $(DEP_HEADERS) $(GTEST_HEADERS)
 	$(CC) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
+
+$(BUILD_DIR)/%.o : $(TEST_DIR)/%.cpp $(DEP_HEADERS) $(GTEST_HEADERS)
+	$(CC) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
+
