@@ -12,52 +12,61 @@ Cube cubes[3][3][3]; // 3-dimensional array of cubes
 
 void drawCube(Cube cube, float** colors) {
 	glBegin(GL_QUADS);                // Begin drawing the color cube with 6 quads
-	  // Top face (y = 1.0f)
-	  // Define vertices in counter-clockwise (CCW) order with normal pointing out
-	  glColor3f(colors[0][0], colors[0][1], colors[0][2]);
-	  glVertex3f(cube.vertices[2][0], cube.vertices[2][1], cube.vertices[2][2]);
-	  glVertex3f(cube.vertices[5][0], cube.vertices[5][1], cube.vertices[5][2]);
-	  glVertex3f(cube.vertices[7][0], cube.vertices[7][1], cube.vertices[7][2]);
-	  glVertex3f(cube.vertices[4][0], cube.vertices[4][1], cube.vertices[4][2]);
+		// Top face (y = 1.0f)
+		// Define vertices in counter-clockwise (CCW) order with normal pointing out
+		glColor3f(colors[0][0], colors[0][1], colors[0][2]);
+		glVertex3f(cube.vertices[2][0], cube.vertices[2][1], cube.vertices[2][2]);
+		glVertex3f(cube.vertices[5][0], cube.vertices[5][1], cube.vertices[5][2]);
+		glVertex3f(cube.vertices[7][0], cube.vertices[7][1], cube.vertices[7][2]);
+		glVertex3f(cube.vertices[4][0], cube.vertices[4][1], cube.vertices[4][2]);
 
-	  // Bottom face (y = -1.0f)
-	  glColor3f(colors[1][0], colors[1][1], colors[1][2]);
-	  glVertex3f(cube.vertices[0][0], cube.vertices[0][1], cube.vertices[0][2]);
-	  glVertex3f(cube.vertices[3][0], cube.vertices[3][1], cube.vertices[3][2]);
-	  glVertex3f(cube.vertices[6][0], cube.vertices[6][1], cube.vertices[6][2]);
-	  glVertex3f(cube.vertices[1][0], cube.vertices[1][1], cube.vertices[1][2]);
+		// Bottom face (y = -1.0f)
+		glColor3f(colors[1][0], colors[1][1], colors[1][2]);
+		glVertex3f(cube.vertices[0][0], cube.vertices[0][1], cube.vertices[0][2]);
+		glVertex3f(cube.vertices[3][0], cube.vertices[3][1], cube.vertices[3][2]);
+		glVertex3f(cube.vertices[6][0], cube.vertices[6][1], cube.vertices[6][2]);
+		glVertex3f(cube.vertices[1][0], cube.vertices[1][1], cube.vertices[1][2]);
 
-	  // Front face  (z = 1.0f)
-	  glColor3f(colors[2][0], colors[2][1], colors[2][2]);
-	  glVertex3f(cube.vertices[0][0], cube.vertices[0][1], cube.vertices[0][2]);
-	  glVertex3f(cube.vertices[1][0], cube.vertices[1][1], cube.vertices[1][2]);
-	  glVertex3f(cube.vertices[5][0], cube.vertices[5][1], cube.vertices[5][2]);
-	  glVertex3f(cube.vertices[2][0], cube.vertices[2][1], cube.vertices[2][2]);
+		// Front face  (z = 1.0f)
+		glColor3f(colors[2][0], colors[2][1], colors[2][2]);
+		glVertex3f(cube.vertices[0][0], cube.vertices[0][1], cube.vertices[0][2]);
+		glVertex3f(cube.vertices[1][0], cube.vertices[1][1], cube.vertices[1][2]);
+		glVertex3f(cube.vertices[5][0], cube.vertices[5][1], cube.vertices[5][2]);
+		glVertex3f(cube.vertices[2][0], cube.vertices[2][1], cube.vertices[2][2]);
 
-	  // Back face (z = -1.0f)
-	  glColor3f(colors[3][0], colors[3][1], colors[3][2]);
-	  glVertex3f(cube.vertices[3][0], cube.vertices[3][1], cube.vertices[3][2]);
-	  glVertex3f(cube.vertices[4][0], cube.vertices[4][1], cube.vertices[4][2]);
-	  glVertex3f(cube.vertices[7][0], cube.vertices[7][1], cube.vertices[7][2]);
-	  glVertex3f(cube.vertices[6][0], cube.vertices[6][1], cube.vertices[6][2]);
+		// Back face (z = -1.0f)
+		glColor3f(colors[3][0], colors[3][1], colors[3][2]);
+		glVertex3f(cube.vertices[3][0], cube.vertices[3][1], cube.vertices[3][2]);
+		glVertex3f(cube.vertices[4][0], cube.vertices[4][1], cube.vertices[4][2]);
+		glVertex3f(cube.vertices[7][0], cube.vertices[7][1], cube.vertices[7][2]);
+		glVertex3f(cube.vertices[6][0], cube.vertices[6][1], cube.vertices[6][2]);
 
-	  // Left face (x = -1.0f)
-	  glColor3f(colors[4][0], colors[4][1], colors[4][2]);
-	  glVertex3f(cube.vertices[0][0], cube.vertices[0][1], cube.vertices[0][2]);
-	  glVertex3f(cube.vertices[2][0], cube.vertices[2][1], cube.vertices[2][2]);
-	  glVertex3f(cube.vertices[4][0], cube.vertices[4][1], cube.vertices[4][2]);
-	  glVertex3f(cube.vertices[3][0], cube.vertices[3][1], cube.vertices[3][2]);
+		// Left face (x = -1.0f)
+		glColor3f(colors[4][0], colors[4][1], colors[4][2]);
+		glVertex3f(cube.vertices[0][0], cube.vertices[0][1], cube.vertices[0][2]);
+		glVertex3f(cube.vertices[2][0], cube.vertices[2][1], cube.vertices[2][2]);
+		glVertex3f(cube.vertices[4][0], cube.vertices[4][1], cube.vertices[4][2]);
+		glVertex3f(cube.vertices[3][0], cube.vertices[3][1], cube.vertices[3][2]);
 
-	  // Right face (x = 1.0f)
-	  glColor3f(colors[5][0], colors[5][1], colors[5][2]);
-	  glVertex3f(cube.vertices[1][0], cube.vertices[1][1], cube.vertices[1][2]);
-	  glVertex3f(cube.vertices[6][0], cube.vertices[6][1], cube.vertices[6][2]);
-	  glVertex3f(cube.vertices[7][0], cube.vertices[7][1], cube.vertices[7][2]);
-	  glVertex3f(cube.vertices[5][0], cube.vertices[5][1], cube.vertices[5][2]);
+		// Right face (x = 1.0f)
+		glColor3f(colors[5][0], colors[5][1], colors[5][2]);
+		glVertex3f(cube.vertices[1][0], cube.vertices[1][1], cube.vertices[1][2]);
+		glVertex3f(cube.vertices[6][0], cube.vertices[6][1], cube.vertices[6][2]);
+		glVertex3f(cube.vertices[7][0], cube.vertices[7][1], cube.vertices[7][2]);
+		glVertex3f(cube.vertices[5][0], cube.vertices[5][1], cube.vertices[5][2]);
    glEnd();  // End of drawing color-cube
 }
 
+void centerCube(int x, int y, int z, float centerShift) {
+	for (int i = 0; i < 8; i++) {
+		for (int j = 0; j < 3; j++) {
+			cubes[x][y][z].vertices[i][j] -= centerShift;
+		}
+	}
+}
+
 void initializeCubes() {
+	float shift = 1.5;
 	for (int x = 0; x < 3; x++) {
 		for (int y = 0; y < 3; y++) {
 			for (int z = 0; z < 3; z++) {
@@ -92,11 +101,12 @@ void initializeCubes() {
 				cubes[x][y][z].vertices[7][0] = x + 0.9;
 				cubes[x][y][z].vertices[7][1] = y + 0.9;
 				cubes[x][y][z].vertices[7][2] = z + 0.9;
+
+				centerCube(x, y, z, 1.5);
 			}
 		}
 	}
 }
-
 
 float red[3] = { 1.0f, 0.0f, 0.0f };
 float blue[3] = { 0.0f, 0.0f, 1.0f };
@@ -139,16 +149,16 @@ float** getCubeColors(int*** colors, int x, int y, int z) {
 			break;
 		case 2: // left layer -- set left sides
 			fcolors[5] = intToColor(colors[0][2 - z][y]);
-            break;
+			break;
 	}
 
 	switch (y) {
 		case 0: // back layer -- set back sides
-			fcolors[1] = intToColor(colors[5][2 - z][2 - x]);
+			fcolors[1] = intToColor(colors[5][2 - z][x]);
 			break;
 		case 2: // front layer -- set front sides
 			fcolors[0] = intToColor(colors[4][2 - z][2 - x]);
-            break;
+			break;
 	}
 
 	switch (z) {
@@ -157,7 +167,7 @@ float** getCubeColors(int*** colors, int x, int y, int z) {
 			break;
 		case 2: // top layer -- set top sides
 			fcolors[3] = intToColor(colors[2][y][2 - x]);
-            break;
+			break;
 	}
 
 	return fcolors;
@@ -212,6 +222,6 @@ void display(int*** colors) {
 	glRotatef(rotate_x, 1.0, 0.0, 0.0);
 	glRotatef(rotate_y, 0.0, 1.0, 0.0);
 
-    drawCubes(colors);
-    glutSwapBuffers();
+	drawCubes(colors);
+	glutSwapBuffers();
 }
