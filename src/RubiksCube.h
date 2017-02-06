@@ -20,16 +20,7 @@ private:
   int* reverse(int* a);
 
 public:
-    void rotateXLeft();
-    void rotateXRight();
-    void rotateYTop();
-    void rotateYBottom();
-    void rotateZFront();
-    void rotateZBack();
-    void rotateXSlice();
-    void rotateYSlice();
-    void rotateZSlice();
-    enum LetterNotation {
+	enum LetterNotation {
 		// https://ruwix.com/the-rubiks-cube/notation/
 		U, L, F, R, B, D, M, E, S, LastRotation
 	};

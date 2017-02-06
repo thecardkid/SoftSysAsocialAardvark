@@ -1,10 +1,7 @@
 #include <gtest/gtest.h>
-#include <gmock/gmock.h>
 #include "../src/CubeFace.h"
 
 const int N = 3;
-
-using testing::Eq;
 
 namespace {
 class FaceFixture : public testing::Test {
