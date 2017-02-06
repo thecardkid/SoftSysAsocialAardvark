@@ -76,3 +76,4 @@ $(BUILD_DIR)/main : $(OBJ) gtest_main.a
 # Builds the dependency object files.
 $(BUILD_DIR)/%.o : $(USER_DIR)/%.cpp $(DEP_HEADERS) $(GTEST_HEADERS)
 	$(CC) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
+
