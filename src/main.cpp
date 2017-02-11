@@ -27,10 +27,25 @@ void printFace(int** face_) {
 }
 
 RubiksCube* cube = new RubiksCube();
+std::vector<RubiksCube::Move> moves;
 
 void displayWrapper() {
     int*** colors = cube->getState();
     display(colors);
+}
+
+void myKeyboardFunc(unsigned char key, int x, int y) {
+	switch (key) {
+		case 's':
+			std::cout << moves.size() << std::endl;
+			break;
+		case 'u':
+			std::cout << "C++ " << moves.at(0).slice << std::endl;
+			solve();
+			break;
+		default:
+			break;
+	}
 }
 
 void specialKeys(int key, int x, int y) {
@@ -74,17 +89,19 @@ int main(int argc, char **argv) {
 
     // GRAPHICS
     initializeCubes();
+	moves = cube->scramble(20);
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_RGBA | GLUT_DEPTH | GLUT_DOUBLE);
     glutInitWindowSize(640, 480);
     glutCreateWindow("Rubik's Cube");
     glutDisplayFunc(displayWrapper);
     glutSpecialFunc(specialKeys);
+    glutKeyboardFunc(myKeyboardFunc);
     glEnable(GL_DEPTH_TEST);
     glutMainLoop();
 
     // LOGIC
-    solve();
+	displayWrapper();
 
     return 0;
 }

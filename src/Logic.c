@@ -2,6 +2,6 @@
 #include <stdlib.h>
 
 int solve() {
-    puts("hello world");
-    return 0;
+	puts("Hello");
+	return 0;
 }
