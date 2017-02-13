@@ -36,49 +36,72 @@ void displayWrapper() {
 
 void myKeyboardFunc(unsigned char key, int x, int y) {
 	switch (key) {
-		case 's':
-			std::cout << moves.size() << std::endl;
-			break;
-		case 'u':
+		case 'x':
 			std::cout << "C++ " << moves.at(0).slice << std::endl;
 			solve();
+			break;
+		case 'l':
+			cube->rotate(RubiksCube::L, CubeFace::Ninety);
+			break;
+		case 'L':
+			cube->rotate(RubiksCube::L, CubeFace::TwoSeventy);
+			break;
+		case 'r':
+			cube->rotate(RubiksCube::R, CubeFace::Ninety);
+			break;
+		case 'R':
+			cube->rotate(RubiksCube::R, CubeFace::TwoSeventy);
+			break;
+		case 'u':
+			cube->rotate(RubiksCube::U, CubeFace::Ninety);
+			break;
+		case 'U':
+			cube->rotate(RubiksCube::U, CubeFace::TwoSeventy);
+			break;
+		case 'd':
+			cube->rotate(RubiksCube::D, CubeFace::Ninety);
+			break;
+		case 'D':
+			cube->rotate(RubiksCube::D, CubeFace::TwoSeventy);
+			break;
+		case 'f':
+			cube->rotate(RubiksCube::F, CubeFace::Ninety);
+			break;
+		case 'F':
+			cube->rotate(RubiksCube::F, CubeFace::TwoSeventy);
+			break;
+		case 'b':
+			cube->rotate(RubiksCube::B, CubeFace::Ninety);
+			break;
+		case 'B':
+			cube->rotate(RubiksCube::B, CubeFace::Ninety);
+			break;
+		case 'm':
+			cube->rotate(RubiksCube::M, CubeFace::Ninety);
+			break;
+		case 'M':
+			cube->rotate(RubiksCube::M, CubeFace::TwoSeventy);
+			break;
+		case 'e':
+			cube->rotate(RubiksCube::E, CubeFace::Ninety);
+			break;
+		case 'E':
+			cube->rotate(RubiksCube::E, CubeFace::TwoSeventy);
+			break;
+		case 's':
+			cube->rotate(RubiksCube::S, CubeFace::Ninety);
+			break;
+		case 'S':
+			cube->rotate(RubiksCube::S, CubeFace::TwoSeventy);
 			break;
 		default:
 			break;
 	}
+
+	glutPostRedisplay();
 }
 
 void specialKeys(int key, int x, int y) {
-    switch (key) {
-        case GLUT_KEY_F1:
-            cube->rotate(RubiksCube::L, CubeFace::Ninety);
-            break;
-        case GLUT_KEY_F2:
-            cube->rotate(RubiksCube::R, CubeFace::Ninety);
-            break;
-        case GLUT_KEY_F3:
-            cube->rotate(RubiksCube::U, CubeFace::Ninety);
-            break;
-        case GLUT_KEY_F4:
-            cube->rotate(RubiksCube::D, CubeFace::Ninety);
-            break;
-        case GLUT_KEY_F5:
-            cube->rotate(RubiksCube::F, CubeFace::Ninety);
-            break;
-        case GLUT_KEY_F6:
-            cube->rotate(RubiksCube::B, CubeFace::Ninety);
-            break;
-        case GLUT_KEY_F7:
-            cube->rotate(RubiksCube::M, CubeFace::Ninety);
-            break;
-        case GLUT_KEY_F8:
-            cube->rotate(RubiksCube::E, CubeFace::Ninety);
-            break;
-        case GLUT_KEY_F9:
-            cube->rotate(RubiksCube::S, CubeFace::Ninety);
-            break;
-    }
-
     graphicsSpecialKeys(key, x, y);
 }
 
