@@ -79,7 +79,8 @@ $(BUILD_DIR)/gtest_main.a : gtest-all.o gtest_main.o
 OBJ = $(BUILD_DIR)/main.o \
 	  $(BUILD_DIR)/Graphics.o $(BUILD_DIR)/RubiksCube.o $(BUILD_DIR)/CubeFace.o \
 	  $(BUILD_DIR)/Logic.o \
-	  $(BUILD_DIR)/CubeFaceTest.o $(BUILD_DIR)/RubiksCubeTest.o
+	  $(BUILD_DIR)/CubeFaceTest.o $(BUILD_DIR)/RubiksCubeTest.o \
+	  $(BUILD_DIR)/dfs.o $(BUILD_DIR)/stack.o
 
 $(BUILD_DIR)/main : $(OBJ) gtest_main.a
 	$(CC) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@ $(GRAPHICSFLAGS)
