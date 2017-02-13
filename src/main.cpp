@@ -1,5 +1,6 @@
 extern "C" {
     #include "Logic.h"
+    #include "Thread.h"
 }
 
 #include <GL/glut.h>
@@ -98,6 +99,9 @@ void myKeyboardFunc(unsigned char key, int x, int y) {
 			break;
 		case 'q':
 			exit(0);
+        case 't':
+            createThread();
+            break;
 		default:
 			break;
 	}
@@ -133,4 +137,3 @@ int main(int argc, char **argv) {
 
     return 0;
 }
-
