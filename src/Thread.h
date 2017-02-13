@@ -15,8 +15,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-class Thread {
-    void *createThread(void *threadid);
-};
+void *createThread(void *threadid);
 
 #endif
