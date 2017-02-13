@@ -15,6 +15,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void *createThread(void *threadid);
+void *doThread(void *threadid);
+void createThread();
 
 #endif

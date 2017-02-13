@@ -1,10 +1,18 @@
 #include "Thread.h"
+#define NUM_THREADS	5
 
-void *createThread(void *threadid) {
+void *doThread(void *threadid) {
     long tid;
     tid = (long)threadid;
     printf("Hello world! Thread #%ld!\n", tid);
     pthread_exit(NULL);
+}
+
+void createThread() {
+  pthread_t threads[9];
+  int rc;
+  long t;
+  for (t=0; t<9;)
 }
 
 int main(int argc, char *argv[]) {
