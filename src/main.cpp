@@ -107,10 +107,6 @@ void update() {
     glutPostRedisplay();
 }
 
-void update() {
-    glutPostRedisplay();
-}
-
 int main(int argc, char **argv) {
     // TEST
     testing::InitGoogleTest(&argc, argv);
