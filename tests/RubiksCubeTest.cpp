@@ -40,7 +40,7 @@ bool allFacesEqual(CubeFace* expectedXLeft, CubeFace* expectedXRight, CubeFace* 
            areFacesEqual(expectedZBack->getFace(), actualCube[5]);
 }
 
-int* getArrayOfColor(CubeFace::Color color) {
+int* getArrayOfColor(Color color) {
     return new int[N] {color, color, color};
 }
 
@@ -58,7 +58,7 @@ TEST_F(CubeFixture, xleft_face_rotation_90) {
     expectedYBottom->setCol(0, getArrayOfColor(CubeFace::Green));
     expectedZBack->setCol(2, getArrayOfColor(CubeFace::Yellow));
 
-    testCube->rotate(RubiksCube::L, CubeFace::Ninety);
+    testCube->rotate(L, Ninety);
     ASSERT_TRUE(allFacesEqual(expectedXLeft, expectedXRight, expectedYTop, expectedYBottom, expectedZFront, expectedZBack, testCube->getState()));
 }
 
@@ -68,7 +68,7 @@ TEST_F(CubeFixture, xleft_face_rotation_180) {
     expectedYBottom->setCol(0, getArrayOfColor(CubeFace::White));
     expectedZBack->setCol(2, getArrayOfColor(CubeFace::Green));
 
-    testCube->rotate(RubiksCube::L, CubeFace::OneEighty);
+    testCube->rotate(L, OneEighty);
     ASSERT_TRUE(allFacesEqual(expectedXLeft, expectedXRight, expectedYTop, expectedYBottom, expectedZFront, expectedZBack, testCube->getState()));
 }
 
@@ -78,7 +78,7 @@ TEST_F(CubeFixture, xleft_face_rotation_270) {
     expectedYBottom->setCol(0, getArrayOfColor(CubeFace::Blue));
     expectedZBack->setCol(2, getArrayOfColor(CubeFace::White));
 
-    testCube->rotate(RubiksCube::L, CubeFace::TwoSeventy);
+    testCube->rotate(L, TwoSeventy);
     ASSERT_TRUE(allFacesEqual(expectedXLeft, expectedXRight, expectedYTop, expectedYBottom, expectedZFront, expectedZBack, testCube->getState()));
 }
 
@@ -88,7 +88,7 @@ TEST_F(CubeFixture, xright_face_rotation_90) {
     expectedYBottom->setCol(2, getArrayOfColor(CubeFace::Blue));
     expectedZBack->setCol(0, getArrayOfColor(CubeFace::White));
 
-    testCube->rotate(RubiksCube::R, CubeFace::Ninety);
+    testCube->rotate(R, Ninety);
     ASSERT_TRUE(allFacesEqual(expectedXLeft, expectedXRight, expectedYTop, expectedYBottom, expectedZFront, expectedZBack, testCube->getState()));
 }
 
@@ -98,7 +98,7 @@ TEST_F(CubeFixture, xright_face_rotation_180) {
     expectedYBottom->setCol(2, getArrayOfColor(CubeFace::White));
     expectedZBack->setCol(0, getArrayOfColor(CubeFace::Green));
 
-    testCube->rotate(RubiksCube::R, CubeFace::OneEighty);
+    testCube->rotate(R, OneEighty);
     ASSERT_TRUE(allFacesEqual(expectedXLeft, expectedXRight, expectedYTop, expectedYBottom, expectedZFront, expectedZBack, testCube->getState()));
 }
 
@@ -108,7 +108,7 @@ TEST_F(CubeFixture, xright_face_rotation_270) {
     expectedYBottom->setCol(2, getArrayOfColor(CubeFace::Green));
     expectedZBack->setCol(0, getArrayOfColor(CubeFace::Yellow));
 
-    testCube->rotate(RubiksCube::R, CubeFace::TwoSeventy);
+    testCube->rotate(R, TwoSeventy);
     ASSERT_TRUE(allFacesEqual(expectedXLeft, expectedXRight, expectedYTop, expectedYBottom, expectedZFront, expectedZBack, testCube->getState()));
 }
 
@@ -118,7 +118,7 @@ TEST_F(CubeFixture, ytop_face_rotation_90) {
     expectedXRight->setRow(0, getArrayOfColor(CubeFace::Blue));
     expectedZFront->setRow(0, getArrayOfColor(CubeFace::Red));
 
-    testCube->rotate(RubiksCube::U, CubeFace::Ninety);
+    testCube->rotate(U, Ninety);
     ASSERT_TRUE(allFacesEqual(expectedXLeft, expectedXRight, expectedYTop, expectedYBottom, expectedZFront, expectedZBack, testCube->getState()));
 }
 
@@ -128,7 +128,7 @@ TEST_F(CubeFixture, ytop_face_rotation_180) {
     expectedXRight->setRow(0, getArrayOfColor(CubeFace::Orange));
     expectedZFront->setRow(0, getArrayOfColor(CubeFace::Blue));
 
-    testCube->rotate(RubiksCube::U, CubeFace::OneEighty);
+    testCube->rotate(U, OneEighty);
     ASSERT_TRUE(allFacesEqual(expectedXLeft, expectedXRight, expectedYTop, expectedYBottom, expectedZFront, expectedZBack, testCube->getState()));
 }
 
@@ -138,7 +138,7 @@ TEST_F(CubeFixture, ytop_face_rotation_270) {
     expectedXRight->setRow(0, getArrayOfColor(CubeFace::Green));
     expectedZFront->setRow(0, getArrayOfColor(CubeFace::Orange));
 
-    testCube->rotate(RubiksCube::U, CubeFace::TwoSeventy);
+    testCube->rotate(U, TwoSeventy);
     ASSERT_TRUE(allFacesEqual(expectedXLeft, expectedXRight, expectedYTop, expectedYBottom, expectedZFront, expectedZBack, testCube->getState()));
 }
 
@@ -148,7 +148,7 @@ TEST_F(CubeFixture, ybottom_face_rotation_90) {
     expectedXRight->setRow(2, getArrayOfColor(CubeFace::Green));
     expectedZFront->setRow(2, getArrayOfColor(CubeFace::Orange));
 
-    testCube->rotate(RubiksCube::D, CubeFace::Ninety);
+    testCube->rotate(D, Ninety);
     ASSERT_TRUE(allFacesEqual(expectedXLeft, expectedXRight, expectedYTop, expectedYBottom, expectedZFront, expectedZBack, testCube->getState()));
 }
 
@@ -158,7 +158,7 @@ TEST_F(CubeFixture, ybottom_face_rotation_180) {
     expectedXRight->setRow(2, getArrayOfColor(CubeFace::Orange));
     expectedZFront->setRow(2, getArrayOfColor(CubeFace::Blue));
 
-    testCube->rotate(RubiksCube::D, CubeFace::OneEighty);
+    testCube->rotate(D, OneEighty);
     ASSERT_TRUE(allFacesEqual(expectedXLeft, expectedXRight, expectedYTop, expectedYBottom, expectedZFront, expectedZBack, testCube->getState()));
 }
 
@@ -168,7 +168,7 @@ TEST_F(CubeFixture, ybottom_face_rotation_270) {
     expectedXRight->setRow(2, getArrayOfColor(CubeFace::Blue));
     expectedZFront->setRow(2, getArrayOfColor(CubeFace::Red));
 
-    testCube->rotate(RubiksCube::D, CubeFace::TwoSeventy);
+    testCube->rotate(D, TwoSeventy);
     ASSERT_TRUE(allFacesEqual(expectedXLeft, expectedXRight, expectedYTop, expectedYBottom, expectedZFront, expectedZBack, testCube->getState()));
 }
 
@@ -178,7 +178,7 @@ TEST_F(CubeFixture, zfront_face_rotation_90) {
     expectedYBottom->setRow(0, getArrayOfColor(CubeFace::Red));
     expectedXLeft->setCol(2, getArrayOfColor(CubeFace::Yellow));
 
-    testCube->rotate(RubiksCube::F, CubeFace::Ninety);
+    testCube->rotate(F, Ninety);
     ASSERT_TRUE(allFacesEqual(expectedXLeft, expectedXRight, expectedYTop, expectedYBottom, expectedZFront, expectedZBack, testCube->getState()));
 }
 
@@ -188,7 +188,7 @@ TEST_F(CubeFixture, zfront_face_rotation_180) {
     expectedYBottom->setRow(0, getArrayOfColor(CubeFace::White));
     expectedXLeft->setCol(2, getArrayOfColor(CubeFace::Red));
 
-    testCube->rotate(RubiksCube::F, CubeFace::OneEighty);
+    testCube->rotate(F, OneEighty);
     ASSERT_TRUE(allFacesEqual(expectedXLeft, expectedXRight, expectedYTop, expectedYBottom, expectedZFront, expectedZBack, testCube->getState()));
 }
 
@@ -198,7 +198,7 @@ TEST_F(CubeFixture, zfront_face_rotation_270) {
     expectedYBottom->setRow(0, getArrayOfColor(CubeFace::Orange));
     expectedXLeft->setCol(2, getArrayOfColor(CubeFace::White));
 
-    testCube->rotate(RubiksCube::F, CubeFace::TwoSeventy);
+    testCube->rotate(F, TwoSeventy);
     ASSERT_TRUE(allFacesEqual(expectedXLeft, expectedXRight, expectedYTop, expectedYBottom, expectedZFront, expectedZBack, testCube->getState()));
 }
 
@@ -208,7 +208,7 @@ TEST_F(CubeFixture, zback_face_rotation_90) {
     expectedYBottom->setRow(2, getArrayOfColor(CubeFace::Orange));
     expectedXRight->setCol(2, getArrayOfColor(CubeFace::Yellow));
 
-    testCube->rotate(RubiksCube::B, CubeFace::Ninety);
+    testCube->rotate(B, Ninety);
     ASSERT_TRUE(allFacesEqual(expectedXLeft, expectedXRight, expectedYTop, expectedYBottom, expectedZFront, expectedZBack, testCube->getState()));
 }
 
@@ -218,7 +218,7 @@ TEST_F(CubeFixture, zback_face_rotation_180) {
     expectedYBottom->setRow(2, getArrayOfColor(CubeFace::White));
     expectedXRight->setCol(2, getArrayOfColor(CubeFace::Orange));
 
-    testCube->rotate(RubiksCube::B, CubeFace::OneEighty);
+    testCube->rotate(B, OneEighty);
     ASSERT_TRUE(allFacesEqual(expectedXLeft, expectedXRight, expectedYTop, expectedYBottom, expectedZFront, expectedZBack, testCube->getState()));
 }
 
@@ -228,7 +228,7 @@ TEST_F(CubeFixture, zback_face_rotation_270) {
     expectedYBottom->setRow(2, getArrayOfColor(CubeFace::Red));
     expectedXRight->setCol(2, getArrayOfColor(CubeFace::White));
 
-    testCube->rotate(RubiksCube::B, CubeFace::TwoSeventy);
+    testCube->rotate(B, TwoSeventy);
     ASSERT_TRUE(allFacesEqual(expectedXLeft, expectedXRight, expectedYTop, expectedYBottom, expectedZFront, expectedZBack, testCube->getState()));
 }
 
@@ -238,7 +238,7 @@ TEST_F(CubeFixture, x_slice_rotation_90) {
     expectedYBottom->setCol(1, getArrayOfColor(CubeFace::Green));
     expectedZBack->setCol(1, getArrayOfColor(CubeFace::Yellow));
 
-    testCube->rotate(RubiksCube::M, CubeFace::Ninety);
+    testCube->rotate(M, Ninety);
     ASSERT_TRUE(allFacesEqual(expectedXLeft, expectedXRight, expectedYTop, expectedYBottom, expectedZFront, expectedZBack, testCube->getState()));
 }
 
@@ -248,7 +248,7 @@ TEST_F(CubeFixture, x_slice_rotation_180) {
     expectedYBottom->setCol(1, getArrayOfColor(CubeFace::White));
     expectedZBack->setCol(1, getArrayOfColor(CubeFace::Green));
 
-    testCube->rotate(RubiksCube::M, CubeFace::OneEighty);
+    testCube->rotate(M, OneEighty);
     ASSERT_TRUE(allFacesEqual(expectedXLeft, expectedXRight, expectedYTop, expectedYBottom, expectedZFront, expectedZBack, testCube->getState()));
 }
 
@@ -258,7 +258,7 @@ TEST_F(CubeFixture, x_slice_rotation_270) {
     expectedYBottom->setCol(1, getArrayOfColor(CubeFace::Blue));
     expectedZBack->setCol(1, getArrayOfColor(CubeFace::White));
 
-    testCube->rotate(RubiksCube::M, CubeFace::TwoSeventy);
+    testCube->rotate(M, TwoSeventy);
     ASSERT_TRUE(allFacesEqual(expectedXLeft, expectedXRight, expectedYTop, expectedYBottom, expectedZFront, expectedZBack, testCube->getState()));
 }
 
@@ -268,7 +268,7 @@ TEST_F(CubeFixture, y_slice_rotation_90) {
     expectedXRight->setRow(1, getArrayOfColor(CubeFace::Green));
     expectedZBack->setRow(1, getArrayOfColor(CubeFace::Red));
 
-    testCube->rotate(RubiksCube::E, CubeFace::Ninety);
+    testCube->rotate(E, Ninety);
     ASSERT_TRUE(allFacesEqual(expectedXLeft, expectedXRight, expectedYTop, expectedYBottom, expectedZFront, expectedZBack, testCube->getState()));
 }
 
@@ -278,7 +278,7 @@ TEST_F(CubeFixture, y_slice_rotation_180) {
     expectedXRight->setRow(1, getArrayOfColor(CubeFace::Orange));
     expectedZBack->setRow(1, getArrayOfColor(CubeFace::Green));
 
-    testCube->rotate(RubiksCube::E, CubeFace::OneEighty);
+    testCube->rotate(E, OneEighty);
     ASSERT_TRUE(allFacesEqual(expectedXLeft, expectedXRight, expectedYTop, expectedYBottom, expectedZFront, expectedZBack, testCube->getState()));
 }
 
@@ -288,7 +288,7 @@ TEST_F(CubeFixture, y_slice_rotation_270) {
     expectedXRight->setRow(1, getArrayOfColor(CubeFace::Blue));
     expectedZBack->setRow(1, getArrayOfColor(CubeFace::Orange));
 
-    testCube->rotate(RubiksCube::E, CubeFace::TwoSeventy);
+    testCube->rotate(E, TwoSeventy);
     ASSERT_TRUE(allFacesEqual(expectedXLeft, expectedXRight, expectedYTop, expectedYBottom, expectedZFront, expectedZBack, testCube->getState()));
 }
 
@@ -298,7 +298,7 @@ TEST_F(CubeFixture, z_slice_rotation_90) {
     expectedYBottom->setRow(1, getArrayOfColor(CubeFace::Red));
     expectedXLeft->setCol(1, getArrayOfColor(CubeFace::Yellow));
 
-    testCube->rotate(RubiksCube::S, CubeFace::Ninety);
+    testCube->rotate(S, Ninety);
     ASSERT_TRUE(allFacesEqual(expectedXLeft, expectedXRight, expectedYTop, expectedYBottom, expectedZFront, expectedZBack, testCube->getState()));
 }
 
@@ -308,7 +308,7 @@ TEST_F(CubeFixture, z_slice_rotation_180) {
     expectedYBottom->setRow(1, getArrayOfColor(CubeFace::White));
     expectedXLeft->setCol(1, getArrayOfColor(CubeFace::Red));
 
-    testCube->rotate(RubiksCube::S, CubeFace::OneEighty);
+    testCube->rotate(S, OneEighty);
     ASSERT_TRUE(allFacesEqual(expectedXLeft, expectedXRight, expectedYTop, expectedYBottom, expectedZFront, expectedZBack, testCube->getState()));
 }
 
@@ -318,20 +318,20 @@ TEST_F(CubeFixture, z_slice_rotation_270) {
     expectedYBottom->setRow(1, getArrayOfColor(CubeFace::Orange));
     expectedXLeft->setCol(1, getArrayOfColor(CubeFace::White));
 
-    testCube->rotate(RubiksCube::S, CubeFace::TwoSeventy);
+    testCube->rotate(S, TwoSeventy);
     ASSERT_TRUE(allFacesEqual(expectedXLeft, expectedXRight, expectedYTop, expectedYBottom, expectedZFront, expectedZBack, testCube->getState()));
 }
 
 void applyComboMoves(RubiksCube *testCube) {
-    testCube->rotate(RubiksCube::L, CubeFace::Ninety);
-    testCube->rotate(RubiksCube::D, CubeFace::Ninety);
-    testCube->rotate(RubiksCube::U, CubeFace::Ninety);
-    testCube->rotate(RubiksCube::F, CubeFace::OneEighty);
-    testCube->rotate(RubiksCube::B, CubeFace::TwoSeventy);
-    testCube->rotate(RubiksCube::R, CubeFace::OneEighty);
-    testCube->rotate(RubiksCube::M, CubeFace::Ninety);
-    testCube->rotate(RubiksCube::E, CubeFace::TwoSeventy);
-    testCube->rotate(RubiksCube::S, CubeFace::OneEighty);
+    testCube->rotate(L, Ninety);
+    testCube->rotate(D, Ninety);
+    testCube->rotate(U, Ninety);
+    testCube->rotate(F, OneEighty);
+    testCube->rotate(B, TwoSeventy);
+    testCube->rotate(R, OneEighty);
+    testCube->rotate(M, Ninety);
+    testCube->rotate(E, TwoSeventy);
+    testCube->rotate(S, OneEighty);
 }
 
 TEST_F(CubeFixture, combination_of_rotations) {
@@ -367,15 +367,15 @@ TEST_F(CubeFixture, undoing_moves_should_solve_cube) {
     applyComboMoves(testCube);
 
     // undoing combo moves above
-    testCube->rotate(RubiksCube::S, CubeFace::OneEighty);
-    testCube->rotate(RubiksCube::E, CubeFace::Ninety);
-    testCube->rotate(RubiksCube::M, CubeFace::TwoSeventy);
-    testCube->rotate(RubiksCube::R, CubeFace::OneEighty);
-    testCube->rotate(RubiksCube::B, CubeFace::Ninety);
-    testCube->rotate(RubiksCube::F, CubeFace::OneEighty);
-    testCube->rotate(RubiksCube::U, CubeFace::TwoSeventy);
-    testCube->rotate(RubiksCube::D, CubeFace::TwoSeventy);
-    testCube->rotate(RubiksCube::L, CubeFace::TwoSeventy);
+    testCube->rotate(S, OneEighty);
+    testCube->rotate(E, Ninety);
+    testCube->rotate(M, TwoSeventy);
+    testCube->rotate(R, OneEighty);
+    testCube->rotate(B, Ninety);
+    testCube->rotate(F, OneEighty);
+    testCube->rotate(U, TwoSeventy);
+    testCube->rotate(D, TwoSeventy);
+    testCube->rotate(L, TwoSeventy);
 
     ASSERT_TRUE(allFacesEqual(expectedXLeft, expectedXRight, expectedYTop, expectedYBottom, expectedZFront, expectedZBack, testCube->getState()));
 }

@@ -10,6 +10,7 @@ extern "C" {
 #include "Graphics.h"
 #include "RubiksCube.h"
 #include "Connector.h"
+#include "Enums.h"
 
 void printFace(int** face_) {
 	std::string out = "[\n";
@@ -102,10 +103,6 @@ void myKeyboardFunc(unsigned char key, int x, int y) {
 	glutPostRedisplay();
 }
 
-void specialKeys(int key, int x, int y) {
-    graphicsSpecialKeys(key, x, y);
-}
-
 void update() {
     glutPostRedisplay();
 }
@@ -128,7 +125,7 @@ int main(int argc, char **argv) {
     glutCreateWindow("Rubik's Cube");
     glutIdleFunc(update);
     glutDisplayFunc(displayWrapper);
-    glutSpecialFunc(specialKeys);
+    glutSpecialFunc(graphicsSpecialKeys);
     glutKeyboardFunc(myKeyboardFunc);
     glEnable(GL_DEPTH_TEST);
     glutMainLoop();

@@ -1,6 +1,7 @@
 #include <vector>
 #include <cstdlib>
 #include "RubiksCube.h"
+#include "Enums.h"
 
 // Faces as they appear at http://www.rubiksplace.com/move-notations/
 // 3x3 cube
@@ -31,7 +32,7 @@ int* RubiksCube::reverse(int *a) {
 }
 
 void RubiksCube::rotateXLeft() {
-	xLeft_.rotateFaceClockwise(CubeFace::Ninety);
+	xLeft_.rotateFaceClockwise(Ninety);
 
 	int *tempCol = yTop_.getCol(0);
     yTop_.setCol(0, reverse(zBack_.getCol(2)));
@@ -41,7 +42,7 @@ void RubiksCube::rotateXLeft() {
 }
 
 void RubiksCube::rotateXRight() {
-	xRight_.rotateFaceClockwise(CubeFace::Ninety);
+	xRight_.rotateFaceClockwise(Ninety);
 
 	int *tempCol = yTop_.getCol(2);
     yTop_.setCol(2, zFront_.getCol(2));
@@ -51,7 +52,7 @@ void RubiksCube::rotateXRight() {
 }
 
 void RubiksCube::rotateYTop() {
-	yTop_.rotateFaceClockwise(CubeFace::Ninety);
+	yTop_.rotateFaceClockwise(Ninety);
 
 	int *tempRow = xLeft_.getRow(0);
     xLeft_.setRow(0, zFront_.getRow(0));
@@ -61,7 +62,7 @@ void RubiksCube::rotateYTop() {
 }
 
 void RubiksCube::rotateYBottom() {
-	yBottom_.rotateFaceClockwise(CubeFace::Ninety);
+	yBottom_.rotateFaceClockwise(Ninety);
 
 	int *tempRow = xLeft_.getRow(2);
     xLeft_.setRow(2, zBack_.getRow(2));
@@ -71,7 +72,7 @@ void RubiksCube::rotateYBottom() {
 }
 
 void RubiksCube::rotateZFront() {
-	zFront_.rotateFaceClockwise(CubeFace::Ninety);
+	zFront_.rotateFaceClockwise(Ninety);
 
 	int *yTopLastRow = yTop_.getRow(2);
     yTop_.setRow(2, reverse(xLeft_.getCol(2)));
@@ -81,7 +82,7 @@ void RubiksCube::rotateZFront() {
 }
 
 void RubiksCube::rotateZBack() {
-	zBack_.rotateFaceClockwise(CubeFace::Ninety);
+	zBack_.rotateFaceClockwise(Ninety);
 
     int *yTopFirstRow = yTop_.getRow(0);
     yTop_.setRow(0, xRight_.getCol(2));
@@ -119,8 +120,8 @@ std::vector<RubiksCube::Move> RubiksCube::scramble(int n) {
 
 	for (int i=0; i < n; i++) {
 		Move m;
-		m.slice = static_cast<RubiksCube::LetterNotation>(rand() % RubiksCube::LastRotation);
-		m.degrees = static_cast<CubeFace::Degrees>(rand() % CubeFace::LastDegree);
+		m.slice = static_cast<LetterNotation>(rand() % LastRotation);
+		m.degrees = static_cast<Degrees>(rand() % LastDegree);
 		moves.push_back(m);
 		rotate(m.slice, m.degrees);
 	}
@@ -132,7 +133,7 @@ void RubiksCube::rotate(Move move) {
 	rotate(move.slice, move.degrees);
 }
 
-void RubiksCube::rotate(LetterNotation action, CubeFace::Degrees degrees) {
+void RubiksCube::rotate(LetterNotation action, Degrees degrees) {
     for (int i=0; i < degrees+1; i++) {
 		switch (action) {
 			case U:

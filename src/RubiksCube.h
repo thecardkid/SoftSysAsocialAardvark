@@ -4,6 +4,7 @@
 #ifdef __cplusplus
     #include <vector>
     #include "CubeFace.h"
+    #include "Enums.h"
 
     class RubiksCube {
     private:
@@ -43,26 +44,13 @@
         void rotateZSlice();
 
     	/**
-    	 * Based on notation from https://ruwix.com/the-rubiks-cube/notation/.
-    	 * LastRotation acts as a dummy variable so that we can call the
-    	 * % operator when trying to generate random moves in scramble().
-    	 * It is not used anywhere else.
-    	 *
-    	 * This is also not defined as enum class to allow for implicit
-    	 * casting to ints.
-    	 */
-    	enum LetterNotation {
-    		U, L, F, R, B, D, M, E, S, LastRotation
-    	};
-
-    	/**
     	 * A simple struct that captures the randomized sequence
     	 * of moves done by the scramble() method. Its parameters
     	 * are 1. the rotation and 2. how many degrees of that rotation.
     	 */
     	struct Move {
-    		RubiksCube::LetterNotation slice;
-    		CubeFace::Degrees degrees;
+    		LetterNotation slice;
+    		Degrees degrees;
     	};
 
     	/**
@@ -77,7 +65,7 @@
          * @param action What rotation.
          * @param degrees How many degrees.
          */
-    	void rotate(LetterNotation action, CubeFace::Degrees degrees);
+    	void rotate(LetterNotation action, Degrees degrees);
         void rotate(Move move);
 
     	/**
