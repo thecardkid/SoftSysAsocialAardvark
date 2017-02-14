@@ -43,58 +43,58 @@ void myKeyboardFunc(unsigned char key, int x, int y) {
 			solve();
 			break;
 		case 'l':
-			cube->rotate(RubiksCube::L, CubeFace::Ninety);
+			cube->rotate(L, Ninety);
 			break;
 		case 'L':
-			cube->rotate(RubiksCube::L, CubeFace::TwoSeventy);
+			cube->rotate(L, TwoSeventy);
 			break;
 		case 'r':
-			cube->rotate(RubiksCube::R, CubeFace::Ninety);
+			cube->rotate(R, Ninety);
 			break;
 		case 'R':
-			cube->rotate(RubiksCube::R, CubeFace::TwoSeventy);
+			cube->rotate(R, TwoSeventy);
 			break;
 		case 'u':
-			cube->rotate(RubiksCube::U, CubeFace::Ninety);
+			cube->rotate(U, Ninety);
 			break;
 		case 'U':
-			cube->rotate(RubiksCube::U, CubeFace::TwoSeventy);
+			cube->rotate(U, TwoSeventy);
 			break;
 		case 'd':
-			cube->rotate(RubiksCube::D, CubeFace::Ninety);
+			cube->rotate(D, Ninety);
 			break;
 		case 'D':
-			cube->rotate(RubiksCube::D, CubeFace::TwoSeventy);
+			cube->rotate(D, TwoSeventy);
 			break;
 		case 'f':
-			cube->rotate(RubiksCube::F, CubeFace::Ninety);
+			cube->rotate(F, Ninety);
 			break;
 		case 'F':
-			cube->rotate(RubiksCube::F, CubeFace::TwoSeventy);
+			cube->rotate(F, TwoSeventy);
 			break;
 		case 'b':
-			cube->rotate(RubiksCube::B, CubeFace::Ninety);
+			cube->rotate(B, Ninety);
 			break;
 		case 'B':
-			cube->rotate(RubiksCube::B, CubeFace::Ninety);
+			cube->rotate(B, Ninety);
 			break;
 		case 'm':
-			cube->rotate(RubiksCube::M, CubeFace::Ninety);
+			cube->rotate(M, Ninety);
 			break;
 		case 'M':
-			cube->rotate(RubiksCube::M, CubeFace::TwoSeventy);
+			cube->rotate(M, TwoSeventy);
 			break;
 		case 'e':
-			cube->rotate(RubiksCube::E, CubeFace::Ninety);
+			cube->rotate(E, Ninety);
 			break;
 		case 'E':
-			cube->rotate(RubiksCube::E, CubeFace::TwoSeventy);
+			cube->rotate(E, TwoSeventy);
 			break;
 		case 's':
-			cube->rotate(RubiksCube::S, CubeFace::Ninety);
+			cube->rotate(S, Ninety);
 			break;
 		case 'S':
-			cube->rotate(RubiksCube::S, CubeFace::TwoSeventy);
+			cube->rotate(S, TwoSeventy);
 			break;
 		default:
 			break;
