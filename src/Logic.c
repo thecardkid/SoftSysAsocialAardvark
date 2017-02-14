@@ -5,7 +5,6 @@
 #include "Enums.h"
 
 int solve() {
-    printf("%i", LastRotation);
-    RubiksCube_rotateXLeft();
+    RubiksCube_rotate(L, Ninety);
     return 0;
 }

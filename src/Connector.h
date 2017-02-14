@@ -2,14 +2,15 @@
 #define SOFTSYS_ASOCIAL_AARDVARK_CONNECTOR_H
 
 #include "RubiksCube.h"
+#include "Enums.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 void setRubiksCube(RubiksCube *cube);
-void RubiksCube_rotateXLeft();
 int*** RubiksCube_getState();
+void RubiksCube_rotate(LetterNotation action, Degrees degrees);
 
 #ifdef __cplusplus
 }
