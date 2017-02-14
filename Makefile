@@ -47,7 +47,7 @@ GRAPHICSFLAGS = -lglut -lGL -lGLU
 # Flags for building shared library
 SHAREDFLAGS = -fpic -shared
 
-# Rubik's cube shared library flags
+# Flags for using shared library
 CUBELIBFLAGS = -Lbuild -lRubiksCube
 
 # All tests produced by this Makefile.  Remember to add new tests you
