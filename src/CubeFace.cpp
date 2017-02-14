@@ -1,7 +1,7 @@
 #include "CubeFace.h"
 #include <iostream>
 
-CubeFace::CubeFace(CubeFace::Color color): n_(3) {
+CubeFace::CubeFace(Color color): n_(3) {
 	face_ = new int*[n_];
 
 	for (int i=0; i < n_; i++) {

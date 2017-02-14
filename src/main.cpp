@@ -10,6 +10,7 @@ extern "C" {
 #include "Graphics.h"
 #include "RubiksCube.h"
 #include "Connector.h"
+#include "Enums.h"
 
 void printFace(int** face_) {
 	std::string out = "[\n";
@@ -37,31 +38,31 @@ void displayWrapper() {
 void specialKeys(int key, int x, int y) {
     switch (key) {
         case GLUT_KEY_F1:
-            cube->rotate(RubiksCube::L, CubeFace::Ninety);
+            cube->rotate(L, Ninety);
             break;
         case GLUT_KEY_F2:
-            cube->rotate(RubiksCube::R, CubeFace::Ninety);
+            cube->rotate(R, Ninety);
             break;
         case GLUT_KEY_F3:
-            cube->rotate(RubiksCube::U, CubeFace::Ninety);
+            cube->rotate(U, Ninety);
             break;
         case GLUT_KEY_F4:
-            cube->rotate(RubiksCube::D, CubeFace::Ninety);
+            cube->rotate(D, Ninety);
             break;
         case GLUT_KEY_F5:
-            cube->rotate(RubiksCube::F, CubeFace::Ninety);
+            cube->rotate(F, Ninety);
             break;
         case GLUT_KEY_F6:
-            cube->rotate(RubiksCube::B, CubeFace::Ninety);
+            cube->rotate(B, Ninety);
             break;
         case GLUT_KEY_F7:
-            cube->rotate(RubiksCube::M, CubeFace::Ninety);
+            cube->rotate(M, Ninety);
             break;
         case GLUT_KEY_F8:
-            cube->rotate(RubiksCube::E, CubeFace::Ninety);
+            cube->rotate(E, Ninety);
             break;
         case GLUT_KEY_F9:
-            cube->rotate(RubiksCube::S, CubeFace::Ninety);
+            cube->rotate(S, Ninety);
             break;
     }
 

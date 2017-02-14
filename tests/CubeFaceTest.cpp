@@ -102,7 +102,7 @@ TEST_F(FaceFixture, rotate_face_90) {
     expected[0] = expected[1] = expected[2] =
         new int[N] {CubeFace::White, CubeFace::Orange, CubeFace::Red};
 
-    testFace->rotateFaceClockwise(CubeFace::Ninety);
+    testFace->rotateFaceClockwise(Ninety);
     ASSERT_TRUE(facesEqual(expected, testFace->getFace()));
 }
 
@@ -112,7 +112,7 @@ TEST_F(FaceFixture, rotate_face_180) {
     expected[1] = new int[N] {CubeFace::Orange, CubeFace::Orange, CubeFace::Orange};
     expected[2] = new int[N] {CubeFace::Red, CubeFace::Red, CubeFace::Red};
 
-    testFace->rotateFaceClockwise(CubeFace::OneEighty);
+    testFace->rotateFaceClockwise(OneEighty);
     ASSERT_TRUE(facesEqual(expected, testFace->getFace()));
 }
 
@@ -121,6 +121,6 @@ TEST_F(FaceFixture, rotate_face_270) {
     expected[0] = expected[1] = expected[2] =
         new int[N] {CubeFace::Red, CubeFace::Orange, CubeFace::White};
 
-    testFace->rotateFaceClockwise(CubeFace::TwoSeventy);
+    testFace->rotateFaceClockwise(TwoSeventy);
     ASSERT_TRUE(facesEqual(expected, testFace->getFace()));
 }
