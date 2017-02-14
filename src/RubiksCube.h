@@ -8,22 +8,8 @@
 
     class RubiksCube {
     private:
-    	int n_;
-    	CubeFace xLeft_, xRight_, yTop_, yBottom_, zFront_, zBack_;
-
-        /**
-         * Reverse an array. Based on how the faces are indexed,
-         * sometimes we're not just setting a face's column to another
-         * face's row, we also have to reverse the column so that
-         * we don't end up with illegal faces/corner cubes.
-         *
-         * @param a the array to reverse
-         * @return the new reversed array
-         */
-        int* reverse(int* a);
-
-    public:
-    	RubiksCube();
+        int n_;
+        CubeFace xLeft_, xRight_, yTop_, yBottom_, zFront_, zBack_;
 
         /**
          * Performs rotation. Called from the public method rotate
@@ -43,35 +29,49 @@
         void rotateYSlice();
         void rotateZSlice();
 
-    	/**
-    	 * A simple struct that captures the randomized sequence
-    	 * of moves done by the scramble() method. Its parameters
-    	 * are 1. the rotation and 2. how many degrees of that rotation.
-    	 */
-    	struct Move {
-    		LetterNotation slice;
-    		Degrees degrees;
-    	};
+        /**
+         * Reverse an array. Based on how the faces are indexed,
+         * sometimes we're not just setting a face's column to another
+         * face's row, we also have to reverse the column so that
+         * we don't end up with illegal faces/corner cubes.
+         *
+         * @param a the array to reverse
+         * @return the new reversed array
+         */
+        int* reverse(int* a);
 
-    	/**
-    	 * Randomly generate moves and scramble the cube.
-    	 * @param n How many random moves.
-    	 * @return List of all moves.
-    	 */
-    	std::vector<Move> scramble(int n);
+    public:
+        RubiksCube();
+
+        /**
+         * A simple struct that captures the randomized sequence
+         * of moves done by the scramble() method. Its parameters
+         * are 1. the rotation and 2. how many degrees of that rotation.
+         */
+        struct Move {
+            LetterNotation slice;
+            Degrees degrees;
+        };
+
+        /**
+         * Randomly generate moves and scramble the cube.
+         * @param n How many random moves.
+         * @return List of all moves.
+         */
+        std::vector<Move> scramble(int n);
 
         /**
          * Perform a rotation.
          * @param action What rotation.
          * @param degrees How many degrees.
          */
-    	void rotate(LetterNotation action, Degrees degrees);
+        void rotate(LetterNotation action, Degrees degrees);
         void rotate(Move move);
 
-    	/**
-    	 * @return State of the cube as a 6x3x3 array.
-    	 */
-    	int*** getState();
+        /**
+         * @return State of the cube as a 6x3x3 array.
+         */
+        int*** getState();
     };
 #else
     typedef

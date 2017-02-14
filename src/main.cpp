@@ -13,19 +13,19 @@ extern "C" {
 #include "Enums.h"
 
 void printFace(int** face_) {
-	std::string out = "[\n";
+    std::string out = "[\n";
 
-	for (int i=0; i < 3; i++) {
-		out += "[";
-		for (int j=0; j < 2; j++) {
-			out += std::to_string(face_[i][j]) + ",";
-		}
-		out += std::to_string(face_[i][2]) + "]\n";
-	}
+    for (int i=0; i < 3; i++) {
+        out += "[";
+        for (int j=0; j < 2; j++) {
+            out += std::to_string(face_[i][j]) + ",";
+        }
+        out += std::to_string(face_[i][2]) + "]\n";
+    }
 
-	out.append("]");
+    out.append("]");
 
-	std::cout << out << std::endl;
+    std::cout << out << std::endl;
 }
 
 RubiksCube* cube = new RubiksCube();
@@ -76,7 +76,7 @@ void update() {
 int main(int argc, char **argv) {
     // TEST
     testing::InitGoogleTest(&argc, argv);
-    // RUN_ALL_TESTS();
+    RUN_ALL_TESTS();
 
     // LOGIC
     setRubiksCube(cube);
