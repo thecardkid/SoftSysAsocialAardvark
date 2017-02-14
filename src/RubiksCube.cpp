@@ -6,12 +6,12 @@
 // Faces as they appear at http://www.rubiksplace.com/move-notations/
 // 3x3 cube
 RubiksCube::RubiksCube(): n_(3),
-	xLeft_(CubeFace::Orange),
-	xRight_(CubeFace::Red),
-	yTop_(CubeFace::White),
-	yBottom_(CubeFace::Yellow),
-	zFront_(CubeFace::Green),
-	zBack_(CubeFace::Blue)
+	xLeft_(Orange),
+	xRight_(Red),
+	yTop_(White),
+	yBottom_(Yellow),
+	zFront_(Green),
+	zBack_(Blue)
 {}
 
 int*** RubiksCube::getState() {

@@ -22,12 +22,12 @@ int*** RubiksCube_getState() {
     return RubiksCube_instance->getState();
 }
 
-void RubiksCube_rotateXLeft() {
+void RubiksCube_rotate(LetterNotation action, Degrees degrees) {
     if (RubiksCube_instance == NULL) {
-        fprintf(stderr, "No cube defined");
-    } else {
-        RubiksCube_instance->rotateXLeft();
+        lazyRubiksCube();
     }
+
+    RubiksCube_instance->rotate(action, degrees);
 }
 
 #ifdef __cplusplus
