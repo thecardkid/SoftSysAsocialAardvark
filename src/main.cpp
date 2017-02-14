@@ -9,6 +9,7 @@ extern "C" {
 #include "CubeFace.h"
 #include "Graphics.h"
 #include "RubiksCube.h"
+#include "Connector.h"
 
 void printFace(int** face_) {
 	std::string out = "[\n";
@@ -67,10 +68,18 @@ void specialKeys(int key, int x, int y) {
     graphicsSpecialKeys(key, x, y);
 }
 
+void update() {
+    glutPostRedisplay();
+}
+
 int main(int argc, char **argv) {
     // TEST
     testing::InitGoogleTest(&argc, argv);
-    RUN_ALL_TESTS();
+    // RUN_ALL_TESTS();
+
+    // LOGIC
+    setRubiksCube(cube);
+    solve();
 
     // GRAPHICS
     initializeCubes();
@@ -78,13 +87,11 @@ int main(int argc, char **argv) {
     glutInitDisplayMode(GLUT_RGBA | GLUT_DEPTH | GLUT_DOUBLE);
     glutInitWindowSize(640, 480);
     glutCreateWindow("Rubik's Cube");
+    glutIdleFunc(update);
     glutDisplayFunc(displayWrapper);
     glutSpecialFunc(specialKeys);
     glEnable(GL_DEPTH_TEST);
     glutMainLoop();
-
-    // LOGIC
-    solve();
 
     return 0;
 }

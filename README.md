@@ -2,4 +2,4 @@
 Software Systems team
 
 ## To run:
-`./bin/run.sh`
+`make`
