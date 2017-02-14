@@ -25,6 +25,9 @@ TEST_DIR = tests
 # Where to find build objects
 BUILD_DIR = build
 
+# The working directory
+CURRENT_DIR = $(shell pwd)
+
 # Dependency header files
 DEP_HEADERS = $(USER_DIR)/*.h
 
@@ -41,6 +44,12 @@ CXXFLAGS += -g -Wall -Wextra -pthread
 # Graphics flags
 GRAPHICSFLAGS = -lglut -lGL -lGLU
 
+# Connector flags
+CONNECTORFLAGS = -fpic -shared
+
+# Rubik's cube shared library flags
+CUBEFLAGS = -Lbuild -lRubiksCube
+
 # All tests produced by this Makefile.  Remember to add new tests you
 # created to the list.
 RUN = $(BUILD_DIR)/main
@@ -53,6 +62,7 @@ GTEST_HEADERS = $(GTEST_DIR)/include/gtest/*.h \
 # Build targets.
 .PHONY: all
 all : $(RUN)
+	LD_LIBRARY_PATH=$(CURRENT_DIR)/build ./build/main
 
 .PHONY: clean
 clean :
@@ -79,20 +89,28 @@ $(BUILD_DIR)/gtest_main.a : gtest-all.o gtest_main.o
 OBJ = $(BUILD_DIR)/main.o \
 	  $(BUILD_DIR)/Graphics.o $(BUILD_DIR)/RubiksCube.o $(BUILD_DIR)/CubeFace.o \
 	  $(BUILD_DIR)/Logic.o \
-	  $(BUILD_DIR)/CubeFaceTest.o $(BUILD_DIR)/RubiksCubeTest.o
+	  $(BUILD_DIR)/CubeFaceTest.o $(BUILD_DIR)/RubiksCubeTest.o \
+	  $(BUILD_DIR)/Connector.so
 
 $(BUILD_DIR)/main : $(OBJ) gtest_main.a
-	$(CC) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@ $(GRAPHICSFLAGS)
+	$(CC) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@ $(GRAPHICSFLAGS) $(CUBEFLAGS)
 
 # Builds the dependency object files.
 $(BUILD_DIR)/main.o : $(USER_DIR)/main.cpp $(DEP_HEADERS) $(GTEST_HEADERS)
 	$(CC) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
 
+$(BUILD_DIR)/Logic.o : $(USER_DIR)/Logic.c $(USER_DIR)/Logic.h $(BUILD_DIR)/Connector.so
+	$(C) -c $< -o $@ $(CUBEFLAGS)
+
 $(BUILD_DIR)/%.o : $(USER_DIR)/%.cpp $(USER_DIR)/%.h
 	$(CC) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
 
-$(BUILD_DIR)/%.o : $(USER_DIR)/%.c $(USER_DIR)/%.h
-	$(C) -c $< -o $@
-
 $(BUILD_DIR)/%.o : $(TEST_DIR)/%.cpp $(DEP_HEADERS) $(GTEST_HEADERS)
 	$(CC) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
+
+# Builds the shared connector files
+$(BUILD_DIR)/libRubiksCube.so : $(USER_DIR)/RubiksCube.cpp
+	$(CC) $(CONNECTORFLAGS) $< -o $@
+
+$(BUILD_DIR)/Connector.so : $(USER_DIR)/Connector.cpp $(BUILD_DIR)/libRubiksCube.so
+	$(CC) $(CONNECTORFLAGS) $< -o $@ $(CUBEFLAGS)
