@@ -44,11 +44,11 @@ CXXFLAGS += -g -Wall -Wextra -pthread
 # Graphics flags
 GRAPHICSFLAGS = -lglut -lGL -lGLU
 
-# Connector flags
-CONNECTORFLAGS = -fpic -shared
+# Flags for building shared library
+SHAREDFLAGS = -fpic -shared
 
 # Rubik's cube shared library flags
-CUBEFLAGS = -Lbuild -lRubiksCube
+CUBELIBFLAGS = -Lbuild -lRubiksCube
 
 # All tests produced by this Makefile.  Remember to add new tests you
 # created to the list.
@@ -62,7 +62,7 @@ GTEST_HEADERS = $(GTEST_DIR)/include/gtest/*.h \
 # Build targets.
 .PHONY: all
 all : $(RUN)
-	LD_LIBRARY_PATH=$(CURRENT_DIR) ./build/main
+	LD_LIBRARY_PATH=$(CURRENT_DIR)/build ./build/main
 
 .PHONY: clean
 clean :
@@ -93,14 +93,14 @@ OBJ = $(BUILD_DIR)/main.o \
 	  $(BUILD_DIR)/Connector.so
 
 $(BUILD_DIR)/main : $(OBJ) gtest_main.a
-	$(CC) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@ $(GRAPHICSFLAGS) $(CUBEFLAGS)
+	$(CC) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@ $(GRAPHICSFLAGS) $(CUBELIBFLAGS)
 
 # Builds the dependency object files.
 $(BUILD_DIR)/main.o : $(USER_DIR)/main.cpp $(DEP_HEADERS) $(GTEST_HEADERS)
 	$(CC) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
 
 $(BUILD_DIR)/Logic.o : $(USER_DIR)/Logic.c $(USER_DIR)/Logic.h $(BUILD_DIR)/Connector.so
-	$(C) -c $< -o $@ $(CUBEFLAGS)
+	$(C) -c $< -o $@ $(CUBELIBFLAGS)
 
 $(BUILD_DIR)/%.o : $(USER_DIR)/%.cpp $(USER_DIR)/%.h
 	$(CC) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
@@ -110,7 +110,7 @@ $(BUILD_DIR)/%.o : $(TEST_DIR)/%.cpp $(DEP_HEADERS) $(GTEST_HEADERS)
 
 # Builds the shared connector files
 $(BUILD_DIR)/libRubiksCube.so : $(USER_DIR)/RubiksCube.cpp
-	$(CC) $(CONNECTORFLAGS) $< -o $@
+	$(CC) $(SHAREDFLAGS) $< -o $@
 
 $(BUILD_DIR)/Connector.so : $(USER_DIR)/Connector.cpp $(BUILD_DIR)/libRubiksCube.so
-	$(CC) $(CONNECTORFLAGS) $< -o $@ $(CUBEFLAGS)
+	$(CC) $(SHAREDFLAGS) $< -o $@ $(CUBELIBFLAGS)
