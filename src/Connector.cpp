@@ -26,7 +26,6 @@ void RubiksCube_rotate(LetterNotation action, Degrees degrees) {
     if (RubiksCube_instance == NULL) {
         lazyRubiksCube();
     }
-
     RubiksCube_instance->rotate(action, degrees);
 }
 

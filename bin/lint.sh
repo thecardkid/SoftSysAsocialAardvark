@@ -1,1 +1,1 @@
-cpplint ./src/*.cpp
+cpplint ./src/*.cpp && cpplint ./tests/*.cpp
