@@ -1,16 +1,18 @@
 #include "Thread.h"
-#include "dfs.h"
 
 void create_threads(int*** state, int max_depth) {
+  LetterNotation letter;
+  Degrees degree = Degrees.Ninety;
   pthread_t threads[NUM_THREADS];
   int rc;
   long t;
   for (t=0; t<NUM_THREADS; t++) {
     thread_struct *args = malloc(sizeof *args);
-    args->rotation = LetterNotation[t];
-    args->degrees = Degrees.Ninety;
-    args->state = state;
-    args->max_depth = max_depth;
+    letter = LetterNotation[t];
+    args->rotation = letter;
+    args->degrees = degree;
+    args->state = &state;
+    args->max_depth = &max_depth;
     rc = pthread_create(&threads[t], NULL, dfsSolve, args);
     if (rc) {
       free(args);

@@ -16,6 +16,7 @@
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include "dfs.h"
 #include "Enums.h"
 
 typedef struct {
