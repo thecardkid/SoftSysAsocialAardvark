@@ -97,9 +97,9 @@ void myKeyboardFunc(unsigned char key, int x, int y) {
 		case 'S':
 			cube->rotate(S, TwoSeventy);
 			break;
-        case 't':
-            createThread();
-            break;
+    case 't':
+      create_threads(cube->getState(), moves.size());
+      break;
 		default:
 			break;
 	}
