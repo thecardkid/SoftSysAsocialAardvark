@@ -99,9 +99,9 @@ void myKeyboardFunc(unsigned char key, int x, int y) {
 			break;
 		case 'q':
 			exit(0);
-        case 't':
-            createThread();
-            break;
+		case 't':
+			create_threads(cube->getState(), moves.size());
+			break;
 		default:
 			break;
 	}
