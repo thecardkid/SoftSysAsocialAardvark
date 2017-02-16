@@ -1,5 +1,6 @@
 extern "C" {
     #include "Logic.h"
+    #include "Thread.h"
 }
 
 #include <GL/glut.h>
@@ -94,6 +95,9 @@ void myKeyboardFunc(unsigned char key, int x, int y) {
 		case 'S':
 			cube->rotate(RubiksCube::S, CubeFace::TwoSeventy);
 			break;
+        case 't':
+            createThread();
+            break;
 		default:
 			break;
 	}
@@ -128,4 +132,3 @@ int main(int argc, char **argv) {
 
     return 0;
 }
-
