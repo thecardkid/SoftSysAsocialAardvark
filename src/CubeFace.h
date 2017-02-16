@@ -2,6 +2,7 @@
 #define SOFTSYS_ASOCIAL_AARDVARK_CUBEFACE_H
 
 #include <string>
+#include "Enums.h"
 
 class CubeFace {
 private:
@@ -36,9 +37,7 @@ private:
     bool isValidIndex(int i);
 
 public:
-    enum Color {Red, Blue, Orange, White, Yellow, Green};
-    enum Degrees {Ninety, OneEighty, TwoSeventy, LastDegree};
-    explicit CubeFace(CubeFace::Color color);
+    explicit CubeFace(Color color);
 
     /**
      * @return A copy of the cube face as a 3x3 array.
