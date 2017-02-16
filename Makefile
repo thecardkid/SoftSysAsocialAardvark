@@ -108,6 +108,12 @@ $(BUILD_DIR)/%.o : $(USER_DIR)/%.cpp $(USER_DIR)/%.h
 $(BUILD_DIR)/%.o : $(TEST_DIR)/%.cpp $(DEP_HEADERS) $(GTEST_HEADERS)
 	$(CC) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
 
+$(BUILD_DIR)/dfs.o : $(USER_DIR)/dfs.c $(DEP_HEADERS)
+	$(C) -c $< -o $@ $(CUBELIBFLAGS)
+
+$(BUILD_DIR)/Thread.o : $(USER_DIR)/Thread.c $(USER_DIR)/dfs.c $(DEP_HEADERS)
+	$(C) -c $< -o $@ $(CUBELIBFLAGS)
+
 # Builds the shared connector files
 $(BUILD_DIR)/libRubiksCube.so : $(USER_DIR)/RubiksCube.cpp
 	$(CC) $(SHAREDFLAGS) $< -o $@
