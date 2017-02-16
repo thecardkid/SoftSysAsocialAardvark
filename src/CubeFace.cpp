@@ -1,17 +1,17 @@
 #include "CubeFace.h"
 #include <iostream>
 
-CubeFace::CubeFace(CubeFace::Color color): n_(3) {
-	face_ = new int*[n_];
+CubeFace::CubeFace(Color color): n_(3) {
+    face_ = new int*[n_];
 
-	for (int i=0; i < n_; i++) {
+    for (int i=0; i < n_; i++) {
         face_[i] = new int[n_];
         std::fill_n(face_[i], n_, color);
-	}
+    }
 }
 
 void CubeFace::transposeFace() {
-	int temp;
+    int temp;
     for (int r=0; r <= n_-2; r++) {
         for (int c=r+1; c <= n_-1; c++) {
             temp = face_[r][c];
@@ -22,51 +22,51 @@ void CubeFace::transposeFace() {
 }
 
 void CubeFace::reverseRows() {
-	int temp;
-	for (int r=0; r < n_; r++) {
-		for (int c=0; c < n_/2; c++) {
-			temp = face_[r][c];
-			face_[r][c] = face_[r][n_-1-c];
-			face_[r][n_-1-c] = temp;
-		}
-	}
+    int temp;
+    for (int r=0; r < n_; r++) {
+        for (int c=0; c < n_/2; c++) {
+            temp = face_[r][c];
+            face_[r][c] = face_[r][n_-1-c];
+            face_[r][n_-1-c] = temp;
+        }
+    }
 }
 
 void CubeFace::reverseCols() {
-	int temp;
-	for (int c=0; c < n_; c++) {
-		for (int r=0; r < n_/2; r++) {
-			temp = face_[r][c];
-			face_[r][c] = face_[n_-1-r][c];
-			face_[n_-1-r][c] = temp;
-		}
-	}
+    int temp;
+    for (int c=0; c < n_; c++) {
+        for (int r=0; r < n_/2; r++) {
+            temp = face_[r][c];
+            face_[r][c] = face_[n_-1-r][c];
+            face_[n_-1-r][c] = temp;
+        }
+    }
 }
 
 void CubeFace::rotate90Clockwise() {
-	transposeFace();
-	reverseRows();
+    transposeFace();
+    reverseRows();
 }
 
 void CubeFace::rotate180() {
-	rotate90Clockwise();
-	rotate90Clockwise();
+    rotate90Clockwise();
+    rotate90Clockwise();
 }
 
 void CubeFace::rotate90Anticlockwise() {
-	transposeFace();
-	reverseCols();
+    transposeFace();
+    reverseCols();
 }
 
 int** CubeFace::getFace() {
     int** copyOfFace = new int*[n_];
-	for (int r=0; r < n_; r++) {
+    for (int r=0; r < n_; r++) {
         copyOfFace[r] = new int[n_];
         for (int c=0; c < n_; c++)
-			copyOfFace[r][c] = face_[r][c];
-	}
+            copyOfFace[r][c] = face_[r][c];
+    }
 
-	return copyOfFace;
+    return copyOfFace;
 }
 
 void CubeFace::rotateFaceClockwise(Degrees d) {
@@ -78,37 +78,37 @@ void CubeFace::rotateFaceClockwise(Degrees d) {
 }
 
 bool CubeFace::isValidIndex(int i) {
-	return (i < n_ && i >= 0);
+    return (i < n_ && i >= 0);
 }
 
 void CubeFace::setRow(int whichRow, int* row) {
-	if (isValidIndex(whichRow))
-		face_[whichRow] = row;
+    if (isValidIndex(whichRow))
+        face_[whichRow] = row;
 }
 
 int* CubeFace::getRow(int whichRow) {
     if (isValidIndex(whichRow)) {
-		int *copyOfRow = new int[n_];
-		for (int i=0; i < n_; i++) copyOfRow[i] = face_[whichRow][i];
-		return copyOfRow;
-	}
+        int *copyOfRow = new int[n_];
+        for (int i=0; i < n_; i++) copyOfRow[i] = face_[whichRow][i];
+        return copyOfRow;
+    }
 
-	return NULL;
+    return NULL;
 }
 
 void CubeFace::setCol(int whichCol, int *col) {
-	if (isValidIndex(whichCol)) {
-		for (int i=0; i < n_; i++)
-			face_[i][whichCol] = col[i];
-	}
+    if (isValidIndex(whichCol)) {
+        for (int i=0; i < n_; i++)
+            face_[i][whichCol] = col[i];
+    }
 }
 
 int* CubeFace::getCol(int whichCol) {
-	if (isValidIndex(whichCol)) {
-		int* copyOfCol = new int[n_];
-		for (int i=0; i < n_; i++) copyOfCol[i] = face_[i][whichCol];
-		return copyOfCol;
-	}
+    if (isValidIndex(whichCol)) {
+        int* copyOfCol = new int[n_];
+        for (int i=0; i < n_; i++) copyOfCol[i] = face_[i][whichCol];
+        return copyOfCol;
+    }
 
-	return NULL;
+    return NULL;
 }
