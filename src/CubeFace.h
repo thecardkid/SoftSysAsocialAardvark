@@ -38,6 +38,7 @@ private:
 
 public:
     explicit CubeFace(Color color);
+    explicit CubeFace(int** state);
 
     /**
      * @return A copy of the cube face as a 3x3 array.
