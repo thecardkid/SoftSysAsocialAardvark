@@ -201,6 +201,9 @@ void graphicsSpecialKeys(int key, int x, int y) {
         rotate_x += 5;
     } else if (key == GLUT_KEY_DOWN) {
         rotate_x -= 5;
+    } else if (key == GLUT_KEY_F1) {
+        rotate_x = 0;
+        rotate_y = 0;
     }
     glutPostRedisplay();
 }
