@@ -16,4 +16,11 @@ typedef enum {Ninety, OneEighty, TwoSeventy, LastDegree} Degrees;
 
 enum Color {Red, Blue, Orange, White, Yellow, Green};
 
+typedef struct {
+  LetterNotation rotation;
+  Degrees degrees;
+  int*** state;
+  int max_depth;
+} thread_struct;
+
 #endif

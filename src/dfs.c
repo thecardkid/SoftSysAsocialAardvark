@@ -10,7 +10,7 @@ int*** solution;
 // TO DO: define solution
 
 /*
-Recursive solution. 
+Recursive solution.
 */
 
 char* dfsSolve(void* args) {
@@ -28,7 +28,7 @@ char* dfsSolve(void* args) {
 
 char* dfsSolveHelper(char* moves, int depth, int n) {
 	/* Recursively checks whether you can get from the current state to the solved state
-	in N turns. Returns a char array of length 20 containing "None" if this is impossible. 
+	in N turns. Returns a char array of length 20 containing "None" if this is impossible.
 	Returns a char array of length 20 containing the moves (in char format) to solve the cube.*/
 
 	int*** state = RubiksCube_getState();
@@ -44,8 +44,8 @@ char* dfsSolveHelper(char* moves, int depth, int n) {
 
 	int i;
 	for (i = 0; i < 9; i++) {
-		/* Loop through the movements and try each one. This 
-		   would be a lot nicer with enums? 
+		/* Loop through the movements and try each one. This
+		   would be a lot nicer with enums?
 		   Also keep track of the reverse movement for recursive
 		   backtracking. */
 
@@ -107,7 +107,7 @@ char* dfsSolveHelper(char* moves, int depth, int n) {
 
 int equalStates(int*** state) {
 	/* If state 3D-matrices differ at any value, return false.
-	I'm not entirely sure this is the right way to compare pointer 
+	I'm not entirely sure this is the right way to compare pointer
 	matrices in C. */
 	int i, j, k;
 	for (i = 0; i < 6; i++) {
@@ -120,4 +120,14 @@ int equalStates(int*** state) {
 		}
 	}
 	return 1;
+<<<<<<< HEAD
 }
+=======
+}
+
+void rotate(int*** state, char movement) {
+	// TO DO:
+	// Implement rotations. I think we've already done this in C++
+	// and can easily translate?
+}
+>>>>>>> 3255f84... EDIT: threads workinggit diff HEAD~1
