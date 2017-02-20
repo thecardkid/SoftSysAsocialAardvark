@@ -131,7 +131,8 @@ std::vector<RubiksCube::Move> RubiksCube::scramble(int n) {
     for (int i=0; i < n; i++) {
         Move m;
         m.slice = static_cast<LetterNotation>(rand() % LastRotation);
-        m.degrees = static_cast<Degrees>(rand() % LastDegree);
+        // m.degrees = static_cast<Degrees>(rand() % LastDegree);
+        m.degrees = TwoSeventy;
         moves.push_back(m);
         rotate(m.slice, m.degrees);
     }

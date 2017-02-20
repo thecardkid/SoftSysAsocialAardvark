@@ -15,28 +15,33 @@ LetterNotation convertIntToRotation(int x) {
 }
 
 void create_threads(int*** state, int max_depth) {
-  LetterNotation letter;
-  Degrees degree = Ninety;
-  pthread_t threads[NUM_THREADS];
-  int rc;
-  long t;
+	Degrees degree = Ninety;
+	pthread_t threads[NUM_THREADS];
 
-  printf("About to enter for loop");
-  for (t=0; t<NUM_THREADS; t++) {
-    thread_struct *args = malloc(sizeof *args);
-    letter = convertIntToRotation(t);
-    args->rotation = letter;
-    args->degrees = degree;
-    args->state = &state;
-    args->max_depth = &max_depth;
-    printf("About to create thread #%d", t);
-    rc = pthread_create(&threads[t], NULL, dfsSolve, args);
-    printf("Created thread #%d", t);
-    if (rc) {
-      free(args);
-      fprintf(stderr, "%s\n", "Thread creation failed");
-      exit(-1);
-    }
-  }
-  pthread_exit(NULL);
+	int copy_of_state[6][3][3];
+	size_t destination_size = sizeof (copy_of_state);
+
+	printf("%d\n", copy_of_state[5][2][2]);
+	strncpy(copy_of_state, state, destination_size);
+
+	int rc;
+	long t;
+
+	for (t=0; t<NUM_THREADS; t++) {
+		thread_struct *args = malloc(sizeof *args);
+		args->rotation = convertIntToRotation(t);
+		args->degrees = degree;
+		args->state = copy_of_state;
+		args->max_depth = max_depth;
+		rc = pthread_create(&threads[t], NULL, dfsSolve, args);
+		if (rc) {
+			free(args);
+			fprintf(stderr, "%s\n", "Thread creation failed");
+			exit(-1);
+		}
+	}
+
+	for (t=0; t<NUM_THREADS; t++) {
+		pthread_join(threads[t], NULL);
+	}
 }
