@@ -2,16 +2,20 @@
 #include <stdlib.h>
 
 #include "dfs.h"
-//#include "stack.h"
-
 
 /*
 Recursive solution.
 */
 
-char* dfsSolve(thread_struct args) {
-	/* Returns char array of length 20 containing the moves to return to solved state. */
+/**
+ * @param args is the struct passed in by the calling function in Thread.c (check what it contains by looking in Enums.h). The args input is cast to a thread_struct type so we can access its attributes. This struct needs to be freed before the function returns
+ * @return array of length 20 contain the moves to solve cube
+ */
+char* dfsSolve(void* args) {
+	thread_struct *actual_args = args;
 	char moves[20]; // will store list of moves
+
+	free(actual_args);
 	return 'a';
 	// return dfsSolveHelper(state, solution, moves, depth, 0);
 }

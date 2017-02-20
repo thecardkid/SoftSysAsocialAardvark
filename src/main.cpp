@@ -40,8 +40,7 @@ void displayWrapper() {
 void myKeyboardFunc(unsigned char key, int x, int y) {
 	switch (key) {
 		case 'x':
-			std::cout << "C++ " << moves.at(0).slice << std::endl;
-			solve();
+			moves = cube->scramble(8);
 			break;
 		case 'l':
 			cube->rotate(L, Ninety);
@@ -98,7 +97,6 @@ void myKeyboardFunc(unsigned char key, int x, int y) {
 			cube->rotate(S, TwoSeventy);
 			break;
         case 't':
-            printf("Entering C code");
             create_threads(cube->getState(), moves.size());
             break;
 		default:
