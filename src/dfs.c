@@ -2,29 +2,42 @@
 #include <stdlib.h>
 
 #include "dfs.h"
+#include "Connector.h"
+#include "Enums.h"
 //#include "stack.h"
 
+int*** solution;
+// TO DO: define solution
 
 /*
 Recursive solution. 
 */
 
-char* dfsSolve(int*** state, int*** solution, int depth) {
-	/* Returns char array of length 20 containing the moves to return to solved state. */
-	char moves[20]; // will store list of moves 
-	return dfsSolveHelper(state, solution, moves, depth, 0);
+char* dfsSolve(void* args) {
+	thread_struct *actual_args = args;
+	char moves[20]; // will store list of moves
+
+	lazyRubiksCube(args.state);
+	RubiksCube_rotate(args.rotation, args.degrees);
+
+	dfsSolveHelper(moves, args.max_depth, 0);
+
+	free(actual_args);
+	return moves;
 }
 
-char* dfsSolveHelper(int*** state, int*** solution, char* moves, int depth, int n) {
+char* dfsSolveHelper(char* moves, int depth, int n) {
 	/* Recursively checks whether you can get from the current state to the solved state
 	in N turns. Returns a char array of length 20 containing "None" if this is impossible. 
 	Returns a char array of length 20 containing the moves (in char format) to solve the cube.*/
+
+	int*** state = RubiksCube_getState();
 
 	if (depth > n) {
 		// Base case, don't look deeper
 		return "None";
 	}
-	if (equalStates(state, solution)) {
+	if (equalStates(state)) {
 		// If cube is solved
 		return moves;
 	}
@@ -36,41 +49,63 @@ char* dfsSolveHelper(int*** state, int*** solution, char* moves, int depth, int 
 		   Also keep track of the reverse movement for recursive
 		   backtracking. */
 
-		char movement;
-		char reverse_movement;
+		LetterNotation movement;
+		char movement_c;
 
 		switch (i) {
 			case 0: 
-				movement = 'U';
-				// will need change the name of these to something more logical
-				reverse_movement = 'I';
+				movement = U;
+				movement_c = 'U';
 				break;
 			case 1:
-				movement = 'F';
-				reverse_movement = 'K';
+				movement = L;
+				movement_c = 'L';
 				break;
 			case 2:
-				movement = 'D';
-				reverse_movement = 'J';
+				movement = F;
+				movement_c = 'F';
 				break;
-			/// fill in rest....
+			case 3: 
+				movement = R;
+				movement_c = 'R';
+				break;
+			case 4:
+				movement = B;
+				movement_c = 'B';
+				break;
+			case 5:
+				movement = D;
+				movement_c = 'D';
+				break;
+			case 6: 
+				movement = M;
+				movement_c = 'M';
+				break;
+			case 7:
+				movement = E;
+				movement_c = 'E';
+				break;
+			case 8:
+				movement = S;
+				movement_c = 'S';
+				break;
 		}
 
-		rotate(state, movement);
+		RubiksCube_rotate(movement, Ninety);
 		
-		moves[n] = movement;
-		moves = dfsSolveHelper(state, solution, moves, depth + 1, n);
+		moves[n] = movement_c;
+		moves = dfsSolveHelper(moves, depth + 1, n);
 
 		// If we find a solution, we're done.
 		if (moves != "None") return moves;
 
 		// Turn the cube back. Recursive backtracking.
-		rotate(state, reverse_movement);
+		RubiksCube_rotate(movement, TwoSeventy);
 	}
 	return "None";
 }
 
-int equalStates(int*** state, int*** solution) {
+int equalStates(int*** state) {
 	/* If state 3D-matrices differ at any value, return false.
 	I'm not entirely sure this is the right way to compare pointer 
 	matrices in C. */
@@ -85,10 +120,4 @@ int equalStates(int*** state, int*** solution) {
 		}
 	}
 	return 1;
-}
-
-void rotate(int*** state, char movement) {
-	// TO DO: 
-	// Implement rotations. I think we've already done this in C++ 
-	// and can easily translate?
 }
