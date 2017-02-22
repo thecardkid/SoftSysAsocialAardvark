@@ -4,15 +4,18 @@
 #include "dfs.h"
 #include "Connector.h"
 #include "Enums.h"
-//#include "stack.h"
 
 int*** solution;
 // TO DO: define solution
 
 /*
-Recursive solution. 
+Recursive solution.
 */
 
+/**
+ * @param args is the struct passed in by the calling function in Thread.c (check what it contains by looking in Enums.h). The args input is cast to a thread_struct type so we can access its attributes. This struct needs to be freed before the function returns
+ * @return array of length 20 contain the moves to solve cube
+ */
 char* dfsSolve(void* args) {
 	thread_struct *actual_args = args;
 	char moves[20]; // will store list of moves
@@ -28,7 +31,7 @@ char* dfsSolve(void* args) {
 
 char* dfsSolveHelper(char* moves, int depth, int n) {
 	/* Recursively checks whether you can get from the current state to the solved state
-	in N turns. Returns a char array of length 20 containing "None" if this is impossible. 
+	in N turns. Returns a char array of length 20 containing "None" if this is impossible.
 	Returns a char array of length 20 containing the moves (in char format) to solve the cube.*/
 
 	int*** state = RubiksCube_getState();
@@ -44,8 +47,8 @@ char* dfsSolveHelper(char* moves, int depth, int n) {
 
 	int i;
 	for (i = 0; i < 9; i++) {
-		/* Loop through the movements and try each one. This 
-		   would be a lot nicer with enums? 
+		/* Loop through the movements and try each one. This
+		   would be a lot nicer with enums?
 		   Also keep track of the reverse movement for recursive
 		   backtracking. */
 
@@ -107,7 +110,7 @@ char* dfsSolveHelper(char* moves, int depth, int n) {
 
 int equalStates(int*** state) {
 	/* If state 3D-matrices differ at any value, return false.
-	I'm not entirely sure this is the right way to compare pointer 
+	I'm not entirely sure this is the right way to compare pointer
 	matrices in C. */
 	int i, j, k;
 	for (i = 0; i < 6; i++) {

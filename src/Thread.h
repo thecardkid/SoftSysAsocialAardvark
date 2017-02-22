@@ -16,15 +16,10 @@
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include "dfs.h"
 #include "Enums.h"
 
-typedef struct {
-  LetterNotation rotation;
-  Degrees degrees;
-  int*** state;
-  int max_depth;
-} thread_struct;
-
 void create_threads(int*** state, int max_depth);
+LetterNotation convertIntToRotation(int x);
 
 #endif
