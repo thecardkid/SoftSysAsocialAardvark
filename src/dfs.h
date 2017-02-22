@@ -1,11 +1,8 @@
 #ifndef SOFTSYS_ASOCIAL_AARDVARK_DFS_H
 #define SOFTSYS_ASOCIAL_AARDVARK_DFS_H
 
-#include "Enums.h"
-
 char* dfsSolve(void* args);
-char* dfsSolveHelper(int*** state, int*** solution, char* moves, int depth, int n);
-int equalStates(int*** state, int*** solution);
-void rotate(int*** state, char movement);
+char* dfsSolveHelper(char* moves, int depth, int n);
+int equalStates(int*** state);
 
 #endif
