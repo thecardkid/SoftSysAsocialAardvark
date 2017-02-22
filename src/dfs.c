@@ -16,14 +16,15 @@ Recursive solution.
  * @param args is the struct passed in by the calling function in Thread.c (check what it contains by looking in Enums.h). The args input is cast to a thread_struct type so we can access its attributes. This struct needs to be freed before the function returns
  * @return array of length 20 contain the moves to solve cube
  */
+
 char* dfsSolve(void* args) {
 	thread_struct *actual_args = args;
 	char moves[20]; // will store list of moves
 
-	lazyRubiksCube(args.state);
-	RubiksCube_rotate(args.rotation, args.degrees);
+	new_rubiks_cube_with_state(actual_args->state);
+	rubiks_cube_rotate(actual_args->rotation, actual_args->degrees);
 
-	dfsSolveHelper(moves, args.max_depth, 0);
+	dfsSolveHelper(moves, actual_args->max_depth, 0);
 
 	free(actual_args);
 	return moves;
@@ -34,7 +35,7 @@ char* dfsSolveHelper(char* moves, int depth, int n) {
 	in N turns. Returns a char array of length 20 containing "None" if this is impossible.
 	Returns a char array of length 20 containing the moves (in char format) to solve the cube.*/
 
-	int*** state = RubiksCube_getState();
+	int*** state = rubiks_cube_get_state();
 
 	if (depth > n) {
 		// Base case, don't look deeper
@@ -94,7 +95,7 @@ char* dfsSolveHelper(char* moves, int depth, int n) {
 				break;
 		}
 
-		RubiksCube_rotate(movement, Ninety);
+		rubiks_cube_rotate(movement, Ninety);
 		
 		moves[n] = movement_c;
 		moves = dfsSolveHelper(moves, depth + 1, n);
@@ -103,7 +104,8 @@ char* dfsSolveHelper(char* moves, int depth, int n) {
 		if (moves != "None") return moves;
 
 		// Turn the cube back. Recursive backtracking.
-		RubiksCube_rotate(movement, TwoSeventy);
+		moves[n] = '-';
+		rubiks_cube_rotate(movement, TwoSeventy);
 	}
 	return "None";
 }
