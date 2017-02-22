@@ -28,34 +28,7 @@ void printFace(int** face_) {
     std::cout << out << std::endl;
 }
 
-// Proof-of-concept that it's possible to set cube state
-// TODO remove before PR
-int*** makeTestState() {
-    int*** state = new int**[6];
-    int** sampleFace = new int*[3];
-    int* sampleRow = new int[3];
-
-    sampleRow[0] = 0;
-    sampleRow[1] = 1;
-    sampleRow[2] = 2;
-
-    sampleFace[0] = sampleRow;
-    sampleFace[1] = sampleRow;
-    sampleFace[2] = sampleRow;
-
-    state[0] = sampleFace;
-    state[1] = sampleFace;
-    state[2] = sampleFace;
-    state[3] = sampleFace;
-    state[4] = sampleFace;
-    state[5] = sampleFace;
-
-    return state;
-}
-
-int*** state = makeTestState();
-// RubiksCube* cube = new RubiksCube();
-RubiksCube* cube = new RubiksCube(state);
+RubiksCube* cube = new RubiksCube();
 std::vector<RubiksCube::Move> moves;
 
 void displayWrapper() {
