@@ -8,9 +8,11 @@
 extern "C" {
 #endif
 
-void setRubiksCube(RubiksCube *cube);
-int*** RubiksCube_getState();
-void RubiksCube_rotate(LetterNotation action, Degrees degrees);
+void use_rubiks_cube(RubiksCube *cube);
+void new_rubiks_cube_with_state(int*** state);
+void new_rubiks_cube_default_state();
+int*** rubiks_cube_get_state();
+void rubiks_cube_rotate(LetterNotation action, Degrees degrees);
 
 #ifdef __cplusplus
 }
