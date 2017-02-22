@@ -14,6 +14,16 @@ RubiksCube::RubiksCube(): n_(3),
     zBack_(Blue)
 {}
 
+RubiksCube::RubiksCube(int*** state): n_(3),
+    xLeft_(state[0]),
+    xRight_(state[1]),
+    yTop_(state[2]),
+    yBottom_(state[3]),
+    zFront_(state[4]),
+    zBack_(state[5])
+{}
+
+
 int*** RubiksCube::getState() {
     int*** state = new int**[6];
     state[0] = xLeft_.getFace();
