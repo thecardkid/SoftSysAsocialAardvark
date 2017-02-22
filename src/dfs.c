@@ -19,33 +19,46 @@ Recursive solution.
 
 char* dfsSolve(void* args) {
 	thread_struct *actual_args = args;
-	char moves[20]; // will store list of moves
+	char moves[20] = "--------------------"; // will store list of moves
+
+	new_rubiks_cube_default_state();
+	solution = rubiks_cube_get_state();
 
 	new_rubiks_cube_with_state(actual_args->state);
 	rubiks_cube_rotate(actual_args->rotation, actual_args->degrees);
 
-	dfsSolveHelper(moves, actual_args->max_depth, 0);
+	printf("Running DFS...%d\n", actual_args->rotation);
+
+	dfsSolveHelper(moves, 0, 5); /// <---- error
 
 	free(actual_args);
 
-	printf("Solution: %s", moves[20]);
+	printf("Solution: %s\n", moves);
 	return moves;
 }
 
-char* dfsSolveHelper(char* moves, int depth, int n) {
+void dfsSolveHelper(char* moves, int depth, int max_depth) {
 	/* Recursively checks whether you can get from the current state to the solved state
 	in N turns. Returns a char array of length 20 containing "None" if this is impossible.
 	Returns a char array of length 20 containing the moves (in char format) to solve the cube.*/
 
 	int*** state = rubiks_cube_get_state();
 
-	if (depth > n) {
+	if (depth == max_depth) {
+		//printState(state);
 		// Base case, don't look deeper
-		return "None";
+		return;
 	}
 	if (equalStates(state)) {
 		// If cube is solved
-		return moves;
+		printf("Solved!\n");
+		
+		int l;
+		for (l = 0; l < 20; l++) {
+			printf("%c", moves[l]);
+		}
+		printf("%n");
+		return;
 	}
 
 	int i;
@@ -54,7 +67,6 @@ char* dfsSolveHelper(char* moves, int depth, int n) {
 		   would be a lot nicer with enums?
 		   Also keep track of the reverse movement for recursive
 		   backtracking. */
-
 		LetterNotation movement;
 		char movement_c;
 
@@ -97,19 +109,21 @@ char* dfsSolveHelper(char* moves, int depth, int n) {
 				break;
 		}
 
+		//printf("rotation: %d\n", movement);
+
+
 		rubiks_cube_rotate(movement, Ninety);
 		
-		moves[n] = movement_c;
-		moves = dfsSolveHelper(moves, depth + 1, n);
+		moves[depth] = movement_c;
+		dfsSolveHelper(moves, depth + 1, max_depth);
 
 		// If we find a solution, we're done.
-		if (moves != "None") return moves;
+		//if (moves != "None") return moves;
 
 		// Turn the cube back. Recursive backtracking.
-		moves[n] = '-';
+		moves[depth] = '-';
 		rubiks_cube_rotate(movement, TwoSeventy);
 	}
-	return "None";
 }
 
 int equalStates(int*** state) {
@@ -127,4 +141,19 @@ int equalStates(int*** state) {
 		}
 	}
 	return 1;
+}
+
+void printState(int*** state) {
+	printf("Printing state... \n");
+	int i, j, k;
+	for (i = 0; i < 6; i++) {
+		for (j = 0; j < 3; j++) {
+			for (k = 0; k < 3; k++) {
+				printf("%d,", state[i][j][k]);
+			}
+			printf("\n");;
+		}
+		printf("\n\n");
+	}
+	printf("\n\n\n");
 }
