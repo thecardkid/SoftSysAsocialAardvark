@@ -42,6 +42,7 @@
 
     public:
         RubiksCube();
+        RubiksCube(int*** state);
 
         /**
          * A simple struct that captures the randomized sequence

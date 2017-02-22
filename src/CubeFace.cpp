@@ -10,6 +10,10 @@ CubeFace::CubeFace(Color color): n_(3) {
     }
 }
 
+CubeFace::CubeFace(int** state): n_(3) {
+    face_ = state;
+}
+
 void CubeFace::transposeFace() {
     int temp;
     for (int r=0; r <= n_-2; r++) {
