@@ -27,6 +27,8 @@ char* dfsSolve(void* args) {
 	dfsSolveHelper(moves, actual_args->max_depth, 0);
 
 	free(actual_args);
+
+	printf("Solution: %s", moves[20]);
 	return moves;
 }
 
