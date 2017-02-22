@@ -96,6 +96,9 @@ void myKeyboardFunc(unsigned char key, int x, int y) {
 		case 'S':
 			cube->rotate(S, TwoSeventy);
 			break;
+		case 'q':
+			exit(0);
+			break;
 		default:
 			break;
 	}
