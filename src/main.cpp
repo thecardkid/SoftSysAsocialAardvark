@@ -113,7 +113,7 @@ int main(int argc, char **argv) {
     RUN_ALL_TESTS();
 
     // LOGIC
-    useRubiksCube(cube);
+    use_rubiks_cube(cube);
     solve();
 
     // GRAPHICS

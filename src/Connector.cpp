@@ -6,15 +6,15 @@
 extern "C" {
 #endif
 
-static RubiksCube *RubiksCube_instance = NULL;
+static RubiksCube *instance = NULL;
 
 /*
- * Sets RubiksCube_instance to an existing RubiksCube
+ * Sets instance to an existing RubiksCube
  * Use this method if you want to use C to manipulate the RubiksCube which
  * connects to graphics & is instantiated with C++
  */
-void useRubiksCube(RubiksCube *cube) {
-    RubiksCube_instance = cube;
+void use_rubiks_cube(RubiksCube *cube) {
+    instance = cube;
 }
 
 /*
@@ -23,27 +23,27 @@ void useRubiksCube(RubiksCube *cube) {
  * the purpose of a solving algorithm -- without leaving C and without
  * interfacing with the graphics
  */
-void newRubiksCubeWithState(int*** state) {
-    RubiksCube_instance = new RubiksCube(state);
+void new_rubiks_cube_with_state(int*** state) {
+    instance = new RubiksCube(state);
 }
 
 /*
  * Works the same way as newRubiksCube (sets up a new, graphics-less RubiksCube
  * instance) but in the default state, not a specified one
  */
-void newRubiksCubeDefaultState() {
-    RubiksCube_instance = new RubiksCube();
+void new_rubiks_cube_default_state() {
+    instance = new RubiksCube();
 }
 
-int*** RubiksCube_getState() {
-    return RubiksCube_instance->getState();
+int*** rubiks_cube_get_state() {
+    return instance->getState();
 }
 
-void RubiksCube_rotate(LetterNotation action, Degrees degrees) {
-    if (RubiksCube_instance == NULL) {
-        newRubiksCubeDefaultState();
+void rubiks_cube_rotate(LetterNotation action, Degrees degrees) {
+    if (instance == NULL) {
+        new_rubiks_cube_default_state();
     }
-    RubiksCube_instance->rotate(action, degrees);
+    instance->rotate(action, degrees);
 }
 
 #ifdef __cplusplus
