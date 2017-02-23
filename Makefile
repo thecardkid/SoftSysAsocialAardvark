@@ -50,8 +50,7 @@ SHAREDFLAGS = -fpic -shared
 # Flags for using shared library
 CUBELIBFLAGS = -Lbuild -lRubiksCube
 
-# All tests produced by this Makefile.  Remember to add new tests you
-# created to the list.
+# The Makefile's run command
 RUN = $(BUILD_DIR)/main
 
 # All Google Test headers.  Usually you shouldn't change this
@@ -87,9 +86,9 @@ $(BUILD_DIR)/gtest_main.a : gtest-all.o gtest_main.o
 
 # Builds the main file.
 OBJ = $(BUILD_DIR)/main.o \
-	  $(BUILD_DIR)/Graphics.o $(BUILD_DIR)/RubiksCube.o $(BUILD_DIR)/CubeFace.o \
+	  $(BUILD_DIR)/Graphics.o $(BUILD_DIR)/RubiksCube.o $(BUILD_DIR)/CubeFace.o $(BUILD_DIR)/Utils.o \
 	  $(BUILD_DIR)/Logic.o \
-	  $(BUILD_DIR)/CubeFaceTest.o $(BUILD_DIR)/RubiksCubeTest.o \
+	  $(BUILD_DIR)/CubeFaceTest.o $(BUILD_DIR)/RubiksCubeTest.o $(BUILD_DIR)/ConnectorTest.o \
 	  $(BUILD_DIR)/Connector.so
 
 $(BUILD_DIR)/main : $(OBJ) gtest_main.a
