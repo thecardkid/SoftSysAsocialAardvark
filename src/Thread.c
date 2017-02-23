@@ -1,6 +1,9 @@
 #include "Thread.h"
 
-LetterNotation convertIntToRotation(int x) {
+int max_dfs_depth;
+int*** scrambled_state;
+
+LetterNotation convert_int_to_rotation(int x) {
     switch (x) {
         case 0: return U;
         case 1: return L;
@@ -14,8 +17,16 @@ LetterNotation convertIntToRotation(int x) {
     }
 }
 
+thread_struct *create_args(int t) {
+	thread_struct *args = malloc(sizeof *args);
+	args->rotation = convert_int_to_rotation(t);
+	args->degrees = Ninety;
+	args->state = scrambled_state;
+	args->max_depth = max_dfs_depth;
+	return args;
+}
+
 void create_threads(int*** state, int max_depth) {
-	Degrees degree = Ninety;
 	pthread_t threads[NUM_THREADS];
 
 	int copy_of_state[6][3][3];
@@ -26,13 +37,10 @@ void create_threads(int*** state, int max_depth) {
 
 	int rc;
 	long t;
+	thread_struct *args;
 
 	for (t=0; t<NUM_THREADS; t++) {
-		thread_struct *args = malloc(sizeof *args);
-		args->rotation = convertIntToRotation(t);
-		args->degrees = degree;
-		args->state = copy_of_state;
-		args->max_depth = max_depth;
+		args = create_args(t);
 		rc = pthread_create(&threads[t], NULL, dfsSolve, args);
 		if (rc) {
 			free(args);
@@ -43,5 +51,7 @@ void create_threads(int*** state, int max_depth) {
 
 	for (t=0; t<NUM_THREADS; t++) {
 		pthread_join(threads[t], NULL);
+		free(args);
 	}
 }
+
