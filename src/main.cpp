@@ -40,7 +40,7 @@ void displayWrapper() {
 void myKeyboardFunc(unsigned char key, int x, int y) {
 	switch (key) {
 		case 'x':
-			moves = cube->scramble(8);
+			moves = cube->scramble(2);
 			break;
 		case 'l':
 			cube->rotate(L, Ninety);
@@ -97,6 +97,9 @@ void myKeyboardFunc(unsigned char key, int x, int y) {
 			cube->rotate(S, TwoSeventy);
 			break;
         case 't':
+        	for (int i=0; i<6; i++) {
+        		printFace(cube->getState()[i]);
+        	}
             create_threads(cube->getState(), moves.size());
             break;
 		default:

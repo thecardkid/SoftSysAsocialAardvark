@@ -17,19 +17,25 @@ Recursive solution.
  * @return array of length 20 contain the moves to solve cube
  */
 
+
+
 char* dfsSolve(void* args) {
+
 	thread_struct *actual_args = args;
 	char moves[20] = "--------------------"; // will store list of moves
 
-	new_rubiks_cube_default_state();
-	solution = rubiks_cube_get_state();
+	solution = get_default_state();
 
-	new_rubiks_cube_with_state(actual_args->state);
-	rubiks_cube_rotate(actual_args->rotation, actual_args->degrees);
+	int*** state;
+	state = rubiks_cube_rotate(actual_args->state, actual_args->rotation, actual_args->degrees);
+
+	if (actual_args->rotation == 1) {
+		printState(state);
+	}
 
 	printf("Running DFS...%d\n", actual_args->rotation);
 
-	dfsSolveHelper(moves, 0, 5); /// <---- error
+	dfsSolveHelper(state, moves, 1, actual_args->max_depth, actual_args->rotation); 
 
 	free(actual_args);
 
@@ -37,18 +43,16 @@ char* dfsSolve(void* args) {
 	return moves;
 }
 
-void dfsSolveHelper(char* moves, int depth, int max_depth) {
+void dfsSolveHelper(int*** state, char* moves, int depth, int max_depth, int id) {
 	/* Recursively checks whether you can get from the current state to the solved state
 	in N turns. Returns a char array of length 20 containing "None" if this is impossible.
 	Returns a char array of length 20 containing the moves (in char format) to solve the cube.*/
 
-	int*** state = rubiks_cube_get_state();
 
-	if (depth == max_depth) {
-		//printState(state);
-		// Base case, don't look deeper
-		return;
+	if (id == 1 && moves[1] == 'M') {
+		printf("LM\n");
 	}
+
 	if (equalStates(state)) {
 		// If cube is solved
 		printf("Solved!\n");
@@ -58,6 +62,12 @@ void dfsSolveHelper(char* moves, int depth, int max_depth) {
 			printf("%c", moves[l]);
 		}
 		printf("%n");
+		return;
+	}
+
+	if (depth == max_depth) {
+		// Base case, don't look deeper
+		//printState(state);
 		return;
 	}
 
@@ -109,20 +119,16 @@ void dfsSolveHelper(char* moves, int depth, int max_depth) {
 				break;
 		}
 
-		//printf("rotation: %d\n", movement);
+		// printf("thread: %d, move: %c\n", id, movement_c);
+		state = rubiks_cube_rotate(state, movement, Ninety);
 
-
-		rubiks_cube_rotate(movement, Ninety);
-		
 		moves[depth] = movement_c;
-		dfsSolveHelper(moves, depth + 1, max_depth);
+		dfsSolveHelper(state, moves, depth + 1, max_depth, id);
 
-		// If we find a solution, we're done.
-		//if (moves != "None") return moves;
 
 		// Turn the cube back. Recursive backtracking.
 		moves[depth] = '-';
-		rubiks_cube_rotate(movement, TwoSeventy);
+		state = rubiks_cube_rotate(state, movement, TwoSeventy);
 	}
 }
 

@@ -17,6 +17,13 @@ LetterNotation convertIntToRotation(int x) {
 void create_threads(int*** state, int max_depth) {
 	Degrees degree = Ninety;
 	pthread_t threads[NUM_THREADS];
+
+	int copy_of_state[6][3][3];
+	size_t destination_size = sizeof (copy_of_state);
+
+	printf("%d\n", copy_of_state[5][2][2]);
+	strncpy(copy_of_state, state, destination_size);
+
 	int rc;
 	long t;
 
@@ -24,7 +31,7 @@ void create_threads(int*** state, int max_depth) {
 		thread_struct *args = malloc(sizeof *args);
 		args->rotation = convertIntToRotation(t);
 		args->degrees = degree;
-		args->state = state;
+		args->state = copy_of_state;
 		args->max_depth = max_depth;
 		rc = pthread_create(&threads[t], NULL, dfsSolve, args);
 		if (rc) {
