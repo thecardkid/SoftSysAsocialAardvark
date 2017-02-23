@@ -104,6 +104,11 @@ void myKeyboardFunc(unsigned char key, int x, int y) {
 }
 
 void update() {
+    if (!moves.empty()) {
+        RubiksCube::Move m = moves.back();
+        cube->rotate(m.slice, m.degrees);
+        moves.pop_back();
+    }
     glutPostRedisplay();
 }
 
@@ -117,7 +122,7 @@ int main(int argc, char **argv) {
 
     // GRAPHICS
     initializeCubes();
-	// moves = cube->scramble(20);
+	moves = cube->scramble(20);
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_RGBA | GLUT_DEPTH | GLUT_DOUBLE);
     glutInitWindowSize(640, 480);
