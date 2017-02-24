@@ -1,5 +1,5 @@
-#ifndef SOFTSYS_ASOCIAL_AARDVARK_ENUMS_H
-#define SOFTSYS_ASOCIAL_AARDVARK_ENUMS_H
+#ifndef SOFTSYS_ASOCIAL_AARDVARK_SHARED_H
+#define SOFTSYS_ASOCIAL_AARDVARK_SHARED_H
 
 /**
  * Based on notation from https://ruwix.com/the-rubiks-cube/notation/.
@@ -19,8 +19,11 @@ enum Color {Red, Blue, Orange, White, Yellow, Green};
 typedef struct {
   LetterNotation rotation;
   Degrees degrees;
-  int*** state;
+  int state[6][3][3];
   int max_depth;
 } thread_struct;
+
+LetterNotation convert_int_to_rotation(int x);
+char convert_rotation_to_char(LetterNotation n);
 
 #endif

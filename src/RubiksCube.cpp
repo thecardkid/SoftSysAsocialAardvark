@@ -1,7 +1,7 @@
 #include <vector>
 #include <cstdlib>
+
 #include "RubiksCube.h"
-#include "Enums.h"
 
 // Faces as they appear at http://www.rubiksplace.com/move-notations/
 // 3x3 cube

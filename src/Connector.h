@@ -2,7 +2,7 @@
 #define SOFTSYS_ASOCIAL_AARDVARK_CONNECTOR_H
 
 #include "RubiksCube.h"
-#include "Enums.h"
+#include "Shared.h"
 
 #ifdef __cplusplus
 extern "C" {

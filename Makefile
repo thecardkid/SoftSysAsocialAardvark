@@ -99,21 +99,15 @@ $(BUILD_DIR)/main : $(OBJ) gtest_main.a
 $(BUILD_DIR)/main.o : $(USER_DIR)/main.cpp $(DEP_HEADERS) $(GTEST_HEADERS)
 	$(CC) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
 
-$(BUILD_DIR)/Logic.o : $(USER_DIR)/Logic.c $(USER_DIR)/Logic.h $(BUILD_DIR)/Connector.so
-	$(C) -c $< -o $@ $(CUBELIBFLAGS)
-
 $(BUILD_DIR)/%.o : $(USER_DIR)/%.cpp $(USER_DIR)/%.h
 	$(CC) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
 
 $(BUILD_DIR)/%.o : $(TEST_DIR)/%.cpp $(DEP_HEADERS) $(GTEST_HEADERS)
 	$(CC) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
 
-$(BUILD_DIR)/dfs.o : $(USER_DIR)/dfs.c $(DEP_HEADERS)
+$(BUILD_DIR)/%.o : $(USER_DIR)/%.c $(USER_DIR)/%.h $(DEP_HEADERS)
 	$(C) -c $< -o $@ $(CUBELIBFLAGS)
-
-$(BUILD_DIR)/Thread.o : $(USER_DIR)/Thread.c $(USER_DIR)/dfs.c $(DEP_HEADERS)
-	$(C) -c $< -o $@ $(CUBELIBFLAGS)
-
+	
 # Builds the shared connector files
 $(BUILD_DIR)/libRubiksCube.so : $(USER_DIR)/RubiksCube.cpp
 	$(CC) $(SHAREDFLAGS) $< -o $@

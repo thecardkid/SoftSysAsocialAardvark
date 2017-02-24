@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "Connector.h"
 #include "Logic.h"
-#include "Enums.h"
+#include "Shared.h"
 
 int solve() {
     int*** rotated = rubiks_cube_rotate(get_default_state(), L, Ninety);
@@ -16,10 +16,6 @@ int solve() {
             for (k = 0; k < 3; k++) {
                 state_val = state[i][j][k];
                 rotated_val = rotated[i][j][k];
-
-                if (state_val != rotated_val) {
-                    printf("State differs from rotated at (%i, %i, %i)\n", i, j, k);
-                }
             }
         }
     }
