@@ -11,7 +11,7 @@ extern "C" {
 #include "Graphics.h"
 #include "RubiksCube.h"
 #include "Connector.h"
-#include "Enums.h"
+#include "Shared.h"
 
 void printFace(int** face_) {
     std::string out = "[\n";
@@ -35,6 +35,17 @@ std::vector<RubiksCube::Move> moves;
 void displayWrapper() {
     int*** colors = cube->getState();
     display(colors);
+}
+
+void copyState(int copyOfState[6][3][3], int*** state) {
+	int i,j,k;
+	for (i=0; i<6; i++) {
+		for (j=0; j<3; j++) {
+			for (k=0; k<3; k++) {
+				copyOfState[i][j][k] = state[i][j][k];
+			}
+		}
+	}
 }
 
 void myKeyboardFunc(unsigned char key, int x, int y) {
@@ -96,12 +107,11 @@ void myKeyboardFunc(unsigned char key, int x, int y) {
 		case 'S':
 			cube->rotate(S, TwoSeventy);
 			break;
-        case 't':
-        	for (int i=0; i<6; i++) {
-        		printFace(cube->getState()[i]);
-        	}
-            create_threads(cube->getState(), moves.size());
-            break;
+		case 't':
+			int copyOfState[6][3][3];
+			copyState(copyOfState, cube->getState());
+			create_threads(copyOfState, moves.size());
+			break;
 		default:
 			break;
 	}

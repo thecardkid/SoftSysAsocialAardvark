@@ -4,7 +4,7 @@
 #ifdef __cplusplus
     #include <vector>
     #include "CubeFace.h"
-    #include "Enums.h"
+    #include "Shared.h"
 
     class RubiksCube {
     private:
