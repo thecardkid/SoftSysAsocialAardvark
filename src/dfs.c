@@ -16,6 +16,7 @@ int* child_pointers[6][3];
  */
 void* dfsSolve(void* args) {
 	thread_struct *actual_args = args;
+	thread_return_struct *return_args = malloc(sizeof(thread_return_struct));
 	solution = get_default_state();
 	max_depth = actual_args->max_depth;
 	LetterNotation moves[max_depth];
@@ -33,12 +34,16 @@ void* dfsSolve(void* args) {
 	rubiks_cube_rotate(state, actual_args->rotation, actual_args->degrees);
 	moves[0] = actual_args->rotation;
 
-	int answer;
-	answer = dfsSolveHelper(state, &moves[0], 1, actual_args->rotation); 
+	int answer = dfsSolveHelper(state, &moves[0], 1, actual_args->rotation); 
+	return_args->status = answer;
+	int x;
+	for (x=0; x<max_depth; x++) {
+		return_args->solveMoves[x] = moves[x];
+	}
 
 	free(actual_args);
 
-	return (void *) answer;
+	pthread_exit(return_args);
 }
 
 /* Recursively checks whether you can get from the current state to the solved state

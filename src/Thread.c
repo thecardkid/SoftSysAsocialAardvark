@@ -5,7 +5,7 @@ void create_threads(int state[6][3][3], int max_depth) {
 	int rc;
 	long t;
 	thread_struct *args;
-	void* status;
+	thread_return_struct *actual_return_struct;
 
 	for (t=0; t<NUM_THREADS; t++) {
 		thread_struct *args = malloc(sizeof *args);
@@ -24,8 +24,16 @@ void create_threads(int state[6][3][3], int max_depth) {
     }
 
 	for (t=0; t<NUM_THREADS; t++) {
-		pthread_join(threads[t], &status);
-		printf("Thread %d worked %d\n", t, (int*)status);
+		pthread_join(threads[t], &actual_return_struct);
+		// actual_return_struct = return_struct;
+		printf("Thread %d worked %d\n", t, actual_return_struct->status);
+
+		int x;
+
+		for (x=0; x<max_depth; x++) {
+			printf("%d,", actual_return_struct->solveMoves[x]);
+		}
+		printf("\n");
 	}
 }
 
