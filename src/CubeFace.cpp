@@ -47,17 +47,17 @@ void CubeFace::reverseCols() {
     }
 }
 
-void CubeFace::rotate90Clockwise() {
+void CubeFace::rotate90() {
     transposeFace();
     reverseRows();
 }
 
 void CubeFace::rotate180() {
-    rotate90Clockwise();
-    rotate90Clockwise();
+    rotate90();
+    rotate90();
 }
 
-void CubeFace::rotate90Anticlockwise() {
+void CubeFace::rotate270() {
     transposeFace();
     reverseCols();
 }
@@ -75,9 +75,9 @@ int** CubeFace::getFace() {
 
 void CubeFace::rotateFaceClockwise(Degrees d) {
     switch (d) {
-        case Ninety: return rotate90Clockwise();
+        case Ninety: return rotate90();
         case OneEighty: return rotate180();
-        case TwoSeventy: return rotate90Anticlockwise();
+        case TwoSeventy: return rotate270();
     }
 }
 

@@ -6,7 +6,15 @@
 
 class CubeFace {
 private:
+    /**
+     * The edge length of the Rubik's cube (standard is 3).
+     */
     int n_;
+
+    /**
+     * The underlying face representation.
+     * Holds integers from the Color enum.
+     */
     int** face_;
 
     /**
@@ -14,7 +22,7 @@ private:
      * the face correctly.
      *
      * Rotate 90: transposeFace() + reverseRows();
-     * Rotate -90: transposeFace() + reverseCols();
+     * Rotate 270: transposeFace() + reverseCols();
      */
     void transposeFace();
     void reverseRows();
@@ -22,17 +30,17 @@ private:
 
     /**
      * Factory methods called by the switch statement
-     * in the public method rotateFaceClockwsie().
+     * in the public method rotateFaceClockwise().
      */
-    void rotate90Clockwise();
+    void rotate90();
     void rotate180();
-    void rotate90Anticlockwise();
+    void rotate270();
 
     /**
      * Helper method to check passed in index argument
      * for row/col getters and setters is valid.
      * @param i
-     * @return
+     * @return true if i is valid
      */
     bool isValidIndex(int i);
 
@@ -45,8 +53,14 @@ public:
      */
     int** getFace();
 
+    /**
+     * Rotates a face clockwise by the specified number of degrees.
+     */
     void rotateFaceClockwise(Degrees d);
 
+    /**
+     * Row/column setters and getters.
+     */
     void setRow(int whichRow, int* row);
     int* getRow(int whichRow);
     void setCol(int whichCol, int* col);

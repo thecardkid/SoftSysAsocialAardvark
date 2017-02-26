@@ -4,7 +4,6 @@
 #include "Enums.h"
 
 // Faces as they appear at http://www.rubiksplace.com/move-notations/
-// 3x3 cube
 RubiksCube::RubiksCube(): n_(3),
     xLeft_(Orange),
     xRight_(Red),

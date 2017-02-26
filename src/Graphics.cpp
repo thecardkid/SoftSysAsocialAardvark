@@ -2,112 +2,21 @@
 #include <iostream>
 #include "Graphics.h"
 
-struct Cube {
+/**
+ * Represents one of the twenty-seven blocks which make up a 3x3x3 Rubik's cube.
+ */
+struct Cubelet {
     float vertices[8][3]; // 8 corners, each corner defined by (x,y,z) triple
-    float face_colors[6][3]; // 6 faces, each face color defined by (R,G,B) triple
 };
 
-int n = 3;
-Cube cubes[3][3][3]; // 3-dimensional array of cubes
+/**
+ * The Rubik's cube -- represented by a 3x3x3 array of cubelets
+ */
+Cubelet rubiks_cube[3][3][3];
 
-void drawCube(Cube cube, float** colors) {
-    glBegin(GL_QUADS);                // Begin drawing the color cube with 6 quads
-        // Top face (y = 1.0f)
-        // Define vertices in counter-clockwise (CCW) order with normal pointing out
-        glColor3f(colors[0][0], colors[0][1], colors[0][2]);
-        glVertex3f(cube.vertices[2][0], cube.vertices[2][1], cube.vertices[2][2]);
-        glVertex3f(cube.vertices[5][0], cube.vertices[5][1], cube.vertices[5][2]);
-        glVertex3f(cube.vertices[7][0], cube.vertices[7][1], cube.vertices[7][2]);
-        glVertex3f(cube.vertices[4][0], cube.vertices[4][1], cube.vertices[4][2]);
-
-        // Bottom face (y = -1.0f)
-        glColor3f(colors[1][0], colors[1][1], colors[1][2]);
-        glVertex3f(cube.vertices[0][0], cube.vertices[0][1], cube.vertices[0][2]);
-        glVertex3f(cube.vertices[3][0], cube.vertices[3][1], cube.vertices[3][2]);
-        glVertex3f(cube.vertices[6][0], cube.vertices[6][1], cube.vertices[6][2]);
-        glVertex3f(cube.vertices[1][0], cube.vertices[1][1], cube.vertices[1][2]);
-
-        // Front face  (z = 1.0f)
-        glColor3f(colors[2][0], colors[2][1], colors[2][2]);
-        glVertex3f(cube.vertices[0][0], cube.vertices[0][1], cube.vertices[0][2]);
-        glVertex3f(cube.vertices[1][0], cube.vertices[1][1], cube.vertices[1][2]);
-        glVertex3f(cube.vertices[5][0], cube.vertices[5][1], cube.vertices[5][2]);
-        glVertex3f(cube.vertices[2][0], cube.vertices[2][1], cube.vertices[2][2]);
-
-        // Back face (z = -1.0f)
-        glColor3f(colors[3][0], colors[3][1], colors[3][2]);
-        glVertex3f(cube.vertices[3][0], cube.vertices[3][1], cube.vertices[3][2]);
-        glVertex3f(cube.vertices[4][0], cube.vertices[4][1], cube.vertices[4][2]);
-        glVertex3f(cube.vertices[7][0], cube.vertices[7][1], cube.vertices[7][2]);
-        glVertex3f(cube.vertices[6][0], cube.vertices[6][1], cube.vertices[6][2]);
-
-        // Left face (x = -1.0f)
-        glColor3f(colors[4][0], colors[4][1], colors[4][2]);
-        glVertex3f(cube.vertices[0][0], cube.vertices[0][1], cube.vertices[0][2]);
-        glVertex3f(cube.vertices[2][0], cube.vertices[2][1], cube.vertices[2][2]);
-        glVertex3f(cube.vertices[4][0], cube.vertices[4][1], cube.vertices[4][2]);
-        glVertex3f(cube.vertices[3][0], cube.vertices[3][1], cube.vertices[3][2]);
-
-        // Right face (x = 1.0f)
-        glColor3f(colors[5][0], colors[5][1], colors[5][2]);
-        glVertex3f(cube.vertices[1][0], cube.vertices[1][1], cube.vertices[1][2]);
-        glVertex3f(cube.vertices[6][0], cube.vertices[6][1], cube.vertices[6][2]);
-        glVertex3f(cube.vertices[7][0], cube.vertices[7][1], cube.vertices[7][2]);
-        glVertex3f(cube.vertices[5][0], cube.vertices[5][1], cube.vertices[5][2]);
-   glEnd();  // End of drawing color-cube
-}
-
-void centerCube(int x, int y, int z, float centerShift) {
-    for (int i = 0; i < 8; i++) {
-        for (int j = 0; j < 3; j++) {
-            cubes[x][y][z].vertices[i][j] -= centerShift;
-        }
-    }
-}
-
-void initializeCubes() {
-    float shift = 1.5;
-    for (int x = 0; x < 3; x++) {
-        for (int y = 0; y < 3; y++) {
-            for (int z = 0; z < 3; z++) {
-                cubes[x][y][z].vertices[0][0] = x;
-                cubes[x][y][z].vertices[0][1] = y;
-                cubes[x][y][z].vertices[0][2] = z;
-
-                cubes[x][y][z].vertices[1][0] = x + 0.9;
-                cubes[x][y][z].vertices[1][1] = y;
-                cubes[x][y][z].vertices[1][2] = z;
-
-                cubes[x][y][z].vertices[2][0] = x;
-                cubes[x][y][z].vertices[2][1] = y + 0.9;
-                cubes[x][y][z].vertices[2][2] = z;
-
-                cubes[x][y][z].vertices[3][0] = x;
-                cubes[x][y][z].vertices[3][1] = y;
-                cubes[x][y][z].vertices[3][2] = z + 0.9;
-
-                cubes[x][y][z].vertices[4][0] = x;
-                cubes[x][y][z].vertices[4][1] = y + 0.9;
-                cubes[x][y][z].vertices[4][2] = z + 0.9;
-
-                cubes[x][y][z].vertices[5][0] = x + 0.9;
-                cubes[x][y][z].vertices[5][1] = y + 0.9;
-                cubes[x][y][z].vertices[5][2] = z;
-
-                cubes[x][y][z].vertices[6][0] = x + 0.9;
-                cubes[x][y][z].vertices[6][1] = y;
-                cubes[x][y][z].vertices[6][2] = z + 0.9;
-
-                cubes[x][y][z].vertices[7][0] = x + 0.9;
-                cubes[x][y][z].vertices[7][1] = y + 0.9;
-                cubes[x][y][z].vertices[7][2] = z + 0.9;
-
-                centerCube(x, y, z, 1.5);
-            }
-        }
-    }
-}
-
+/**
+ * The colors used in the cube -- represented by { R, G, B } arrays.
+ */
 float red[3] = { 1.0f, 0.0f, 0.0f };
 float blue[3] = { 0.0f, 0.0f, 1.0f };
 float orange[3] = { 1.0f, 0.5f, 0.0f };
@@ -116,6 +25,10 @@ float yellow[3] = { 1.0f, 1.0f, 0.0f };
 float green[3] = { 0.0f, 1.0f, 0.0f };
 float black[3] = { 0.0f, 0.0f, 0.0f };
 
+/**
+ * The mapping from integer enum to color
+ * Keep this method synchronized with the Color enum in src/Enums.h.
+ */
 float* intToColor(int i) {
     switch (i) {
         case 0: return red;
@@ -128,14 +41,141 @@ float* intToColor(int i) {
     }
 }
 
-float** getCubeColors(int*** colors, int x, int y, int z) {
-    float** fcolors = new float*[6];
-    fcolors[0] = black; // front
-    fcolors[1] = black; // back
-    fcolors[2] = black; // bottom
-    fcolors[3] = black; // top
-    fcolors[4] = black; // right
-    fcolors[5] = black; // left
+/**
+ * Draws a single cubelet.
+ *
+ * @param cubelet: the cubelet to draw
+ * @param colors: a 6x3 array of the colors to assign to the cubelet's faces
+ */
+void drawCubelet(Cubelet cubelet, float** colors) {
+    glBegin(GL_QUADS);                // Begin drawing the color cube with 6 quads
+        // Top face (y = 1.0f)
+        // Define vertices in counter-clockwise (CCW) order with normal pointing out
+        glColor3f(colors[0][0], colors[0][1], colors[0][2]);
+        glVertex3f(cubelet.vertices[2][0], cubelet.vertices[2][1], cubelet.vertices[2][2]);
+        glVertex3f(cubelet.vertices[5][0], cubelet.vertices[5][1], cubelet.vertices[5][2]);
+        glVertex3f(cubelet.vertices[7][0], cubelet.vertices[7][1], cubelet.vertices[7][2]);
+        glVertex3f(cubelet.vertices[4][0], cubelet.vertices[4][1], cubelet.vertices[4][2]);
+
+        // Bottom face (y = -1.0f)
+        glColor3f(colors[1][0], colors[1][1], colors[1][2]);
+        glVertex3f(cubelet.vertices[0][0], cubelet.vertices[0][1], cubelet.vertices[0][2]);
+        glVertex3f(cubelet.vertices[3][0], cubelet.vertices[3][1], cubelet.vertices[3][2]);
+        glVertex3f(cubelet.vertices[6][0], cubelet.vertices[6][1], cubelet.vertices[6][2]);
+        glVertex3f(cubelet.vertices[1][0], cubelet.vertices[1][1], cubelet.vertices[1][2]);
+
+        // Front face  (z = 1.0f)
+        glColor3f(colors[2][0], colors[2][1], colors[2][2]);
+        glVertex3f(cubelet.vertices[0][0], cubelet.vertices[0][1], cubelet.vertices[0][2]);
+        glVertex3f(cubelet.vertices[1][0], cubelet.vertices[1][1], cubelet.vertices[1][2]);
+        glVertex3f(cubelet.vertices[5][0], cubelet.vertices[5][1], cubelet.vertices[5][2]);
+        glVertex3f(cubelet.vertices[2][0], cubelet.vertices[2][1], cubelet.vertices[2][2]);
+
+        // Back face (z = -1.0f)
+        glColor3f(colors[3][0], colors[3][1], colors[3][2]);
+        glVertex3f(cubelet.vertices[3][0], cubelet.vertices[3][1], cubelet.vertices[3][2]);
+        glVertex3f(cubelet.vertices[4][0], cubelet.vertices[4][1], cubelet.vertices[4][2]);
+        glVertex3f(cubelet.vertices[7][0], cubelet.vertices[7][1], cubelet.vertices[7][2]);
+        glVertex3f(cubelet.vertices[6][0], cubelet.vertices[6][1], cubelet.vertices[6][2]);
+
+        // Left face (x = -1.0f)
+        glColor3f(colors[4][0], colors[4][1], colors[4][2]);
+        glVertex3f(cubelet.vertices[0][0], cubelet.vertices[0][1], cubelet.vertices[0][2]);
+        glVertex3f(cubelet.vertices[2][0], cubelet.vertices[2][1], cubelet.vertices[2][2]);
+        glVertex3f(cubelet.vertices[4][0], cubelet.vertices[4][1], cubelet.vertices[4][2]);
+        glVertex3f(cubelet.vertices[3][0], cubelet.vertices[3][1], cubelet.vertices[3][2]);
+
+        // Right face (x = 1.0f)
+        glColor3f(colors[5][0], colors[5][1], colors[5][2]);
+        glVertex3f(cubelet.vertices[1][0], cubelet.vertices[1][1], cubelet.vertices[1][2]);
+        glVertex3f(cubelet.vertices[6][0], cubelet.vertices[6][1], cubelet.vertices[6][2]);
+        glVertex3f(cubelet.vertices[7][0], cubelet.vertices[7][1], cubelet.vertices[7][2]);
+        glVertex3f(cubelet.vertices[5][0], cubelet.vertices[5][1], cubelet.vertices[5][2]);
+   glEnd();  // End of drawing color-cube
+}
+
+/**
+ * Draws the Rubik's cube.
+ *
+ * @param
+ */
+void drawRubiksCube(int*** state) {
+    for (int x = 0; x < 3; x++) {
+        for (int y = 0; y < 3; y++) {
+            for (int z = 0; z < 3; z++) {
+                float** cubeColors = getCubeColors(state, x, y, z);
+                drawCubelet(rubiks_cube[x][y][z], cubeColors);
+            }
+        }
+    }
+}
+
+/**
+ * Moves a cubelet diagonally along the line x = y = z
+ * by moving it centerShift in each direction.
+ *
+ * @param x, y, z: the indices of the cubelet in the rubik's cube
+ * @param centerShift: the distance to move the cubelet in each direction
+ */
+void centerCubelet(int x, int y, int z, float centerShift) {
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 3; j++) {
+            rubiks_cube[x][y][z].vertices[i][j] -= centerShift;
+        }
+    }
+}
+
+void initializeCube() {
+    float shift = 1.5;
+    for (int x = 0; x < 3; x++) {
+        for (int y = 0; y < 3; y++) {
+            for (int z = 0; z < 3; z++) {
+                rubiks_cube[x][y][z].vertices[0][0] = x;
+                rubiks_cube[x][y][z].vertices[0][1] = y;
+                rubiks_cube[x][y][z].vertices[0][2] = z;
+
+                rubiks_cube[x][y][z].vertices[1][0] = x + 0.9;
+                rubiks_cube[x][y][z].vertices[1][1] = y;
+                rubiks_cube[x][y][z].vertices[1][2] = z;
+
+                rubiks_cube[x][y][z].vertices[2][0] = x;
+                rubiks_cube[x][y][z].vertices[2][1] = y + 0.9;
+                rubiks_cube[x][y][z].vertices[2][2] = z;
+
+                rubiks_cube[x][y][z].vertices[3][0] = x;
+                rubiks_cube[x][y][z].vertices[3][1] = y;
+                rubiks_cube[x][y][z].vertices[3][2] = z + 0.9;
+
+                rubiks_cube[x][y][z].vertices[4][0] = x;
+                rubiks_cube[x][y][z].vertices[4][1] = y + 0.9;
+                rubiks_cube[x][y][z].vertices[4][2] = z + 0.9;
+
+                rubiks_cube[x][y][z].vertices[5][0] = x + 0.9;
+                rubiks_cube[x][y][z].vertices[5][1] = y + 0.9;
+                rubiks_cube[x][y][z].vertices[5][2] = z;
+
+                rubiks_cube[x][y][z].vertices[6][0] = x + 0.9;
+                rubiks_cube[x][y][z].vertices[6][1] = y;
+                rubiks_cube[x][y][z].vertices[6][2] = z + 0.9;
+
+                rubiks_cube[x][y][z].vertices[7][0] = x + 0.9;
+                rubiks_cube[x][y][z].vertices[7][1] = y + 0.9;
+                rubiks_cube[x][y][z].vertices[7][2] = z + 0.9;
+
+                centerCubelet(x, y, z, 1.5);
+            }
+        }
+    }
+}
+
+float** getCubeletState(int*** state, int x, int y, int z) {
+    float** cubeletState = new float*[6];
+    cubeletState[0] = black; // front
+    cubeletState[1] = black; // back
+    cubeletState[2] = black; // bottom
+    cubeletState[3] = black; // top
+    cubeletState[4] = black; // right
+    cubeletState[5] = black; // left
 
     // x: 0 = right to 2 = left
     // y: 0 = back to 2 = front
@@ -145,7 +185,7 @@ float** getCubeColors(int*** colors, int x, int y, int z) {
     // Should be easy to fix.
     switch (x) {
         case 0: // right layer -- set right sides
-            fcolors[4] = intToColor(colors[1][2 - z][2 - y]);
+            fcolors[4] = black; //intToColor(colors[1][2 - z][2 - y]);
             break;
         case 2: // left layer -- set left sides
             fcolors[5] = intToColor(colors[0][2 - z][y]);
@@ -171,23 +211,6 @@ float** getCubeColors(int*** colors, int x, int y, int z) {
     }
 
     return fcolors;
-}
-
-void drawCubes(int*** colors) {
-    for (int x = 0; x < 3; x++) {
-        for (int y = 0; y < 3; y++) {
-            for (int z = 0; z < 3; z++) {
-                float** cubeColors = getCubeColors(colors, x, y, z);
-                drawCube(cubes[x][y][z], cubeColors);
-            }
-        }
-    }
-}
-
-void setVertex(Cube& cube, int vertex1, int vertex2) {
-    cube.vertices[vertex1][0] = cube.vertices[vertex2][0];
-    cube.vertices[vertex1][1] = cube.vertices[vertex2][1];
-    cube.vertices[vertex1][2] = cube.vertices[vertex2][2];
 }
 
 double rotate_y = 0;
@@ -225,6 +248,6 @@ void display(int*** colors) {
     glRotatef(rotate_x, 1.0, 0.0, 0.0);
     glRotatef(rotate_y, 0.0, 1.0, 0.0);
 
-    drawCubes(colors);
+    drawCubelets(colors);
     glutSwapBuffers();
 }

@@ -32,7 +32,7 @@ void printFace(int** face_) {
     std::cout << out << std::endl;
 }
 
-void displayWrapper() {
+void getStateAndDisplay() {
     int*** colors = cube->getState();
     display(colors);
 }
@@ -132,14 +132,14 @@ int main(int argc, char **argv) {
     solve();
 
     // GRAPHICS
-    initializeCubes();
+    initializeCube();
     moves = cube->scramble(20);
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_RGBA | GLUT_DEPTH | GLUT_DOUBLE);
     glutInitWindowSize(640, 480);
     glutCreateWindow("Rubik's Cube");
     glutIdleFunc(update);
-    glutDisplayFunc(displayWrapper);
+    glutDisplayFunc(getStateAndDisplay);
     glutSpecialFunc(graphicsSpecialKeys);
     glutKeyboardFunc(myKeyboardFunc);
     glEnable(GL_DEPTH_TEST);
