@@ -38,72 +38,72 @@ void displayWrapper() {
 }
 
 void myKeyboardFunc(unsigned char key, int x, int y) {
-	switch (key) {
-		case 'x':
-			std::cout << "C++ " << moves.at(0).slice << std::endl;
-			solve();
-			break;
-		case 'l':
-			cube->rotate(L, Ninety);
-			break;
-		case 'L':
-			cube->rotate(L, TwoSeventy);
-			break;
-		case 'r':
-			cube->rotate(R, Ninety);
-			break;
-		case 'R':
-			cube->rotate(R, TwoSeventy);
-			break;
-		case 'u':
-			cube->rotate(U, Ninety);
-			break;
-		case 'U':
-			cube->rotate(U, TwoSeventy);
-			break;
-		case 'd':
-			cube->rotate(D, Ninety);
-			break;
-		case 'D':
-			cube->rotate(D, TwoSeventy);
-			break;
-		case 'f':
-			cube->rotate(F, Ninety);
-			break;
-		case 'F':
-			cube->rotate(F, TwoSeventy);
-			break;
-		case 'b':
-			cube->rotate(B, Ninety);
-			break;
-		case 'B':
-			cube->rotate(B, Ninety);
-			break;
-		case 'm':
-			cube->rotate(M, Ninety);
-			break;
-		case 'M':
-			cube->rotate(M, TwoSeventy);
-			break;
-		case 'e':
-			cube->rotate(E, Ninety);
-			break;
-		case 'E':
-			cube->rotate(E, TwoSeventy);
-			break;
-		case 's':
-			cube->rotate(S, Ninety);
-			break;
-		case 'S':
-			cube->rotate(S, TwoSeventy);
-			break;
-		case 'q':
-			exit(0);
-		default:
-			break;
-	}
+    switch (key) {
+        case 'x':
+            std::cout << "C++ " << moves.at(0).slice << std::endl;
+            solve();
+            break;
+        case 'l':
+            cube->rotate(L, Ninety);
+            break;
+        case 'L':
+            cube->rotate(L, TwoSeventy);
+            break;
+        case 'r':
+            cube->rotate(R, Ninety);
+            break;
+        case 'R':
+            cube->rotate(R, TwoSeventy);
+            break;
+        case 'u':
+            cube->rotate(U, Ninety);
+            break;
+        case 'U':
+            cube->rotate(U, TwoSeventy);
+            break;
+        case 'd':
+            cube->rotate(D, Ninety);
+            break;
+        case 'D':
+            cube->rotate(D, TwoSeventy);
+            break;
+        case 'f':
+            cube->rotate(F, Ninety);
+            break;
+        case 'F':
+            cube->rotate(F, TwoSeventy);
+            break;
+        case 'b':
+            cube->rotate(B, Ninety);
+            break;
+        case 'B':
+            cube->rotate(B, Ninety);
+            break;
+        case 'm':
+            cube->rotate(M, Ninety);
+            break;
+        case 'M':
+            cube->rotate(M, TwoSeventy);
+            break;
+        case 'e':
+            cube->rotate(E, Ninety);
+            break;
+        case 'E':
+            cube->rotate(E, TwoSeventy);
+            break;
+        case 's':
+            cube->rotate(S, Ninety);
+            break;
+        case 'S':
+            cube->rotate(S, TwoSeventy);
+            break;
+        case 'q':
+            exit(0);
+        default:
+            break;
+    }
 
-	glutPostRedisplay();
+    glutPostRedisplay();
 }
 
 /**
@@ -133,7 +133,7 @@ int main(int argc, char **argv) {
 
     // GRAPHICS
     initializeCubes();
-	moves = cube->scramble(20);
+    moves = cube->scramble(20);
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_RGBA | GLUT_DEPTH | GLUT_DOUBLE);
     glutInitWindowSize(640, 480);
