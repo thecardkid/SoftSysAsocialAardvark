@@ -8,8 +8,9 @@
 extern "C" {
 #endif
 
-int*** rubiks_cube_rotate(int*** state, LetterNotation action, Degrees degrees);
+void rubiks_cube_rotate(int*** state, LetterNotation action, Degrees degrees);
 int*** get_default_state();
+void printCPointers(int*** state);
 
 #ifdef __cplusplus
 }

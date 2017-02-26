@@ -6,10 +6,9 @@
 extern "C" {
 #endif
 
-int*** rubiks_cube_rotate(int*** state, LetterNotation action, Degrees degrees) {
+void rubiks_cube_rotate(int*** state, LetterNotation action, Degrees degrees) {
     RubiksCube *instance = new RubiksCube(state);
     instance->rotate(action, degrees);
-    return instance->getState();
 }
 
 int*** get_default_state() {

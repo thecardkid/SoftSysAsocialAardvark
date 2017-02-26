@@ -2,6 +2,7 @@
 #include <cstdlib>
 
 #include "RubiksCube.h"
+#include "Shared.h"
 
 // Faces as they appear at http://www.rubiksplace.com/move-notations/
 // 3x3 cube
