@@ -16,4 +16,14 @@ typedef enum {Ninety, OneEighty, TwoSeventy, LastDegree} Degrees;
 
 enum Color {Red, Blue, Orange, White, Yellow, Green};
 
+/**
+ * A simple struct that captures the randomized sequence
+ * of moves done by the scramble() method. Its parameters
+ * are 1. the rotation and 2. how many degrees of that rotation.
+ */
+struct Move {
+    LetterNotation slice;
+    Degrees degrees;
+};
+
 #endif

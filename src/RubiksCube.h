@@ -40,19 +40,17 @@
          */
         int* reverse(int* a);
 
+        /**
+         * Constructs the opposite of a move
+         *
+         * @param a move, m
+         * @return the move which would undo m
+         */
+        Move oppositeMove(Move m);
+
     public:
         RubiksCube();
         RubiksCube(int*** state);
-
-        /**
-         * A simple struct that captures the randomized sequence
-         * of moves done by the scramble() method. Its parameters
-         * are 1. the rotation and 2. how many degrees of that rotation.
-         */
-        struct Move {
-            LetterNotation slice;
-            Degrees degrees;
-        };
 
         /**
          * Randomly generate moves and scramble the cube.
