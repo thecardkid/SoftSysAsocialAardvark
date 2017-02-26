@@ -4,7 +4,7 @@
 #include "Shared.h"
 
 void* dfsSolve(void* args);
-void dfsSolveHelper(int*** state, char* moves, int depth, int n, int id);
+int dfsSolveHelper(int*** state, LetterNotation* moves, int depth, int id);
 int equalStates(int*** state);
 
 #endif

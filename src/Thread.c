@@ -5,8 +5,9 @@ void create_threads(int state[6][3][3], int max_depth) {
 	int rc;
 	long t;
 	thread_struct *args;
+	void* status;
 
-	for (t=0; t<1; t++) {
+	for (t=0; t<NUM_THREADS; t++) {
 		thread_struct *args = malloc(sizeof *args);
 		args->rotation = convert_int_to_rotation(t);
 		args->degrees = Ninety;
@@ -22,8 +23,9 @@ void create_threads(int state[6][3][3], int max_depth) {
 		}
 	}
 
-	for (t=0; t<1; t++) {
-		pthread_join(threads[t], NULL);
+	for (t=0; t<NUM_THREADS; t++) {
+		pthread_join(threads[t], &status);
+		printf("Thread %d worked %d\n", t, (int*)status);
 	}
 }
 
