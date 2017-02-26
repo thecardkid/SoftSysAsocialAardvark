@@ -13,34 +13,35 @@ int* child_pointers[6][3];
  * @return array of length 20 contain the moves to solve cube
  */
 void* dfsSolve(void* args) {
-    thread_struct *actual_args = args;
-    solution = get_default_state();
+	thread_struct *actual_args = args;
+	thread_return_struct *return_args = malloc(sizeof(thread_return_struct));
+	solution = get_default_state();
+	max_depth = actual_args->max_depth;
+	LetterNotation moves[max_depth];
 
-    char moves[actual_args->max_depth];
+	// Converting an array to a pointer to pointer to pointer for compatibility.
+	int i,j;
+	for (j=0; j<3; j++) {
+		for (i=0; i<6; i++) {
+			child_pointers[i][j] = &actual_args->state[i][j][0];
+			parent_pointers[i] = &child_pointers[i][0];
+		}
+	}
+	state = (int***) &parent_pointers[0];
 
+	rubiks_cube_rotate(state, actual_args->rotation, actual_args->degrees);
+	moves[0] = actual_args->rotation;
 
-    state = (int***) malloc(sizeof(int) * 54);
+	int answer = dfsSolveHelper(state, &moves[0], 1, actual_args->rotation); 
+	return_args->status = answer;
+	int x;
+	for (x=0; x<max_depth; x++) {
+		return_args->solveMoves[x] = moves[x];
+	}
 
-    /*
-    Converting an array to a pointer to pointer to pointer for compatibility.
-    */
-    int i,j;
-    for (j=0; j<3; j++) {
-        for (i=0; i<6; i++) {
-            child_pointers[i][j] = &actual_args->state[i][j][0];
-            printf("%p\n", &child_pointers[i][0]);
-            parent_pointers[i] = &child_pointers[i][0];
-        }
-    }
-    state = &parent_pointers[0];
+	free(actual_args);
 
-    printPointers(state);
-    rubiks_cube_rotate(state, actual_args->rotation, actual_args->degrees);
-    printPointers(state);
-
-    dfsSolveHelper(state, moves, 1, 6, actual_args->rotation);
-
-    free(actual_args);
+	pthread_exit(return_args);
 }
 
 /* Recursively checks whether you can get from the current state to the solved state

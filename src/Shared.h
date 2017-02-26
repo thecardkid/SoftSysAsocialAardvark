@@ -23,6 +23,11 @@ typedef struct {
   int max_depth;
 } thread_struct;
 
+typedef struct {
+	LetterNotation solveMoves[20];
+	int status;
+} thread_return_struct;
+
 LetterNotation convert_int_to_rotation(int x);
 char convert_rotation_to_char(LetterNotation n);
 void printState(int state[6][3][3]);
