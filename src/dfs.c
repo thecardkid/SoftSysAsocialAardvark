@@ -4,7 +4,9 @@
 #include "dfs.h"
 #include "Connector.h"
 
-int*** solution, state;
+int*** solution;
+int*** state;
+int max_depth;
 int** n[6];
 int* m[6][3];
 
@@ -15,15 +17,10 @@ int* m[6][3];
 void* dfsSolve(void* args) {
 	thread_struct *actual_args = args;
 	solution = get_default_state();
+	max_depth = actual_args->max_depth;
+	LetterNotation moves[max_depth];
 
-	char moves[actual_args->max_depth];
-
-
-	// state = (int***) malloc(sizeof(int) * 54);
-
-	/*
-	Converting an array to a pointer to pointer to pointer for compatibility.
-	*/
+	// Converting an array to a pointer to pointer to pointer for compatibility.
 	int i,j;
 	for (j=0; j<3; j++) {
 		for (i=0; i<6; i++) {
@@ -31,50 +28,51 @@ void* dfsSolve(void* args) {
 			n[i] = &m[i][0];
 		}
 	}
-	state = &n[0];
+	state = (int***) &n[0];
 
-	printPointers(state);
 	rubiks_cube_rotate(state, actual_args->rotation, actual_args->degrees);
-	printPointers(state);
-	//moves[0] = convert_rotation_to_char(actual_args->rotation);
+	moves[0] = actual_args->rotation;
 
-	dfsSolveHelper(state, moves, 1, 6, actual_args->rotation); 
+	int answer;
+	answer = dfsSolveHelper(state, &moves[0], 1, actual_args->rotation); 
 
 	free(actual_args);
+
+	return (void *) answer;
 }
 
 /* Recursively checks whether you can get from the current state to the solved state
 in N turns. Returns a char array of length 20 containing "None" if this is impossible.
 Returns a char array of length 20 containing the moves (in char format) to solve the cube.*/
 
-void dfsSolveHelper(int*** state, char* moves, int depth, int max_depth, int id) {
-	// printPointers(state);
+int dfsSolveHelper(int*** state, LetterNotation* moves, int depth, int id) {
+	if (isSolved(state)) {
+		return 1;
+	}
 
-	// if (isSolved(state)) {
-	// 	printf("Solved %s!\n", moves);
-	// 	return;
-	// }
+	if (depth == max_depth) {
+		return 0;
+	}
 
-	// if (depth == max_depth) {
-	// 	return;
-	// }
+	int i;
+	LetterNotation movement;
+	char movement_c;
+	for (i = 0; i < 9; i++) {
+		movement = convert_int_to_rotation(i);
+		movement_c = convert_rotation_to_char(movement);
 
-	// int i;
-	// LetterNotation movement;
-	// char movement_c;
-	// for (i = 0; i < 9; i++) {
-	// 	movement = convert_int_to_rotation(i);
-	// 	movement_c = convert_rotation_to_char(movement);
+		rubiks_cube_rotate(state, movement, Ninety);
 
-	// 	//rubiks_cube_rotate(p_state, movement, Ninety);
+		moves[depth] = movement;
+		if (dfsSolveHelper(state, moves, depth + 1, id)) {
+			return 1;
+		}
 
-	// 	moves[depth] = movement_c;
-	// 	dfsSolveHelper(state, moves, depth + 1, max_depth, id);
+		// Turn the cube back. Recursive backtracking.
+		rubiks_cube_rotate(state, movement, TwoSeventy);
+	}
 
-	// 	// Turn the cube back. Recursive backtracking.
-	// 	moves[depth] = '-';
-	// 	//state = rubiks_cube_rotate(state, movement, TwoSeventy);
-	// }
+	return 0;
 }
 
 

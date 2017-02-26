@@ -1,5 +1,4 @@
 extern "C" {
-    #include "Logic.h"
     #include "Thread.h"
 }
 
@@ -127,9 +126,6 @@ int main(int argc, char **argv) {
     // TEST
     testing::InitGoogleTest(&argc, argv);
     RUN_ALL_TESTS();
-
-    // LOGIC
-    solve();
 
     // GRAPHICS
     initializeCubes();
