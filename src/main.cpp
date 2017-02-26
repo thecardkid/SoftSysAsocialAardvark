@@ -16,6 +16,11 @@ RubiksCube* cube = new RubiksCube();
 std::vector<Move> moves;
 time_t lastUpdate, now;
 
+/**
+ * Helper method that prints out the individual elements
+ * of a cube face to stdout.
+ * @param face_: 2x2 of a cube's face
+ */
 void printFace(int** face_) {
     std::string out = "[\n";
 
@@ -32,11 +37,20 @@ void printFace(int** face_) {
     std::cout << out << std::endl;
 }
 
+/**
+ *
+ *
+ */
 void getStateAndDisplay() {
     int*** colors = cube->getState();
     display(colors);
 }
 
+/**
+ * Processes keyboard input and either rotates a cube
+ * face accordingly or solves/shuffles a cube.
+ * @param key: keyboard input
+ */
 void myKeyboardFunc(unsigned char key, int x, int y) {
     switch (key) {
         case 'x':
@@ -121,6 +135,9 @@ void update() {
     glutPostRedisplay();
 }
 
+/**
+ * Runs all code.
+ */
 int main(int argc, char **argv) {
     time(&lastUpdate);
 
@@ -147,4 +164,3 @@ int main(int argc, char **argv) {
 
     return 0;
 }
-
