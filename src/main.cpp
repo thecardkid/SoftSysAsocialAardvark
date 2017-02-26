@@ -12,6 +12,10 @@ extern "C" {
 #include "Connector.h"
 #include "Enums.h"
 
+RubiksCube* cube = new RubiksCube();
+std::vector<RubiksCube::Move> moves;
+time_t lastUpdate, now;
+
 void printFace(int** face_) {
     std::string out = "[\n";
 
@@ -27,9 +31,6 @@ void printFace(int** face_) {
 
     std::cout << out << std::endl;
 }
-
-RubiksCube* cube = new RubiksCube();
-std::vector<RubiksCube::Move> moves;
 
 void displayWrapper() {
     int*** colors = cube->getState();
@@ -105,16 +106,24 @@ void myKeyboardFunc(unsigned char key, int x, int y) {
 	glutPostRedisplay();
 }
 
+/**
+ * Performs one move per second.
+ * Pops moves from the end of the list "moves".
+ */
 void update() {
-    if (!moves.empty()) {
+    time(&now);
+    if (difftime(now, lastUpdate) > 0 && !moves.empty()) {
         RubiksCube::Move m = moves.back();
         cube->rotate(m.slice, m.degrees);
         moves.pop_back();
+        time(&lastUpdate);
     }
     glutPostRedisplay();
 }
 
 int main(int argc, char **argv) {
+    time(&lastUpdate);
+
     // TEST
     testing::InitGoogleTest(&argc, argv);
     RUN_ALL_TESTS();
