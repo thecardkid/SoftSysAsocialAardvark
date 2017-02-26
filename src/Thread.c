@@ -23,7 +23,7 @@ void create_threads(int state[6][3][3], int max_depth) {
 		}
 		clock_t end = clock();
 		double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
-		printf("Time completed: %.6f", time_spent);
+		printf("Thread #%d completed in %.6f seconds\n", t, time_spent);
 	}
 
 	for (t=0; t<NUM_THREADS; t++) {
