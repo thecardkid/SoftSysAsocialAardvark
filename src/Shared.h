@@ -28,4 +28,5 @@ char convert_rotation_to_char(LetterNotation n);
 void printState(int state[6][3][3]);
 void printPointers(int*** state);
 
+
 #endif

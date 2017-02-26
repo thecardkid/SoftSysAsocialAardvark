@@ -110,7 +110,7 @@ $(BUILD_DIR)/%.o : $(TEST_DIR)/%.cpp $(DEP_HEADERS) $(GTEST_HEADERS)
 # Builds c files in src/
 $(BUILD_DIR)/%.o : $(USER_DIR)/%.c $(USER_DIR)/%.h $(DEP_HEADERS)
 	$(C) -c $< -o $@ $(CUBELIBFLAGS)
-	
+
 # Builds the shared connector files
 $(BUILD_DIR)/libRubiksCube.so : $(USER_DIR)/RubiksCube.cpp
 	$(CC) $(SHAREDFLAGS) $< -o $@
