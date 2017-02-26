@@ -25,5 +25,6 @@ typedef struct {
 
 LetterNotation convert_int_to_rotation(int x);
 char convert_rotation_to_char(LetterNotation n);
+void printState(int state[6][3][3]);
 
 #endif
