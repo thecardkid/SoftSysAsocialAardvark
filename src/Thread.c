@@ -10,7 +10,7 @@ void create_threads(int state[6][3][3], int max_depth) {
 		thread_struct *args = malloc(sizeof *args);
 		args->rotation = convert_int_to_rotation(t);
 		args->degrees = Ninety;
-		memcpy(args->state, state, sizeof(state));
+		memcpy(args->state, state, 27*sizeof(state));
 		args->max_depth = max_depth;
 		printf("Starting thread #%d\n", t);
 

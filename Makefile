@@ -99,12 +99,15 @@ $(BUILD_DIR)/main : $(OBJ) gtest_main.a
 $(BUILD_DIR)/main.o : $(USER_DIR)/main.cpp $(DEP_HEADERS) $(GTEST_HEADERS)
 	$(CC) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
 
+# Builds cpp files in src/
 $(BUILD_DIR)/%.o : $(USER_DIR)/%.cpp $(USER_DIR)/%.h
 	$(CC) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
 
+# Builds cpp files in tests/
 $(BUILD_DIR)/%.o : $(TEST_DIR)/%.cpp $(DEP_HEADERS) $(GTEST_HEADERS)
 	$(CC) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
 
+# Builds c files in src/
 $(BUILD_DIR)/%.o : $(USER_DIR)/%.c $(USER_DIR)/%.h $(DEP_HEADERS)
 	$(C) -c $< -o $@ $(CUBELIBFLAGS)
 	

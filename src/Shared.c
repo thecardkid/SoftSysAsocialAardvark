@@ -28,3 +28,17 @@ char convert_rotation_to_char(LetterNotation n) {
 	}
 }
 
+void printState(int state[6][3][3]) {
+	printf("Printing state... \n");
+	int i, j, k;
+	for (i = 0; i < 6; i++) {
+		for (j = 0; j < 3; j++) {
+			for (k = 0; k < 3; k++) {
+				printf("%d,", state[i][j][k]);
+			}
+			printf("\n");;
+		}
+		printf("\n\n");
+	}
+	printf("\n\n\n");
+}
