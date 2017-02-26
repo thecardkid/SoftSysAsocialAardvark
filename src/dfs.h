@@ -6,6 +6,5 @@
 void* dfsSolve(void* args);
 void dfsSolveHelper(int*** state, char* moves, int depth, int n, int id);
 int equalStates(int*** state);
-void printState(int state[6][3][3]);
 
 #endif
