@@ -15,13 +15,13 @@ void create_threads(int state[6][3][3], int max_depth) {
 		args->max_depth = max_depth;
 		printf("Starting thread #%d\n", t);
 
-		rc = pthread_create(&threads[t], NULL, dfsSolve, args);
-		if (rc) {
-			free(args);
-			fprintf(stderr, "%s\n", "Thread creation failed");
-			exit(-1);
-		}
-	}
+        rc = pthread_create(&threads[t], NULL, dfsSolve, args);
+        if (rc) {
+            free(args);
+            fprintf(stderr, "%s\n", "Thread creation failed");
+            exit(-1);
+        }
+    }
 
 	for (t=0; t<NUM_THREADS; t++) {
 		pthread_join(threads[t], &status);

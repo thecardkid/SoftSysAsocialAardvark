@@ -7,8 +7,8 @@
 int*** solution;
 int*** state;
 int max_depth;
-int** n[6];
-int* m[6][3];
+int** parent_pointers[6];
+int* child_pointers[6][3];
 
 /**
  * @param args is the struct passed in by the calling function in Thread.c (check what it contains by looking in Enums.h). The args input is cast to a thread_struct type so we can access its attributes. This struct needs to be freed before the function returns
@@ -24,11 +24,11 @@ void* dfsSolve(void* args) {
 	int i,j;
 	for (j=0; j<3; j++) {
 		for (i=0; i<6; i++) {
-			m[i][j] = &actual_args->state[i][j][0];
-			n[i] = &m[i][0];
+			child_pointers[i][j] = &actual_args->state[i][j][0];
+			parent_pointers[i] = &child_pointers[i][0];
 		}
 	}
-	state = (int***) &n[0];
+	state = (int***) &parent_pointers[0];
 
 	rubiks_cube_rotate(state, actual_args->rotation, actual_args->degrees);
 	moves[0] = actual_args->rotation;
@@ -78,15 +78,15 @@ int dfsSolveHelper(int*** state, LetterNotation* moves, int depth, int id) {
 
 /* If state 3D-matrices differ at any value, return false.*/
 int isSolved(int*** state) {
-	int i, j, k;
-	for (i = 0; i < 6; i++) {
-		for (j = 0; j < 3; j++) {
-			for (k = 0; k < 3; k++) {
-				if (state[i][j][k] != solution[i][j][k]) {
-					return 0;
-				}
-			}
-		}
-	}
-	return 1;
+    int i, j, k;
+    for (i = 0; i < 6; i++) {
+        for (j = 0; j < 3; j++) {
+            for (k = 0; k < 3; k++) {
+                if (state[i][j][k] != solution[i][j][k]) {
+                    return 0;
+                }
+            }
+        }
+    }
+    return 1;
 }
