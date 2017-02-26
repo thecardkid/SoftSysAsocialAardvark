@@ -125,15 +125,33 @@ void RubiksCube::rotateZSlice() {
     xRight_.setCol(1, temp);
 }
 
-std::vector<RubiksCube::Move> RubiksCube::scramble(int n) {
-    std::vector<RubiksCube::Move> moves;
+Move RubiksCube::oppositeMove(Move m) {
+    Move opposite;
+    opposite.slice = m.slice;
+
+    if (m.degrees == TwoSeventy) {
+        opposite.degrees = Ninety;
+    } else if (m.degrees == OneEighty) {
+        opposite.degrees = OneEighty;
+    } else if (m.degrees == Ninety) {
+        opposite.degrees = TwoSeventy;
+    }
+
+    return opposite;
+}
+
+std::vector<Move> RubiksCube::scramble(int n) {
+    std::vector<Move> moves;
 
     for (int i=0; i < n; i++) {
         Move m;
         m.slice = static_cast<LetterNotation>(rand() % LastRotation);
         m.degrees = static_cast<Degrees>(rand() % LastDegree);
-        moves.push_back(m);
         rotate(m.slice, m.degrees);
+
+        // Push the reverse of the move onto the list of moves, for unscrambling
+        Move opposite = RubiksCube::oppositeMove(m);
+        moves.push_back(opposite);
     }
 
     return moves;
