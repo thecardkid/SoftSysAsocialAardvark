@@ -1,5 +1,4 @@
 extern "C" {
-    #include "Logic.h"
     #include "Thread.h"
 }
 
@@ -51,7 +50,7 @@ void copyState(int copyOfState[6][3][3], int*** state) {
 void myKeyboardFunc(unsigned char key, int x, int y) {
 	switch (key) {
 		case 'x':
-			moves = cube->scramble(2);
+			moves = cube->scramble(5);
 			break;
 		case 'l':
 			cube->rotate(L, Ninety);
@@ -109,7 +108,8 @@ void myKeyboardFunc(unsigned char key, int x, int y) {
 			break;
 		case 't':
 			int copyOfState[6][3][3];
-			copyState(copyOfState, cube->getState());
+            copyState(copyOfState, get_default_state());
+			// copyState(copyOfState, cube->getState());
 			create_threads(copyOfState, moves.size());
 			break;
 		default:
@@ -129,7 +129,7 @@ int main(int argc, char **argv) {
     RUN_ALL_TESTS();
 
     // LOGIC
-    solve();
+    // solve();
 
     // GRAPHICS
     initializeCubes();
