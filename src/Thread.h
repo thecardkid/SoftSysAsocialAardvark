@@ -13,6 +13,6 @@
 
 LetterNotation convert_int_to_rotation(int x);
 thread_struct *create_args(int t);
-void create_threads(int state[6][3][3], int max_depth);
+LetterNotation *create_threads(int state[6][3][3], int max_depth);
 
 #endif
