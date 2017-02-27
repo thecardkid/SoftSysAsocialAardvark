@@ -11,6 +11,7 @@ LetterNotation convert_int_to_rotation(int x) {
         case 6: return M;
         case 7: return E;
         case 8: return S;
+        default: return LastRotation;
     }
 }
 
@@ -41,6 +42,14 @@ void printState(int state[6][3][3]) {
 		printf("\n\n");
 	}
 	printf("\n\n\n");
+}
+
+void printMoves(LetterNotation* moves, int s) {
+	int i;
+	for (i=0; i<s; i++) {
+		printf("%d,", moves[i]);
+	}
+	printf("\n");
 }
 
 void printPointers(int*** state) {

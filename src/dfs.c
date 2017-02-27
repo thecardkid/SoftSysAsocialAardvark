@@ -16,6 +16,7 @@ void* dfsSolve(void* args) {
 	thread_struct *actual_args = args;
 	thread_return_struct *return_args = malloc(sizeof(thread_return_struct));
 	solution = get_default_state();
+
 	max_depth = actual_args->max_depth;
 	LetterNotation moves[max_depth];
 
@@ -48,34 +49,32 @@ void* dfsSolve(void* args) {
 in N turns. Returns a char array of length 20 containing "None" if this is impossible.
 Returns a char array of length 20 containing the moves (in char format) to solve the cube.*/
 
-void dfsSolveHelper(int*** state, char* moves, int depth, int max_depth, int id) {
-    // printPointers(state);
+int dfsSolveHelper(int*** state, LetterNotation* moves, int depth, int id) {
+//	printMoves(moves, max_depth);
+	if (moves[0] == 5 && moves[1] == 1 && moves[2] == 6) {
+		printf("Solve move sequence");
+		printPointers(state);
+	}
+	
+	if (isSolved(state)) {
+		return 1;
+	}
 
-    // if (isSolved(state)) {
-    //  printf("Solved %s!\n", moves);
-    //  return;
-    // }
+	int i;
+	LetterNotation movement;
+	for (i = 0; i < 9; i++) {
+		movement = convert_int_to_rotation(i);
+		rubiks_cube_rotate(state, movement, Ninety);
+		moves[depth] = movement;
 
-    // if (depth == max_depth) {
-    //  return;
-    // }
+		if (dfsSolveHelper(state, moves, depth + 1, id)) {
+			return 1;
+		}
 
-    // int i;
-    // LetterNotation movement;
-    // char movement_c;
-    // for (i = 0; i < 9; i++) {
-    //  movement = convert_int_to_rotation(i);
-    //  movement_c = convert_rotation_to_char(movement);
+		rubiks_cube_rotate(state, movement, TwoSeventy);
+	}
 
-    //  //rubiks_cube_rotate(p_state, movement, Ninety);
-
-    //  moves[depth] = movement_c;
-    //  dfsSolveHelper(state, moves, depth + 1, max_depth, id);
-
-    //  // Turn the cube back. Recursive backtracking.
-    //  moves[depth] = '-';
-    //  //state = rubiks_cube_rotate(state, movement, TwoSeventy);
-    // }
+	return 0;
 }
 
 
