@@ -50,8 +50,13 @@ void getStateAndDisplay() {
  * Processes keyboard input and either rotates a cube
  * face accordingly or solves/shuffles a cube.
  * @param key: keyboard input
+ * @param x, y: mouse coordinates at time of keypress
  */
 void myKeyboardFunc(unsigned char key, int x, int y) {
+    // Don't need mouse coordinates
+    UNUSED(x);
+    UNUSED(y);
+
     switch (key) {
         case 'x':
             std::cout << "C++ " << moves.at(0).slice << std::endl;
@@ -143,7 +148,7 @@ int main(int argc, char **argv) {
 
     // TEST
     testing::InitGoogleTest(&argc, argv);
-    RUN_ALL_TESTS();
+    int testsPassed = RUN_ALL_TESTS();
 
     // LOGIC
     solve();
@@ -162,5 +167,5 @@ int main(int argc, char **argv) {
     glEnable(GL_DEPTH_TEST);
     glutMainLoop();
 
-    return 0;
+    return testsPassed;
 }

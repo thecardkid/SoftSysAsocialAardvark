@@ -36,7 +36,12 @@ int*** RubiksCube::getState() {
 }
 
 int* RubiksCube::reverse(int *a) {
-    int* newStrip = new int[n_] {a[2], a[1], a[0]};
+    int* newStrip = new int[n_];
+    int i;
+    for (i=0; i<n_; i++) {
+        newStrip[i] = a[n_-i-1];
+    }
+
     return newStrip;
 }
 
@@ -160,9 +165,9 @@ void RubiksCube::rotate(Move move) {
     rotate(move.slice, move.degrees);
 }
 
-void RubiksCube::rotate(LetterNotation action, Degrees degrees) {
+void RubiksCube::rotate(LetterNotation slice, Degrees degrees) {
     for (int i=0; i < degrees+1; i++) {
-        switch (action) {
+        switch (slice) {
             case U:
                 rotateYTop();
                 break;

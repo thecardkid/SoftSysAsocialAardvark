@@ -1,6 +1,7 @@
 #include <GL/glut.h>
 #include <iostream>
 #include "Graphics.h"
+#include "Enums.h"
 
 /**
  * Represents one of the twenty-seven blocks which make up a 3x3x3 Rubik's cube.
@@ -116,9 +117,6 @@ float** getCubeletState(int*** state, int x, int y, int z) {
     cubeletState[4] = black; // right
     cubeletState[5] = black; // left
 
-    // TODO(swalters): numbering schemes for API and graphics don't match up.
-    // Should be easy to fix.
-
     // x: 0 = right to 2 = left
     switch (x) {
         case 0: // right layer -- set right sides
@@ -227,7 +225,7 @@ void initializeCube() {
                 rubiksCube[x][y][z].vertices[7][1] = y + cubeletSize;
                 rubiksCube[x][y][z].vertices[7][2] = z + cubeletSize;
 
-                centerCubelet(x, y, z, 1.5);
+                centerCubelet(x, y, z, shift);
             }
         }
     }
@@ -237,9 +235,13 @@ void initializeCube() {
  * Handles graphics-related keyboard events.
  *
  * @param key: which key was pressed
- * @param x, y: coordinates of the mouse when the key was pressed
+ * @param x, y: mouse coordinates at time of keypress
  */
 void graphicsSpecialKeys(int key, int x, int y) {
+    // Don't need mouse coordinates
+    UNUSED(x);
+    UNUSED(y);
+
     if (key == GLUT_KEY_RIGHT) {
         rotate_y += 5;
     } else if (key == GLUT_KEY_LEFT) {

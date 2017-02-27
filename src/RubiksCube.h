@@ -76,10 +76,10 @@
 
         /**
          * Perform a clockwise rotation.
-         * @param action: What rotation.
+         * @param slice: Which slice is rotating.
          * @param degrees: How many degrees.
          */
-        void rotate(LetterNotation action, Degrees degrees);
+        void rotate(LetterNotation slice, Degrees degrees);
         void rotate(Move move);
 
         /**
