@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "dfs.h"
+#include "Dfs.h"
 #include "Shared.h"
 
 LetterNotation convert_int_to_rotation(int x);

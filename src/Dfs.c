@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "dfs.h"
+#include "Dfs.h"
 #include "Connector.h"
 
 int*** solution;
@@ -34,7 +34,7 @@ void* dfs_solve(void* received_args) {
 	// Performing first rotation, then dfs search
 	rubiks_cube_rotate(state, args->rotation, args->degrees);
 	moves[0] = args->rotation;
-	status = dfs_solve_helper(state, &moves[0], 1, args->rotation); 
+	status = dfs_solve_helper(state, &moves[0], 1, args->rotation);
 
 	return_args->status = status;
 	memcpy(return_args->solveMoves, moves, max_depth*sizeof(int));
