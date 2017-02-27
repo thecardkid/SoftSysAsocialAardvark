@@ -257,6 +257,11 @@ void graphicsSpecialKeys(int key, int x, int y) {
     glutPostRedisplay();
 }
 
+/**
+ * Displays a cube with the specified state.
+ *
+ * @param state: the cube state (6x3x3 array)
+ */
 void display(int*** state) {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
