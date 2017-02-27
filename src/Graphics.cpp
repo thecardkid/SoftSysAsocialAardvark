@@ -15,10 +15,10 @@ struct Cubelet {
 Cubelet rubiksCube[3][3][3];
 
 /**
- *
+ * Camera rotations.
  */
-double rotate_x = 0;
-double rotate_y = 0;
+double rotate_x = 0; // about the x axis
+double rotate_y = 0; // about the y axis
 
 /**
  * The colors used in the cube -- represented by { R, G, B } arrays.
@@ -33,7 +33,7 @@ float black[3] = { 0.0f, 0.0f, 0.0f };
 
 /**
  * The mapping from integer enum to color
- * Keep this method synchronized with the Color enum in src/Enums.h.
+ * Keep this method in sync with the Color enum in src/Enums.h.
  */
 float* intToColor(int i) {
     switch (i) {
@@ -51,7 +51,7 @@ float* intToColor(int i) {
  * Draws a single cubelet.
  *
  * @param cubelet: the cubelet to draw
- * @param colors: a 6x3 array of the colors to assign to the cubelet's faces
+ * @param cubeletState: a 6x3 array of colors to assign to the cubelet's faces
  */
 void drawCubelet(Cubelet cubelet, float** cubeletState) {
     glBegin(GL_QUADS);                // Begin drawing the color cube with 6 quads
@@ -116,12 +116,10 @@ float** getCubeletState(int*** state, int x, int y, int z) {
     cubeletState[4] = black; // right
     cubeletState[5] = black; // left
 
-    // x: 0 = right to 2 = left
-    // y: 0 = back to 2 = front
-    // z: 0 = bottom to 2 = top
-
     // TODO(swalters): numbering schemes for API and graphics don't match up.
     // Should be easy to fix.
+
+    // x: 0 = right to 2 = left
     switch (x) {
         case 0: // right layer -- set right sides
             cubeletState[4] = intToColor(state[1][2 - z][2 - y]);
@@ -131,6 +129,7 @@ float** getCubeletState(int*** state, int x, int y, int z) {
             break;
     }
 
+    // y: 0 = back to 2 = front
     switch (y) {
         case 0: // back layer -- set back sides
             cubeletState[1] = intToColor(state[5][2 - z][x]);
@@ -140,6 +139,7 @@ float** getCubeletState(int*** state, int x, int y, int z) {
             break;
     }
 
+    // z: 0 = bottom to 2 = top
     switch (z) {
         case 0: // bottom layer -- set bottom sides
             cubeletState[2] = intToColor(state[3][2 - y][2 - x]);
@@ -233,6 +233,12 @@ void initializeCube() {
     }
 }
 
+/**
+ * Handles graphics-related keyboard events.
+ *
+ * @param key: which key was pressed
+ * @param x, y: coordinates of the mouse when the key was pressed
+ */
 void graphicsSpecialKeys(int key, int x, int y) {
     if (key == GLUT_KEY_RIGHT) {
         rotate_y += 5;
@@ -249,23 +255,28 @@ void graphicsSpecialKeys(int key, int x, int y) {
     glutPostRedisplay();
 }
 
-void display(int*** colors) {
-    glClearColor(0, 0, 0, 1);
+void display(int*** state) {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+    // Set up the projection matrix
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     int w = glutGet(GLUT_WINDOW_WIDTH);
     int h = glutGet(GLUT_WINDOW_HEIGHT);
     gluPerspective(60, w / h, 0.1, 100);
 
+    // Set up the model matrix
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
+
+    // Look at cube from the corner
     gluLookAt(5, 5, 5, 0, 0, 0, 0, 0, 1);
 
+    // Set the camera rotation.
     glRotatef(rotate_x, 1.0, 0.0, 0.0);
     glRotatef(rotate_y, 0.0, 1.0, 0.0);
 
-    drawRubiksCube(colors);
+    // Animation uses double-buffering
+    drawRubiksCube(state);
     glutSwapBuffers();
 }

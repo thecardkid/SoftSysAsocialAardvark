@@ -38,8 +38,8 @@ void printFace(int** face_) {
 }
 
 /**
- *
- *
+ * Calls graphics display function on state of cube.
+ * To be called by glutDisplayFunc
  */
 void getStateAndDisplay() {
     int*** colors = cube->getState();
