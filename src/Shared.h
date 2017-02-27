@@ -1,18 +1,38 @@
 #ifndef SOFTSYS_ASOCIAL_AARDVARK_SHARED_H
 #define SOFTSYS_ASOCIAL_AARDVARK_SHARED_H
 
+#define UNUSED(expr) do { (void)(expr); } while (0)
+
 /**
+ * Letter notation for Rubik's cube slices (a slice is a coplanar set of 9 cubelets).
  * Based on notation from https://ruwix.com/the-rubiks-cube/notation/.
- * LastRotation acts as a dummy variable so that we can call the
- * % operator when trying to generate random moves in scramble().
- * It is not used anywhere else.
  *
- * This is also not defined as enum class to allow for implicit
- * casting to ints.
+ * LastRotation represents the size of the enum.
+ *
+ * Not defined as enum class to allow for implicit casting to ints.
  */
 typedef enum {U, L, F, R, B, D, M, E, S, LastRotation} LetterNotation;
+LetterNotation convert_int_to_rotation(int x);
 
+/**
+ * Degree notation for Rubik's cube moves.
+ * Moves are performed clockwise.
+ *
+ * LastDegree represents the size of the enum.
+ *
+ * Not defined as enum class to allow for implicit casting to ints.
+ */
 typedef enum {Ninety, OneEighty, TwoSeventy, LastDegree} Degrees;
+
+/**
+ * Represents a single move using two components:
+ * letter notation to represent which slice is moving &
+ * degrees to denote the clockwise rotation of the slice.
+ */
+struct Move {
+    LetterNotation slice;
+    Degrees degrees;
+};
 
 enum Color {Red, Blue, Orange, White, Yellow, Green};
 
@@ -28,7 +48,6 @@ typedef struct {
 	int status;
 } thread_return_struct;
 
-LetterNotation convert_int_to_rotation(int x);
 void print_moves(LetterNotation* moves, int s);
 
 #endif

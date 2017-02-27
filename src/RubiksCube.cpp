@@ -5,7 +5,6 @@
 #include "Shared.h"
 
 // Faces as they appear at http://www.rubiksplace.com/move-notations/
-// 3x3 cube
 RubiksCube::RubiksCube(): n_(3),
     xLeft_(Orange),
     xRight_(Red),
@@ -38,7 +37,12 @@ int*** RubiksCube::getState() {
 }
 
 int* RubiksCube::reverse(int *a) {
-    int* newStrip = new int[n_] {a[2], a[1], a[0]};
+    int* newStrip = new int[n_];
+    int i;
+    for (i=0; i<n_; i++) {
+        newStrip[i] = a[n_-i-1];
+    }
+
     return newStrip;
 }
 
@@ -126,16 +130,33 @@ void RubiksCube::rotateZSlice() {
     xRight_.setCol(1, temp);
 }
 
-std::vector<RubiksCube::Move> RubiksCube::scramble(int n) {
-    std::vector<RubiksCube::Move> moves;
+Move RubiksCube::oppositeMove(Move m) {
+    Move opposite;
+    opposite.slice = m.slice;
+
+    if (m.degrees == TwoSeventy) {
+        opposite.degrees = Ninety;
+    } else if (m.degrees == OneEighty) {
+        opposite.degrees = OneEighty;
+    } else if (m.degrees == Ninety) {
+        opposite.degrees = TwoSeventy;
+    }
+
+    return opposite;
+}
+
+std::vector<Move> RubiksCube::scramble(int n) {
+    std::vector<Move> moves;
 
     for (int i=0; i < n; i++) {
         Move m;
         m.slice = static_cast<LetterNotation>(rand() % LastRotation);
-        // m.degrees = static_cast<Degrees>(rand() % LastDegree);
         m.degrees = TwoSeventy;
-        moves.push_back(m);
         rotate(m.slice, m.degrees);
+
+        // Push the reverse of the move onto the list of moves, for unscrambling
+        Move opposite = RubiksCube::oppositeMove(m);
+        moves.push_back(opposite);
     }
 
     return moves;
@@ -145,9 +166,9 @@ void RubiksCube::rotate(Move move) {
     rotate(move.slice, move.degrees);
 }
 
-void RubiksCube::rotate(LetterNotation action, Degrees degrees) {
+void RubiksCube::rotate(LetterNotation slice, Degrees degrees) {
     for (int i=0; i < degrees+1; i++) {
-        switch (action) {
+        switch (slice) {
             case U:
                 rotateYTop();
                 break;

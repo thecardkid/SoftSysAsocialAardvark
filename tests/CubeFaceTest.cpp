@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include "../src/CubeFace.h"
+#include "../src/Utils.h"
 
 const int N = 3;
 
@@ -14,28 +15,6 @@ public:
     }
 };
 } // namespace
-
-bool facesEqual(int** expected, int** actual) {
-    for (int r=0; r < N; r++) {
-        for (int c=0; c < N; c++) {
-            if (expected[r][c] != actual[r][c]) return false;
-        }
-    }
-
-    return true;
-}
-
-bool rowsEqual(int* expected, int* actual) {
-    for (int i=0; i < N; i++) {
-        if (expected[i] != actual[i]) return false;
-    }
-
-    return true;
-}
-
-bool colsEqual(int* expected, int* actual) {
-    return rowsEqual(expected, actual);
-}
 
 TEST_F(FaceFixture, get_face) {
     int** expected = new int*[N];

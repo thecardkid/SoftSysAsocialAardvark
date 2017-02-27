@@ -14,16 +14,44 @@ extern "C" {
 
 int scrambleDepth = 6;
 RubiksCube* cube = new RubiksCube();
-std::vector<RubiksCube::Move> moves;
+std::vector<Move> moves;
 LetterNotation* solveLetterNotations;
-time_t lastUpdate, now;
-int ready = 0;
+time_t lastUpdate, now; // Last time the cube was rotated & current time
+int safeToUpdate = 0; // True when it's safe to "play" moves on the cube
 
+/**
+ * Helper method that prints out the individual elements
+ * of a cube face to stdout.
+ * @param face_: 2x2 of a cube's face
+ */
+void printFace(int** face_) {
+    std::string out = "[\n";
+
+    for (int i=0; i < 3; i++) {
+        out += "[";
+        for (int j=0; j < 2; j++) {
+            out += std::to_string(face_[i][j]) + ",";
+        }
+        out += std::to_string(face_[i][2]) + "]\n";
+    }
+
+    out.append("]");
+
+    std::cout << out << std::endl;
+}
+
+/**
+ * Calls graphics display function on state of cube.
+ * To be called by glutDisplayFunc
+ */
 void getStateAndDisplay() {
     int*** colors = cube->getState();
     display(colors);
 }
 
+/**
+ * Copies an int*** into an int[6][3][3]
+ */
 void copyState(int copyOfState[6][3][3], int*** state) {
     int i,j,k;
     for (i=0; i<6; i++) {
@@ -35,7 +63,35 @@ void copyState(int copyOfState[6][3][3], int*** state) {
     }
 }
 
+/**
+ * Solves the Rubik's cube.
+ */
+void solve() {
+    safeToUpdate = 0;
+    int copyOfState[6][3][3];
+    copyState(copyOfState, cube->getState());
+    solveLetterNotations = create_threads(copyOfState, scrambleDepth);
+    int i;
+    Move m;
+    for (i=0; i<scrambleDepth; i++) {
+        m.slice = solveLetterNotations[i];
+        m.degrees = Ninety;
+        moves[scrambleDepth-i-1] = m;
+    }
+    safeToUpdate = 1;
+}
+
+/**
+ * Processes keyboard input and either rotates a cube
+ * face accordingly or solves/shuffles a cube.
+ * @param key: keyboard input
+ * @param x, y: mouse coordinates at time of keypress
+ */
 void myKeyboardFunc(unsigned char key, int x, int y) {
+    // Don't need mouse coordinates
+    UNUSED(x);
+    UNUSED(y);
+
     switch (key) {
         case 'x':
             moves = cube->scramble(scrambleDepth);
@@ -94,22 +150,11 @@ void myKeyboardFunc(unsigned char key, int x, int y) {
         case 'S':
             cube->rotate(S, TwoSeventy);
             break;
+        case 't':
+            solve();
+            break;
         case 'q':
             exit(0);
-        case 't':
-            int copyOfState[6][3][3];
-            copyState(copyOfState, cube->getState());
-            solveLetterNotations = create_threads(copyOfState, scrambleDepth);
-            int i;
-            RubiksCube::Move m;
-            for (i=0; i<scrambleDepth; i++) {
-                m.slice = solveLetterNotations[i];
-                m.degrees = Ninety;
-                moves[scrambleDepth-i-1] = m;
-            }
-            print_moves(solveLetterNotations, scrambleDepth);
-            ready = 1;
-            break;
         default:
             break;
     }
@@ -117,10 +162,14 @@ void myKeyboardFunc(unsigned char key, int x, int y) {
     glutPostRedisplay();
 }
 
+/**
+ * Performs one move per second.
+ * Pops moves from the end of the list "moves".
+ */
 void update() {
     time(&now);
-    if (ready == 1 && difftime(now, lastUpdate) > 0 && !moves.empty()) {
-        RubiksCube::Move m = moves.back();
+    if (safeToUpdate && !moves.empty() && difftime(now, lastUpdate) > 0) {
+        Move m = moves.back();
         cube->rotate(m.slice, m.degrees);
         moves.pop_back();
         time(&lastUpdate);
@@ -128,15 +177,18 @@ void update() {
     glutPostRedisplay();
 }
 
+/**
+ * Runs all code.
+ */
 int main(int argc, char **argv) {
     time(&lastUpdate);
 
     // TEST
     testing::InitGoogleTest(&argc, argv);
-    RUN_ALL_TESTS();
+    int testsPassed = RUN_ALL_TESTS();
 
     // GRAPHICS
-    initializeCubes();
+    initializeCube();
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_RGBA | GLUT_DEPTH | GLUT_DOUBLE);
     glutInitWindowSize(640, 480);
@@ -148,5 +200,5 @@ int main(int argc, char **argv) {
     glEnable(GL_DEPTH_TEST);
     glutMainLoop();
 
-    return 0;
+    return testsPassed;
 }
