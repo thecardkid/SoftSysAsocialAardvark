@@ -34,6 +34,7 @@ CURRENT_DIR = $(shell pwd)
 
 # Dependency header files
 DEP_HEADERS = $(USER_DIR)/*.h
+TEST_HEADERS = $(TEST_DIR)/*.h
 
 VPATH = $(USER_DIR):$(BUILD_DIR)
 
@@ -108,7 +109,7 @@ $(BUILD_DIR)/%.o : $(USER_DIR)/%.cpp $(USER_DIR)/%.h
 	$(CC) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
 
 # Builds cpp files in tests/
-$(BUILD_DIR)/%.o : $(TEST_DIR)/%.cpp $(DEP_HEADERS) $(GTEST_HEADERS)
+$(BUILD_DIR)/%.o : $(TEST_DIR)/%.cpp $(DEP_HEADERS) $(TEST_HEADERS) $(GTEST_HEADERS)
 	$(CC) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
 
 # Builds c files in src/

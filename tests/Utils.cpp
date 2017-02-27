@@ -1,4 +1,5 @@
-#include "CubeFace.h"
+#include "../src/CubeFace.h"
+#include "Utils.h"
 
 int* getArrayOfColor(Color color) {
     return new int[3] {color, color, color};

@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 #include "../src/CubeFace.h"
-#include "../src/Utils.h"
+#include "Utils.h"
 
 const int N = 3;
 

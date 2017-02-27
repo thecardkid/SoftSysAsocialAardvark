@@ -20,47 +20,12 @@ time_t lastUpdate, now; // Last time the cube was rotated & current time
 int safeToUpdate = 0; // True when it's safe to "play" moves on the cube
 
 /**
- * Helper method that prints out the individual elements
- * of a cube face to stdout.
- * @param face_: 2x2 of a cube's face
- */
-void printFace(int** face_) {
-    std::string out = "[\n";
-
-    for (int i=0; i < 3; i++) {
-        out += "[";
-        for (int j=0; j < 2; j++) {
-            out += std::to_string(face_[i][j]) + ",";
-        }
-        out += std::to_string(face_[i][2]) + "]\n";
-    }
-
-    out.append("]");
-
-    std::cout << out << std::endl;
-}
-
-/**
  * Calls graphics display function on state of cube.
  * To be called by glutDisplayFunc
  */
 void getStateAndDisplay() {
     int*** colors = cube->getState();
     display(colors);
-}
-
-/**
- * Copies an int*** into an int[6][3][3]
- */
-void copyState(int copyOfState[6][3][3], int*** state) {
-    int i,j,k;
-    for (i=0; i<6; i++) {
-        for (j=0; j<3; j++) {
-            for (k=0; k<3; k++) {
-                copyOfState[i][j][k] = state[i][j][k];
-            }
-        }
-    }
 }
 
 /**
