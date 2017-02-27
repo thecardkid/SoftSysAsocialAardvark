@@ -16,6 +16,11 @@ RubiksCube* cube = new RubiksCube();
 std::vector<Move> moves;
 time_t lastUpdate, now;
 
+/**
+ * Helper method that prints out the individual elements
+ * of a cube face to stdout.
+ * @param face_: 2x2 of a cube's face
+ */
 void printFace(int** face_) {
     std::string out = "[\n";
 
@@ -32,12 +37,26 @@ void printFace(int** face_) {
     std::cout << out << std::endl;
 }
 
-void displayWrapper() {
+/**
+ * Calls graphics display function on state of cube.
+ * To be called by glutDisplayFunc
+ */
+void getStateAndDisplay() {
     int*** colors = cube->getState();
     display(colors);
 }
 
+/**
+ * Processes keyboard input and either rotates a cube
+ * face accordingly or solves/shuffles a cube.
+ * @param key: keyboard input
+ * @param x, y: mouse coordinates at time of keypress
+ */
 void myKeyboardFunc(unsigned char key, int x, int y) {
+    // Don't need mouse coordinates
+    UNUSED(x);
+    UNUSED(y);
+
     switch (key) {
         case 'x':
             std::cout << "C++ " << moves.at(0).slice << std::endl;
@@ -121,30 +140,32 @@ void update() {
     glutPostRedisplay();
 }
 
+/**
+ * Runs all code.
+ */
 int main(int argc, char **argv) {
     time(&lastUpdate);
 
     // TEST
     testing::InitGoogleTest(&argc, argv);
-    RUN_ALL_TESTS();
+    int testsPassed = RUN_ALL_TESTS();
 
     // LOGIC
     solve();
 
     // GRAPHICS
-    initializeCubes();
+    initializeCube();
     moves = cube->scramble(20);
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_RGBA | GLUT_DEPTH | GLUT_DOUBLE);
     glutInitWindowSize(640, 480);
     glutCreateWindow("Rubik's Cube");
     glutIdleFunc(update);
-    glutDisplayFunc(displayWrapper);
+    glutDisplayFunc(getStateAndDisplay);
     glutSpecialFunc(graphicsSpecialKeys);
     glutKeyboardFunc(myKeyboardFunc);
     glEnable(GL_DEPTH_TEST);
     glutMainLoop();
 
-    return 0;
+    return testsPassed;
 }
-

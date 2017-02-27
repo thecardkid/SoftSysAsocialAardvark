@@ -1,45 +1,38 @@
 #include "CubeFace.h"
 
-const int N = 3;
-
 int* getArrayOfColor(Color color) {
-    return new int[N] {color, color, color};
+    return new int[3] {color, color, color};
 }
 
-bool rowsEqual(int* expected, int* actual) {
-    for (int i = 0; i < N; i++) {
-        if (expected[i] != actual[i]) return false;
+bool rowsEqual(int* row1, int* row2) {
+    for (int i = 0; i < 3; i++) {
+        if (row1[i] != row2[i]) return false;
     }
 
     return true;
 }
 
-bool colsEqual(int* expected, int* actual) {
-    return rowsEqual(expected, actual);
+// Wraps rowsEqual for semantics / readability.
+bool colsEqual(int* col1, int* col2) {
+    return rowsEqual(col1, col2);
 }
 
-bool facesEqual(int** expected, int** actual) {
-    for (int r = 0; r < N; r++) {
-        if (!rowsEqual(expected[r], actual[r])) return false;
+bool facesEqual(int** face1, int** face2) {
+    for (int r = 0; r < 3; r++) {
+        if (!rowsEqual(face1[r], face2[r])) return false;
     }
 
     return true;
 }
 
-bool allFacesEqual(CubeFace* expectedXLeft, CubeFace* expectedXRight, CubeFace* expectedYTop,
-    CubeFace* expectedYBottom, CubeFace* expectedZFront, CubeFace* expectedZBack, int*** actualCube) {
-    return facesEqual(expectedXLeft->getFace(), actualCube[0]) &&
-           facesEqual(expectedXRight->getFace(), actualCube[1]) &&
-           facesEqual(expectedYTop->getFace(), actualCube[2]) &&
-           facesEqual(expectedYBottom->getFace(), actualCube[3]) &&
-           facesEqual(expectedZFront->getFace(), actualCube[4]) &&
-           facesEqual(expectedZBack->getFace(), actualCube[5]);
-}
-
-bool cubesEqual(int*** expected, int*** actual) {
-    for (int f=0; f < 6; f++) {
-        if (!facesEqual(expected[f], actual[f])) return false;
-    }
-
-    return true;
+bool allFacesEqual(CubeFace* expectedXLeft, CubeFace* expectedXRight,
+                   CubeFace* expectedYTop, CubeFace* expectedYBottom,
+                   CubeFace* expectedZFront, CubeFace* expectedZBack,
+                   int*** actualState) {
+    return facesEqual(expectedXLeft->getFace(), actualState[0]) &&
+           facesEqual(expectedXRight->getFace(), actualState[1]) &&
+           facesEqual(expectedYTop->getFace(), actualState[2]) &&
+           facesEqual(expectedYBottom->getFace(), actualState[3]) &&
+           facesEqual(expectedZFront->getFace(), actualState[4]) &&
+           facesEqual(expectedZBack->getFace(), actualState[5]);
 }

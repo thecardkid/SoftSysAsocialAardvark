@@ -5,7 +5,8 @@
 #include "Enums.h"
 
 int solve() {
-    int*** rotated = rubiks_cube_rotate(get_default_state(), L, Ninety);
+    int*** to_rotate = get_default_state();
+    rubiks_cube_rotate(to_rotate, L, Ninety);
     int*** state = get_default_state();
 
     // Proof of concept: "state" and "rotated" are different.
@@ -15,7 +16,7 @@ int solve() {
         for (j = 0; j < 3; j++) {
             for (k = 0; k < 3; k++) {
                 state_val = state[i][j][k];
-                rotated_val = rotated[i][j][k];
+                rotated_val = to_rotate[i][j][k];
 
                 if (state_val != rotated_val) {
                     printf("State differs from rotated at (%i, %i, %i)\n", i, j, k);

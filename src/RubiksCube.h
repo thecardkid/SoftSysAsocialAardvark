@@ -8,7 +8,15 @@
 
     class RubiksCube {
     private:
+        /**
+         * The edge length of the Rubik's cube (standard is 3).
+         */
         int n_;
+
+        /**
+         * The faces of the cube.
+         * Named in accordance with http://www.rubiksplace.com/move-notations/
+         */
         CubeFace xLeft_, xRight_, yTop_, yBottom_, zFront_, zBack_;
 
         /**
@@ -35,40 +43,47 @@
          * face's row, we also have to reverse the column so that
          * we don't end up with illegal faces/corner cubes.
          *
-         * @param a the array to reverse
+         * @param a: the array to reverse
          * @return the new reversed array
          */
         int* reverse(int* a);
 
         /**
-         * Constructs the opposite of a move
+         * Construct the move which would undo the specified move.
          *
-         * @param a move, m
+         * @param m: a move
          * @return the move which would undo m
          */
         Move oppositeMove(Move m);
 
     public:
+        /**
+         * Initialize a 3x3 cube with default state.
+         */
         RubiksCube();
+
+        /**
+         * Initialize a 3x3 cube with specific state.
+         */
         RubiksCube(int*** state);
 
         /**
          * Randomly generate moves and scramble the cube.
-         * @param n How many random moves.
+         * @param n: How many random moves.
          * @return List of all moves.
          */
         std::vector<Move> scramble(int n);
 
         /**
-         * Perform a rotation.
-         * @param action What rotation.
-         * @param degrees How many degrees.
+         * Perform a clockwise rotation.
+         * @param slice: Which slice is rotating.
+         * @param degrees: How many degrees.
          */
-        void rotate(LetterNotation action, Degrees degrees);
+        void rotate(LetterNotation slice, Degrees degrees);
         void rotate(Move move);
 
         /**
-         * @return State of the cube as a 6x3x3 array.
+         * @return A copy of the state of the cube as a 6x3x3 array.
          */
         int*** getState();
     };

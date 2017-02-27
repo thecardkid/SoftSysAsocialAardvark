@@ -103,7 +103,7 @@ $(BUILD_DIR)/main.o : $(USER_DIR)/main.cpp $(DEP_HEADERS) $(GTEST_HEADERS)
 	$(CC) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
 
 $(BUILD_DIR)/Logic.o : $(USER_DIR)/Logic.c $(USER_DIR)/Logic.h $(BUILD_DIR)/Connector.so
-	$(C) -c $< -o $@ $(CUBELIBFLAGS)
+	$(C) $(CXXFLAGS) -c $< -o $@ $(CUBELIBFLAGS)
 
 $(BUILD_DIR)/%.o : $(USER_DIR)/%.cpp $(USER_DIR)/%.h
 	$(CC) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
