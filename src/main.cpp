@@ -50,7 +50,7 @@ void copyState(int copyOfState[6][3][3], int*** state) {
 void myKeyboardFunc(unsigned char key, int x, int y) {
 	switch (key) {
 		case 'x':
-			moves = cube->scramble(3);
+			moves = cube->scramble(6);
 			break;
 		case 'l':
 			cube->rotate(L, Ninety);

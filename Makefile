@@ -90,6 +90,7 @@ OBJ = $(BUILD_DIR)/main.o \
 	  $(BUILD_DIR)/Graphics.o $(BUILD_DIR)/RubiksCube.o $(BUILD_DIR)/CubeFace.o \
 	  $(BUILD_DIR)/Logic.o \
 	  $(BUILD_DIR)/CubeFaceTest.o $(BUILD_DIR)/RubiksCubeTest.o $(BUILD_DIR)/dfs.o \
+	  $(BUILD_DIR)/Shared.o $(BUILD_DIR)/Thread.o \
 	  $(BUILD_DIR)/Connector.so
 
 $(BUILD_DIR)/main : $(OBJ) gtest_main.a

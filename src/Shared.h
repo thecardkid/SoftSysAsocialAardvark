@@ -29,9 +29,6 @@ typedef struct {
 } thread_return_struct;
 
 LetterNotation convert_int_to_rotation(int x);
-char convert_rotation_to_char(LetterNotation n);
-void printState(int state[6][3][3]);
-void printPointers(int*** state);
-void printMoves(LetterNotation* moves, int s);
+void print_moves(LetterNotation* moves, int s);
 
 #endif
