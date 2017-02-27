@@ -3,8 +3,8 @@
 
 #include "Shared.h"
 
-void* dfsSolve(void* args);
-int dfsSolveHelper(int*** state, LetterNotation* moves, int depth, int id);
-int equalStates(int*** state);
+void* dfs_solve(void* args);
+int dfs_solve_helper(int*** state, LetterNotation* moves, int depth, int id);
+int is_solved(int*** state);
 
 #endif

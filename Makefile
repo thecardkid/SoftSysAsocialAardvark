@@ -88,8 +88,14 @@ $(BUILD_DIR)/gtest_main.a : gtest-all.o gtest_main.o
 # Builds the main file.
 OBJ = $(BUILD_DIR)/main.o \
 	  $(BUILD_DIR)/Graphics.o $(BUILD_DIR)/RubiksCube.o $(BUILD_DIR)/CubeFace.o \
+<<<<<<< HEAD
 	  $(BUILD_DIR)/CubeFaceTest.o $(BUILD_DIR)/RubiksCubeTest.o $(BUILD_DIR)/Shared.o \
 	  $(BUILD_DIR)/dfs.o $(BUILD_DIR)/Thread.o \
+=======
+	  $(BUILD_DIR)/Logic.o \
+	  $(BUILD_DIR)/CubeFaceTest.o $(BUILD_DIR)/RubiksCubeTest.o $(BUILD_DIR)/dfs.o \
+	  $(BUILD_DIR)/Shared.o $(BUILD_DIR)/Thread.o \
+>>>>>>> fd6fa7d70dc676cdfdbab5faa4bc01de8d7f4c5d
 	  $(BUILD_DIR)/Connector.so
 
 $(BUILD_DIR)/main : $(OBJ) gtest_main.a

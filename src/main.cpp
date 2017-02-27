@@ -50,7 +50,7 @@ void copyState(int copyOfState[6][3][3], int*** state) {
 void myKeyboardFunc(unsigned char key, int x, int y) {
 	switch (key) {
 		case 'x':
-			moves = cube->scramble(5);
+			moves = cube->scramble(6);
 			break;
 		case 'l':
 			cube->rotate(L, Ninety);
@@ -106,10 +106,11 @@ void myKeyboardFunc(unsigned char key, int x, int y) {
 		case 'S':
 			cube->rotate(S, TwoSeventy);
 			break;
+		case 'q':
+			exit(0);
 		case 't':
 			int copyOfState[6][3][3];
-            copyState(copyOfState, get_default_state());
-			// copyState(copyOfState, cube->getState());
+			copyState(copyOfState, cube->getState());
 			create_threads(copyOfState, moves.size());
 			break;
 		default:
@@ -130,7 +131,6 @@ int main(int argc, char **argv) {
 
     // GRAPHICS
     initializeCubes();
-	// moves = cube->scramble(20);
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_RGBA | GLUT_DEPTH | GLUT_DOUBLE);
     glutInitWindowSize(640, 480);
