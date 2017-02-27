@@ -8,8 +8,11 @@ int*** solution;
 int max_depth;
 
 /**
- * @param args is the struct passed in by the calling function in Thread.c (check what it contains by looking in Enums.h). The args input is cast to a thread_struct type so we can access its attributes. This struct needs to be freed before the function returns
- * @return array of length 20 contain the moves to solve cube
+ * @param received_args: a dummy type which can be cast to
+ * the thread_struct defined in Shared.h.
+ * This struct needs to be freed before the function returns.
+ *
+ * Thread exits with struct containing array of moves necessary to solve cube.
  */
 void* dfs_solve(void* received_args) {
 	thread_struct *args = received_args;

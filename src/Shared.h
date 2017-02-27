@@ -1,6 +1,10 @@
 #ifndef SOFTSYS_ASOCIAL_AARDVARK_SHARED_H
 #define SOFTSYS_ASOCIAL_AARDVARK_SHARED_H
 
+/**
+ * Mark function parameters which are unused with UNUSED(param)
+ * to avoid triggering unused-variable warnings.
+ */
 #define UNUSED(expr) do { (void)(expr); } while (0)
 
 /**
@@ -12,6 +16,13 @@
  * Not defined as enum class to allow for implicit casting to ints.
  */
 typedef enum {U, L, F, R, B, D, M, E, S, LastRotation} LetterNotation;
+
+/**
+ * Converts an integer to a LetterNotation
+ *
+ * @param x: the integer
+ * @return the letter notation
+ */
 LetterNotation convert_int_to_rotation(int x);
 
 /**
@@ -48,6 +59,28 @@ typedef struct {
 	int status;
 } thread_return_struct;
 
+/**
+ * Helper method that copies an int*** into an int[6][3][3]
+ *
+ * @param copyOfState: the destination int[6][3][3]
+ * @param state: the source int***
+ */
+void copyState(int copyOfState[6][3][3], int*** state);
+
+/**
+ * Helper method that prints out a list of moves to stdout.
+ *
+ * @param moves: an array of moves
+ * @param s: size of the array of moves
+ */
 void print_moves(LetterNotation* moves, int s);
+
+/**
+ * Helper method that prints out the individual elements
+ * of a cube face to stdout.
+ *
+ * @param face_: 2x2 of a cube's face
+ */
+void printFace(int** face_);
 
 #endif

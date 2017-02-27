@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 #include "../src/Connector.h"
 #include "../src/RubiksCube.h"
-#include "../src/Utils.h"
+#include "Utils.h"
 
 const int N = 3;
 

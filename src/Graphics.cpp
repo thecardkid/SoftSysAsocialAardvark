@@ -34,7 +34,7 @@ float black[3] = { 0.0f, 0.0f, 0.0f };
 
 /**
  * The mapping from integer enum to color
- * Keep this method in sync with the Color enum in src/Enums.h.
+ * Keep this method in sync with the Color enum in src/Shared.h.
  */
 float* intToColor(int i) {
     switch (i) {
