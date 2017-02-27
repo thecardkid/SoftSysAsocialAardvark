@@ -1,7 +1,8 @@
 #include <vector>
 #include <cstdlib>
+
 #include "RubiksCube.h"
-#include "Enums.h"
+#include "Shared.h"
 
 // Faces as they appear at http://www.rubiksplace.com/move-notations/
 RubiksCube::RubiksCube(): n_(3),
@@ -150,7 +151,7 @@ std::vector<Move> RubiksCube::scramble(int n) {
     for (int i=0; i < n; i++) {
         Move m;
         m.slice = static_cast<LetterNotation>(rand() % LastRotation);
-        m.degrees = static_cast<Degrees>(rand() % LastDegree);
+        m.degrees = TwoSeventy;
         rotate(m.slice, m.degrees);
 
         // Push the reverse of the move onto the list of moves, for unscrambling

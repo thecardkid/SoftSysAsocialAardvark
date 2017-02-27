@@ -90,9 +90,10 @@ $(BUILD_DIR)/gtest_main.a : gtest-all.o gtest_main.o
 
 # Builds the main file.
 OBJ = $(BUILD_DIR)/main.o \
-	  $(BUILD_DIR)/Graphics.o $(BUILD_DIR)/RubiksCube.o $(BUILD_DIR)/CubeFace.o $(BUILD_DIR)/Utils.o \
-	  $(BUILD_DIR)/Logic.o \
+	  $(BUILD_DIR)/Graphics.o $(BUILD_DIR)/RubiksCube.o $(BUILD_DIR)/CubeFace.o \
 	  $(BUILD_DIR)/CubeFaceTest.o $(BUILD_DIR)/RubiksCubeTest.o $(BUILD_DIR)/ConnectorTest.o \
+	  $(BUILD_DIR)/Dfs.o \
+	  $(BUILD_DIR)/Utils.o $(BUILD_DIR)/Shared.o $(BUILD_DIR)/Thread.o \
 	  $(BUILD_DIR)/Connector.so
 
 $(BUILD_DIR)/main : $(OBJ) gtest_main.a
@@ -102,14 +103,17 @@ $(BUILD_DIR)/main : $(OBJ) gtest_main.a
 $(BUILD_DIR)/main.o : $(USER_DIR)/main.cpp $(DEP_HEADERS) $(GTEST_HEADERS)
 	$(CC) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
 
-$(BUILD_DIR)/Logic.o : $(USER_DIR)/Logic.c $(USER_DIR)/Logic.h $(BUILD_DIR)/Connector.so
-	$(C) $(CXXFLAGS) -c $< -o $@ $(CUBELIBFLAGS)
-
+# Builds cpp files in src/
 $(BUILD_DIR)/%.o : $(USER_DIR)/%.cpp $(USER_DIR)/%.h
 	$(CC) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
 
+# Builds cpp files in tests/
 $(BUILD_DIR)/%.o : $(TEST_DIR)/%.cpp $(DEP_HEADERS) $(GTEST_HEADERS)
 	$(CC) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
+
+# Builds c files in src/
+$(BUILD_DIR)/%.o : $(USER_DIR)/%.c $(USER_DIR)/%.h $(DEP_HEADERS)
+	$(C) -c $< -o $@ $(CUBELIBFLAGS)
 
 # Builds the shared connector files
 $(BUILD_DIR)/libRubiksCube.so : $(USER_DIR)/RubiksCube.cpp

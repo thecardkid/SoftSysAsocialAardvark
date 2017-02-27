@@ -2,7 +2,7 @@
 #define SOFTSYS_ASOCIAL_AARDVARK_CUBEFACE_H
 
 #include <string>
-#include "Enums.h"
+#include "Shared.h"
 
 class CubeFace {
 private:

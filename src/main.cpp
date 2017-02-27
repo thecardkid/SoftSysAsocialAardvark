@@ -1,5 +1,5 @@
 extern "C" {
-    #include "Logic.h"
+    #include "Thread.h"
 }
 
 #include <GL/glut.h>
@@ -10,11 +10,14 @@ extern "C" {
 #include "Graphics.h"
 #include "RubiksCube.h"
 #include "Connector.h"
-#include "Enums.h"
+#include "Shared.h"
 
+int scrambleDepth = 6;
 RubiksCube* cube = new RubiksCube();
 std::vector<Move> moves;
-time_t lastUpdate, now;
+LetterNotation* solveLetterNotations;
+time_t lastUpdate, now; // Last time the cube was rotated & current time
+int safeToUpdate = 0; // True when it's safe to "play" moves on the cube
 
 /**
  * Helper method that prints out the individual elements
@@ -47,6 +50,38 @@ void getStateAndDisplay() {
 }
 
 /**
+ * Copies an int*** into an int[6][3][3]
+ */
+void copyState(int copyOfState[6][3][3], int*** state) {
+    int i,j,k;
+    for (i=0; i<6; i++) {
+        for (j=0; j<3; j++) {
+            for (k=0; k<3; k++) {
+                copyOfState[i][j][k] = state[i][j][k];
+            }
+        }
+    }
+}
+
+/**
+ * Solves the Rubik's cube.
+ */
+void solve() {
+    safeToUpdate = 0;
+    int copyOfState[6][3][3];
+    copyState(copyOfState, cube->getState());
+    solveLetterNotations = create_threads(copyOfState, scrambleDepth);
+    int i;
+    Move m;
+    for (i=0; i<scrambleDepth; i++) {
+        m.slice = solveLetterNotations[i];
+        m.degrees = Ninety;
+        moves[scrambleDepth-i-1] = m;
+    }
+    safeToUpdate = 1;
+}
+
+/**
  * Processes keyboard input and either rotates a cube
  * face accordingly or solves/shuffles a cube.
  * @param key: keyboard input
@@ -59,8 +94,7 @@ void myKeyboardFunc(unsigned char key, int x, int y) {
 
     switch (key) {
         case 'x':
-            std::cout << "C++ " << moves.at(0).slice << std::endl;
-            solve();
+            moves = cube->scramble(scrambleDepth);
             break;
         case 'l':
             cube->rotate(L, Ninety);
@@ -116,6 +150,9 @@ void myKeyboardFunc(unsigned char key, int x, int y) {
         case 'S':
             cube->rotate(S, TwoSeventy);
             break;
+        case 't':
+            solve();
+            break;
         case 'q':
             exit(0);
         default:
@@ -131,7 +168,7 @@ void myKeyboardFunc(unsigned char key, int x, int y) {
  */
 void update() {
     time(&now);
-    if (difftime(now, lastUpdate) > 0 && !moves.empty()) {
+    if (safeToUpdate && !moves.empty() && difftime(now, lastUpdate) > 0) {
         Move m = moves.back();
         cube->rotate(m.slice, m.degrees);
         moves.pop_back();
@@ -150,12 +187,8 @@ int main(int argc, char **argv) {
     testing::InitGoogleTest(&argc, argv);
     int testsPassed = RUN_ALL_TESTS();
 
-    // LOGIC
-    solve();
-
     // GRAPHICS
     initializeCube();
-    moves = cube->scramble(20);
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_RGBA | GLUT_DEPTH | GLUT_DOUBLE);
     glutInitWindowSize(640, 480);

@@ -27,7 +27,7 @@ public:
 
 TEST_F(CubeFixture, scramble_returns_list_of_n_moves) {
     const int times = 8;
-    std::vector<Move> moves = testCube->scramble(8);
+    std::vector<Move> moves = testCube->scramble(times);
 
     ASSERT_EQ(times, moves.size());
     ASSERT_TRUE(!compare());

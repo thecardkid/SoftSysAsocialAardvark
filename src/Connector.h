@@ -2,7 +2,7 @@
 #define SOFTSYS_ASOCIAL_AARDVARK_CONNECTOR_H
 
 #include "RubiksCube.h"
-#include "Enums.h"
+#include "Shared.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -24,6 +24,8 @@ void rubiks_cube_rotate(int*** state, LetterNotation slice, Degrees degrees);
  * @return the default Rubik's Cube state
  */
 int*** get_default_state();
+
+void printCPointers(int*** state);
 
 #ifdef __cplusplus
 }

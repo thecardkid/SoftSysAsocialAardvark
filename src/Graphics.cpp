@@ -1,7 +1,7 @@
 #include <GL/glut.h>
 #include <iostream>
 #include "Graphics.h"
-#include "Enums.h"
+#include "Shared.h"
 
 /**
  * Represents one of the twenty-seven blocks which make up a 3x3x3 Rubik's cube.
