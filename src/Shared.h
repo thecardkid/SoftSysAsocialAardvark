@@ -77,12 +77,4 @@ void copyState(int copyOfState[6][3][3], int*** state);
  */
 void print_moves(LetterNotation* moves, int s);
 
-/**
- * Helper method that prints out the individual elements
- * of a cube face to stdout.
- *
- * @param face_: 2x2 of a cube's face
- */
-void printFace(int** face_);
-
 #endif
