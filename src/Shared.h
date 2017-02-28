@@ -7,6 +7,8 @@
  */
 #define UNUSED(expr) do { (void)(expr); } while (0)
 
+#include <stdio.h>
+
 /**
  * Letter notation for Rubik's cube slices (a slice is a coplanar set of 9 cubelets).
  * Based on notation from https://ruwix.com/the-rubiks-cube/notation/.

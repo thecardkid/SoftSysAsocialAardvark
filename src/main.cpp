@@ -17,7 +17,7 @@ RubiksCube* cube = new RubiksCube();
 std::vector<Move> moves;
 LetterNotation* solveLetterNotations;
 time_t lastUpdate, now; // Last time the cube was rotated & current time
-int safeToUpdate = 0; // True when it's safe to "play" moves on the cube
+bool safeToUpdate = false; // True when it's safe to "play" moves on the cube
 
 /**
  * Calls graphics display function on state of cube.
@@ -32,18 +32,23 @@ void getStateAndDisplay() {
  * Solves the Rubik's cube.
  */
 void solve() {
-    safeToUpdate = 0;
     int copyOfState[6][3][3];
-    copyState(copyOfState, cube->getState());
-    solveLetterNotations = create_threads(copyOfState, scrambleDepth);
     int i;
     Move m;
+
+    safeToUpdate = false;
+    copyState(copyOfState, cube->getState());
+    solveLetterNotations = create_threads(copyOfState, scrambleDepth);
     for (i=0; i<scrambleDepth; i++) {
         m.slice = solveLetterNotations[i];
         m.degrees = Ninety;
         moves[scrambleDepth-i-1] = m;
     }
-    safeToUpdate = 1;
+    safeToUpdate = true;
+}
+
+void rotateCube(LetterNotation n, Degrees d) {
+	if (moves.empty()) cube->rotate(n, d);
 }
 
 /**
@@ -59,64 +64,44 @@ void myKeyboardFunc(unsigned char key, int x, int y) {
 
     switch (key) {
         case 'x':
-            if (moves.empty()) {
-                moves = cube->scramble(scrambleDepth);
-            }
+            if (moves.empty()) moves = cube->scramble(scrambleDepth);
             break;
         case 'l':
-            cube->rotate(L, Ninety);
-            break;
+            return rotateCube(L, Ninety);
         case 'L':
-            cube->rotate(L, TwoSeventy);
-            break;
+            return rotateCube(L, TwoSeventy);
         case 'r':
-            cube->rotate(R, Ninety);
-            break;
+            return rotateCube(R, Ninety);
         case 'R':
-            cube->rotate(R, TwoSeventy);
-            break;
+            return rotateCube(R, TwoSeventy);
         case 'u':
-            cube->rotate(U, Ninety);
-            break;
+            return rotateCube(U, Ninety);
         case 'U':
-            cube->rotate(U, TwoSeventy);
-            break;
+            return rotateCube(U, TwoSeventy);
         case 'd':
-            cube->rotate(D, Ninety);
-            break;
+            return rotateCube(D, Ninety);
         case 'D':
-            cube->rotate(D, TwoSeventy);
-            break;
+            return rotateCube(D, TwoSeventy);
         case 'f':
-            cube->rotate(F, Ninety);
-            break;
+            return rotateCube(F, Ninety);
         case 'F':
-            cube->rotate(F, TwoSeventy);
-            break;
+            return rotateCube(F, TwoSeventy);
         case 'b':
-            cube->rotate(B, Ninety);
-            break;
+            return rotateCube(B, Ninety);
         case 'B':
-            cube->rotate(B, Ninety);
-            break;
+            return rotateCube(B, TwoSeventy);
         case 'm':
-            cube->rotate(M, Ninety);
-            break;
+            return rotateCube(M, Ninety);
         case 'M':
-            cube->rotate(M, TwoSeventy);
-            break;
+            return rotateCube(M, TwoSeventy);
         case 'e':
-            cube->rotate(E, Ninety);
-            break;
+            return rotateCube(E, Ninety);
         case 'E':
-            cube->rotate(E, TwoSeventy);
-            break;
+            return rotateCube(E, TwoSeventy);
         case 's':
-            cube->rotate(S, Ninety);
-            break;
+            return rotateCube(S, Ninety);
         case 'S':
-            cube->rotate(S, TwoSeventy);
-            break;
+            return rotateCube(S, TwoSeventy);
         case 't':
             solve();
             break;
@@ -140,6 +125,7 @@ void update() {
         cube->rotate(m.slice, m.degrees);
         moves.pop_back();
         time(&lastUpdate);
+        safeToUpdate = !moves.empty();
     }
     glutPostRedisplay();
 }

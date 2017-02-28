@@ -78,6 +78,8 @@ void CubeFace::rotateFaceClockwise(Degrees d) {
         case Ninety: return rotate90();
         case OneEighty: return rotate180();
         case TwoSeventy: return rotate270();
+        case LastDegree:
+        default: return;
     }
 }
 
