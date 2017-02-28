@@ -196,6 +196,7 @@ void RubiksCube::rotate(LetterNotation slice, Degrees degrees) {
             case S:
                 rotateZSlice();
                 break;
+            case LastRotation:
             default:
                 return;
         }

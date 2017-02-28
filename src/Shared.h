@@ -7,6 +7,8 @@
  */
 #define UNUSED(expr) do { (void)(expr); } while (0)
 
+#include <stdio.h>
+
 /**
  * Letter notation for Rubik's cube slices (a slice is a coplanar set of 9 cubelets).
  * Based on notation from https://ruwix.com/the-rubiks-cube/notation/.
@@ -74,13 +76,5 @@ void copyState(int copyOfState[6][3][3], int*** state);
  * @param s: size of the array of moves
  */
 void print_moves(LetterNotation* moves, int s);
-
-/**
- * Helper method that prints out the individual elements
- * of a cube face to stdout.
- *
- * @param face_: 2x2 of a cube's face
- */
-void printFace(int** face_);
 
 #endif

@@ -1,5 +1,7 @@
 #include "Shared.h"
 
+char rotation_chars[9] = "ULFRBDMES";
+
 LetterNotation convert_int_to_rotation(int x) {
     switch (x) {
         case 0: return U;
@@ -27,22 +29,11 @@ void copyState(int copyOfState[6][3][3], int*** state) {
 }
 
 void print_moves(LetterNotation* moves, int s) {
-	int i;
-	for (i=0; i<s; i++) printf("%d,", moves[i]);
+	int i, move;
+	for (i=0; i<s; i++) {
+		move = (int) moves[i];
+		printf("%c ", rotation_chars[move]);
+	}
 	printf("\n");
 }
 
-void printFace(int** face_) {
-    printf("[\n");
-
-    int i,j;
-    for (i=0; i<3; i++) {
-        printf("[");
-        for (j=0; j<2; j++) {
-            printf("%i,", face_[i][j]);
-        }
-        printf("%i]\n", face_[i][2]);
-    }
-
-    printf("]\n");
-}
