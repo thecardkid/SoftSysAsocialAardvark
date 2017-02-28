@@ -59,7 +59,9 @@ void myKeyboardFunc(unsigned char key, int x, int y) {
 
     switch (key) {
         case 'x':
-            moves = cube->scramble(scrambleDepth);
+            if (moves.empty()) {
+                moves = cube->scramble(scrambleDepth);
+            }
             break;
         case 'l':
             cube->rotate(L, Ninety);
