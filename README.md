@@ -4,7 +4,7 @@
 An implementation of a Rubik’s cube solver with a graphical interface. As a final deliverable, a 3x3 cube is displayed and solved. The cube is displayed using OpenGL and C++ code. The solving portion of the cube is done in C and leverages threading and depth-first search (creating 9 threads and solving each individual one based on an initial rotate move). Threading is used to speed up the general process. A complete writeup of our project can be found here:
 ### [Final Report Website]()
 
-![rubik.gif](reports/resources/rubiks.gif)
+![rubik.gif](reports/resources/cube_solving.gif)
 
 ## Authors:
 [Hieu Nguyen](https://github.com/thecardkid), [David Papp](https://github.com/davpapp), [Philip Seger](https://github.com/segerphilip), [Sarah Walters](https://github.com/sarahwalters)
