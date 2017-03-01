@@ -66,15 +66,11 @@ GTEST_HEADERS = $(GTEST_DIR)/include/gtest/*.h \
 # Build targets.
 .PHONY: all
 all : $(RUN)
-	LD_LIBRARY_PATH=$(CURRENT_DIR)/build ./build/main 0
+	LD_LIBRARY_PATH=$(CURRENT_DIR)/build ./build/main
 
 .PHONY: clean
 clean :
 	rm -f $(BUILD_DIR)/*
-
-.PHONY: test
-test :
-	LD_LIBRARY_PATH=$(CURRENT_DIR)/build ./build/main 1
 
 
 # Builds Google test dependencies

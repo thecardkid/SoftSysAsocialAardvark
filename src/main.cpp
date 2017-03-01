@@ -135,30 +135,23 @@ void update() {
  */
 int main(int argc, char **argv) {
     time(&lastUpdate);
-    int which = atoi(argv[1]);
 
-    if (which == 1) {
-        // TEST
-        testing::InitGoogleTest(&argc, argv);
-        int testsPassed = RUN_ALL_TESTS();
-        return testsPassed;
-    }
+    // TEST
+    testing::InitGoogleTest(&argc, argv);
+    int testsPassed = RUN_ALL_TESTS();
 
-    if (which == 0) {
-        // GRAPHICS
-        initializeCube();
-        glutInit(&argc, argv);
-        glutInitDisplayMode(GLUT_RGBA | GLUT_DEPTH | GLUT_DOUBLE);
-        glutInitWindowSize(640, 480);
-        glutCreateWindow("Rubik's Cube");
-        glutIdleFunc(update);
-        glutDisplayFunc(getStateAndDisplay);
-        glutSpecialFunc(graphicsSpecialKeys);
-        glutKeyboardFunc(myKeyboardFunc);
-        glEnable(GL_DEPTH_TEST);
-        glutMainLoop();
-        return 1;
-    }
+    // GRAPHICS
+    initializeCube();
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_RGBA | GLUT_DEPTH | GLUT_DOUBLE);
+    glutInitWindowSize(640, 480);
+    glutCreateWindow("Rubik's Cube");
+    glutIdleFunc(update);
+    glutDisplayFunc(getStateAndDisplay);
+    glutSpecialFunc(graphicsSpecialKeys);
+    glutKeyboardFunc(myKeyboardFunc);
+    glEnable(GL_DEPTH_TEST);
+    glutMainLoop();
 
-    return 0;
+    return testsPassed;
 }
